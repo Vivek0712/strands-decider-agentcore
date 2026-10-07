@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strands-decider-agentcore"
+version = "0.1.0"
+description = "Deploy Strands Decider models to Amazon Bedrock AgentCore Runtime, and call them"
+requires-python = ">=3.10"
+license = "MIT-0"
+dependencies = ["boto3>=1.40"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "bedrock-agentcore>=1.18.1"]
+examples = ["strands-agents>=1.0", "fastapi>=0.110", "uvicorn>=0.29"]
+
+[tool.setuptools]
+packages = ["client"]
+py-modules = ["deciderctl"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = ["agentcore/cdk"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["client", "decider_runtime", "deciderctl"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

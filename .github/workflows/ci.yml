@@ -1,0 +1,30 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: pytest -q
+  container:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t decider-agentcore runtime/
+      - name: container starts and answers /ping and health
+        run: |
+          docker run -d --name d -p 8080:8080 -e DECIDER_WARMUP=0 -e DECIDER_LOAD_TIMEOUT_S=60 decider-agentcore
+          for i in $(seq 1 30); do curl -sf localhost:8080/ping && break; sleep 2; done
+          curl -sf -X POST localhost:8080/invocations -H 'Content-Type: application/json' -d '{"action":"health"}'
+          docker logs d | tail -20

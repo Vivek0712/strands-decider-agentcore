@@ -1,0 +1,10 @@
+[
+  {"id": "T-1042", "customer": "Priya N.", "channel": "email", "text": "Order #4411 arrived with a cracked screen. I want my money back today, this is the second time this has happened."},
+  {"id": "T-1043", "customer": "Marco R.", "channel": "chat", "text": "Hi, I forgot my password and the reset email never arrives. Can you help?"},
+  {"id": "T-1044", "customer": "Aisha K.", "channel": "email", "text": "You charged my card twice for the same subscription this month. Please fix it."},
+  {"id": "T-1045", "customer": "Tom W.", "channel": "web form", "text": "Where is my parcel? Tracking has said 'in transit' for nine days now."},
+  {"id": "T-1046", "customer": "Lena S.", "channel": "chat", "text": "Just wanted to say thanks, the replacement arrived and works great!"},
+  {"id": "T-1047", "customer": "Diego F.", "channel": "email", "text": "I am a lawyer representing a client injured by your product. Please forward this to your legal department immediately."},
+  {"id": "T-1048", "customer": "Hannah B.", "channel": "web form", "text": "Can I change the delivery address on an order I placed an hour ago?"},
+  {"id": "T-1049", "customer": "Kenji O.", "channel": "chat", "text": "Your app keeps logging me out every few minutes since the last update."}
+]

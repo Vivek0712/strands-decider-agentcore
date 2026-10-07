@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8b98a8"/></marker>
+    <marker id="o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff9900"/></marker>
+  </defs>
+  <rect width="1200" height="560" rx="16" fill="#0f1419"/>
+  <text x="40" y="48" fill="#e6edf3" font-size="22" font-weight="700">Strands Decider on Amazon Bedrock AgentCore Runtime</text>
+  <text x="40" y="74" fill="#8b98a8" font-size="14">one container image, one runtime per decider model, one warm microVM per session</text>
+
+  <!-- build side -->
+  <rect x="40" y="110" width="300" height="400" rx="12" fill="#161d26" stroke="#253041"/>
+  <text x="60" y="140" fill="#ff9900" font-size="13" font-weight="700" letter-spacing="1">YOUR MACHINE</text>
+  <rect x="60" y="160" width="260" height="62" rx="8" fill="#0f1419" stroke="#253041"/>
+  <text x="76" y="186" fill="#e6edf3" font-size="15" font-weight="600">deciderctl add triage --model v21</text>
+  <text x="76" y="208" fill="#8b98a8" font-size="12">pins the official release to its commit</text>
+  <rect x="60" y="236" width="260" height="62" rx="8" fill="#0f1419" stroke="#253041"/>
+  <text x="76" y="262" fill="#e6edf3" font-size="15" font-weight="600">agentcore/agentcore.json</text>
+  <text x="76" y="284" fill="#8b98a8" font-size="12">runtimes, env vars, lifecycle, tags</text>
+  <rect x="60" y="312" width="260" height="62" rx="8" fill="#0f1419" stroke="#ff9900"/>
+  <text x="76" y="338" fill="#e6edf3" font-size="15" font-weight="600">agentcore deploy -y</text>
+  <text x="76" y="360" fill="#8b98a8" font-size="12">AgentCore CLI: CDK + CodeBuild (arm64)</text>
+  <rect x="60" y="388" width="260" height="102" rx="8" fill="#0f1419" stroke="#253041"/>
+  <text x="76" y="414" fill="#e6edf3" font-size="15" font-weight="600">Your application</text>
+  <text x="76" y="436" fill="#8b98a8" font-size="12">DeciderClient / boto3 InvokeAgentRuntime</text>
+  <text x="76" y="456" fill="#8b98a8" font-size="12">Strands agent guard · triage console</text>
+  <text x="76" y="476" fill="#8b98a8" font-size="12">batch jobs · deciderctl ask</text>
+
+  <!-- AWS side -->
+  <rect x="400" y="110" width="760" height="400" rx="12" fill="#161d26" stroke="#253041"/>
+  <text x="420" y="140" fill="#ff9900" font-size="13" font-weight="700" letter-spacing="1">AWS ACCOUNT</text>
+  <rect x="420" y="160" width="200" height="62" rx="8" fill="#0f1419" stroke="#253041"/>
+  <text x="436" y="186" fill="#e6edf3" font-size="15" font-weight="600">Amazon ECR</text>
+  <text x="436" y="208" fill="#8b98a8" font-size="12">1.56 GB image, no weights</text>
+  <rect x="420" y="236" width="200" height="62" rx="8" fill="#0f1419" stroke="#253041"/>
+  <text x="436" y="262" fill="#e6edf3" font-size="15" font-weight="600">CloudWatch</text>
+  <text x="436" y="284" fill="#8b98a8" font-size="12">logs, traces</text>
+
+  <rect x="650" y="160" width="490" height="330" rx="10" fill="#0f1419" stroke="#ff9900"/>
+  <text x="670" y="188" fill="#e6edf3" font-size="16" font-weight="700">AgentCore Runtime: StrandsDeciders_triage</text>
+  <text x="670" y="210" fill="#8b98a8" font-size="12">env: DECIDER_MODEL=…hobson-v21 · DECIDER_QUANT=int8</text>
+  <g>
+    <rect x="670" y="226" width="220" height="244" rx="8" fill="#161d26" stroke="#253041"/>
+    <text x="686" y="250" fill="#e6edf3" font-size="13" font-weight="600">session A: microVM</text>
+    <text x="686" y="268" fill="#8b98a8" font-size="11">2 vCPU Graviton · 8 GB</text>
+    <rect x="686" y="280" width="188" height="28" rx="5" fill="#13233d"/><text x="696" y="299" fill="#9ecbff" font-size="12">/ping · /invocations :8080</text>
+    <rect x="686" y="314" width="188" height="28" rx="5" fill="#13233d"/><text x="696" y="333" fill="#9ecbff" font-size="12">download from Hugging Face</text>
+    <rect x="686" y="348" width="188" height="28" rx="5" fill="#13233d"/><text x="696" y="367" fill="#9ecbff" font-size="12">merge LoRA · int8 linears</text>
+    <rect x="686" y="382" width="188" height="28" rx="5" fill="#13233d"/><text x="696" y="401" fill="#9ecbff" font-size="12">SystemOneEngine (CPU)</text>
+    <text x="686" y="432" fill="#3fb950" font-size="12" font-weight="600">~4.2 GB resident, warm</text>
+    <text x="686" y="452" fill="#8b98a8" font-size="11">idle 30 min → stops</text>
+  </g>
+  <g>
+    <rect x="904" y="226" width="220" height="114" rx="8" fill="#161d26" stroke="#253041" stroke-dasharray="5 4"/>
+    <text x="920" y="250" fill="#e6edf3" font-size="13" font-weight="600">session B: microVM</text>
+    <text x="920" y="270" fill="#8b98a8" font-size="11">another session id =</text>
+    <text x="920" y="288" fill="#8b98a8" font-size="11">another warm replica</text>
+    <text x="920" y="320" fill="#8b98a8" font-size="11">(DeciderClient pool=N)</text>
+    <rect x="904" y="356" width="220" height="114" rx="8" fill="#161d26" stroke="#253041" stroke-dasharray="5 4"/>
+    <text x="920" y="380" fill="#e6edf3" font-size="13" font-weight="600">runtime: legacy (v19)</text>
+    <text x="920" y="400" fill="#8b98a8" font-size="11">same image, other env vars</text>
+    <text x="920" y="420" fill="#8b98a8" font-size="11">deciderctl add legacy --model v19</text>
+  </g>
+
+  <path d="M340,343 L372,343 L372,191 L414,191" fill="none" stroke="#ff9900" stroke-width="2" marker-end="url(#o)"/>
+  <path d="M620,191 L646,191" fill="none" stroke="#ff9900" stroke-width="2" marker-end="url(#o)"/>
+  <path d="M340,440 L660,440" fill="none" stroke="#8b98a8" stroke-width="2" marker-end="url(#a)"/>
+  <text x="420" y="462" fill="#8b98a8" font-size="12">InvokeAgentRuntime</text><text x="420" y="480" fill="#8b98a8" font-size="11">SigV4 · session id ≥ 33 chars</text>
+  <path d="M650,268 L622,268" fill="none" stroke="#8b98a8" stroke-width="1.5" marker-end="url(#a)"/>
+</svg>

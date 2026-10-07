@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+# per-user deployment config and state: never committed
+agentcore/aws-targets.json
+agentcore/.cli/
+agentcore/.cache/
+agentcore/.env.local
+agentcore/cdk/cdk.out/
+agentcore/cdk/node_modules/
+# media scratch
+recordings/raw/
+*.egg-info/
+.DS_Store

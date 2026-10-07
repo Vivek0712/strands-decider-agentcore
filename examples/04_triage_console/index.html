@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decider Triage Console</title>
+<style>
+  :root { --bg:#0f1419; --panel:#161d26; --line:#253041; --text:#e6edf3; --mute:#8b98a8; --accent:#ff9900;
+          --ok:#3fb950; --warn:#d29922; --bad:#f85149; --bar:#2f81f7; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.45 -apple-system,"Segoe UI",Roboto,sans-serif; }
+  header { display:flex; align-items:center; gap:16px; padding:14px 24px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  header h1 { font-size:17px; margin:0; } header h1 b { color:var(--accent); }
+  .pill { font-size:12px; padding:3px 10px; border-radius:99px; border:1px solid var(--line); color:var(--mute); }
+  .pill.live { color:var(--ok); border-color:#2e5a37; }
+  header .grow { flex:1; }
+  button { background:var(--accent); color:#111; border:0; border-radius:6px; padding:7px 14px; font-weight:600; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--text); border:1px solid var(--line); }
+  button:disabled { opacity:.5; cursor:default; }
+  main { display:grid; grid-template-columns:minmax(280px,380px) 1fr; gap:0; min-height:calc(100vh - 58px); }
+  #list { border-right:1px solid var(--line); overflow:auto; }
+  .t { padding:12px 18px; border-bottom:1px solid var(--line); cursor:pointer; }
+  .t:hover, .t.sel { background:var(--panel); }
+  .t .top { display:flex; gap:8px; align-items:center; font-size:12px; color:var(--mute); }
+  .t .txt { margin-top:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .tag { font-size:11px; font-weight:600; padding:2px 8px; border-radius:4px; margin-left:auto; }
+  .tag.auto { background:#12301a; color:var(--ok); } .tag.human { background:#3a2a0b; color:var(--warn); }
+  .tag.run { background:#13233d; color:var(--bar); }
+  #detail { padding:24px 32px; overflow:auto; }
+  .msg { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px; font-size:15px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:18px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px; }
+  .card h3 { margin:0 0 10px; font-size:13px; color:var(--mute); font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+  .row { display:grid; grid-template-columns:80px 1fr 46px; gap:8px; align-items:center; margin:6px 0; font-size:13px; }
+  .track { height:10px; background:#0b0f14; border-radius:5px; overflow:hidden; }
+  .fill { height:100%; background:var(--bar); transition:width .5s; }
+  .fill.top { background:var(--accent); }
+  .num { text-align:right; font-variant-numeric:tabular-nums; color:var(--mute); }
+  .band { position:relative; height:26px; background:linear-gradient(90deg,#12301a 0 25%,#3a2a0b 25% 75%,#3a1414 75%); border-radius:5px; margin:8px 0 4px; }
+  .needle { position:absolute; top:-4px; width:3px; height:34px; background:#fff; border-radius:2px; transition:left .5s; }
+  .bandlbl { display:flex; justify-content:space-between; font-size:11px; color:var(--mute); }
+  .big { font-size:28px; font-weight:700; }
+  .route { margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; }
+  .route .card { flex:1; min-width:150px; }
+  .route .v { font-size:18px; font-weight:700; }
+  .verdict { margin-top:18px; padding:14px 16px; border-radius:8px; font-weight:600; }
+  .verdict.auto { background:#12301a; color:var(--ok); } .verdict.human { background:#3a2a0b; color:var(--warn); }
+  .muted { color:var(--mute); } .empty { color:var(--mute); margin-top:80px; text-align:center; }
+  #stats { font-size:12px; color:var(--mute); }
+  @media (max-width:760px) { main { grid-template-columns:1fr; } #list { max-height:40vh; border-right:0; border-bottom:1px solid var(--line); } #detail { padding:16px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1><b>Strands Decider</b> triage console</h1>
+  <span class="pill" id="src">connecting…</span>
+  <span class="grow"></span>
+  <span id="stats"></span>
+  <button class="ghost" id="health">Runtime health</button>
+  <button id="all">Triage all</button>
+</header>
+<main>
+  <div id="list"></div>
+  <div id="detail"><div class="empty">Pick a ticket, or press <b>Triage all</b>.</div></div>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+const state = { tickets: [], results: {}, sel: null, policy: {} };
+const pct = (p) => (100 * p).toFixed(0) + "%";
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderList() {
+  $("#list").innerHTML = state.tickets.map((t) => {
+    const r = state.results[t.id];
+    const tag = r === "running" ? '<span class="tag run">deciding…</span>'
+      : r ? `<span class="tag ${r.route.auto ? "auto" : "human"}">${r.route.auto ? "routed" : "review"}</span>` : "";
+    return `<div class="t ${state.sel === t.id ? "sel" : ""}" data-id="${t.id}">
+      <div class="top"><b>${t.id}</b> ${esc(t.customer)} · ${esc(t.channel)} ${tag}</div>
+      <div class="txt">${esc(t.text)}</div></div>`;
+  }).join("");
+  document.querySelectorAll(".t").forEach((el) => el.onclick = () => select(el.dataset.id));
+  const done = Object.values(state.results).filter((r) => r && r !== "running");
+  if (done.length) {
+    const auto = done.filter((r) => r.route.auto).length;
+    const lat = done.map((r) => r.latency_s).sort((a, b) => a - b);
+    $("#stats").textContent = `${done.length} decided · ${auto} routed without review · median ${lat[Math.floor(lat.length / 2)]} s`;
+  }
+}
+
+function bars(probs, order) {
+  const keys = order || Object.keys(probs);
+  const top = keys.reduce((a, b) => (probs[b] > probs[a] ? b : a), keys[0]);
+  return keys.map((k) => `<div class="row"><span>${esc(k)}</span>
+    <div class="track"><div class="fill ${k === top ? "top" : ""}" style="width:${pct(probs[k])}"></div></div>
+    <span class="num">${pct(probs[k])}</span></div>`).join("");
+}
+
+function renderDetail() {
+  const t = state.tickets.find((x) => x.id === state.sel);
+  if (!t) return;
+  const r = state.results[t.id];
+  let body = `<div class="muted" style="margin-bottom:8px">${t.id} · ${esc(t.customer)} · ${esc(t.channel)}</div>
+    <div class="msg">${esc(t.text)}</div>`;
+  if (r === "running") body += `<p class="muted">Asking the decider on AgentCore Runtime…</p>`;
+  else if (r && r.error) body += `<p style="color:var(--bad)">${esc(r.error)}</p>`;
+  else if (r) {
+    const a = r.answers, p = a.escalate.noul, u = a.urgency;
+    const up = Object.fromEntries(Object.entries(u.probabilities).map(([k, v]) => [(u.legend[k] || k).split(":")[0], v]));
+    body += `<div class="grid">
+      <div class="card"><h3>Hand to a person?</h3><div class="big">P(yes) = ${p.toFixed(2)}</div>
+        <div class="band"><div class="needle" style="left:calc(${pct(p)} - 1px)"></div></div>
+        <div class="bandlbl"><span>automate ≤ ${state.policy.escalate_no}</span><span>unsure: a person checks</span><span>human ≥ ${state.policy.escalate_yes}</span></div></div>
+      <div class="card"><h3>Which team?</h3>${bars(a.queue.probabilities)}</div>
+      <div class="card"><h3>How urgent?</h3>${bars(up)}
+        <div class="muted" style="margin-top:6px">expected level ${u.score.toFixed(2)} of 2</div></div>
+    </div>
+    <div class="route">
+      <div class="card"><h3>Handled by</h3><div class="v">${r.route.handler}</div></div>
+      <div class="card"><h3>Team</h3><div class="v">${r.route.team}</div></div>
+      <div class="card"><h3>Reply within</h3><div class="v">${r.route.sla}</div></div>
+      <div class="card"><h3>Decided in</h3><div class="v">${r.latency_s} s</div></div>
+    </div>
+    <div class="verdict ${r.route.auto ? "auto" : "human"}">${r.route.auto
+      ? (r.route.handler === "human agent" ? "Confident it needs a person: assigned straight to the team's queue."
+                                           : "Confident a standard reply settles it: answered automatically.")
+      : "Not confident on at least one question: a person reviews it first."}</div>
+    <p class="muted" style="font-size:12px">Model ${esc(r.model || "")} · three questions, one AgentCore invocation</p>`;
+  }
+  $("#detail").innerHTML = body;
+}
+
+function select(id) { state.sel = id; renderList(); renderDetail(); }
+
+async function triage(id) {
+  state.results[id] = "running"; renderList(); if (state.sel === id) renderDetail();
+  try {
+    const res = await fetch(`/api/triage/${id}`, { method: "POST" });
+    const j = await res.json();
+    state.results[id] = res.ok ? j : { error: j.detail || "failed", route: { auto: false } };
+  } catch (e) { state.results[id] = { error: String(e), route: { auto: false } }; }
+  renderList(); if (state.sel === id) renderDetail();
+}
+
+$("#all").onclick = async () => {
+  $("#all").disabled = true;
+  for (const t of state.tickets) { select(t.id); await triage(t.id); }
+  $("#all").disabled = false;
+};
+$("#health").onclick = async () => {
+  $("#detail").innerHTML = '<p class="muted">Checking the runtime session…</p>';
+  const h = await (await fetch("/api/health")).json();
+  $("#detail").innerHTML = `<div class="card"><h3>Runtime health</h3><pre style="white-space:pre-wrap;margin:0">${esc(JSON.stringify(h, null, 2))}</pre></div>`;
+};
+
+(async () => {
+  const j = await (await fetch("/api/tickets")).json();
+  Object.assign(state, { tickets: j.tickets, policy: j.policy });
+  $("#src").textContent = j.source; $("#src").classList.add("live");
+  renderList();
+  const q = new URLSearchParams(location.search);
+  if (q.get("ticket")) { select(q.get("ticket")); if (q.has("run")) triage(q.get("ticket")); }
+})();
+</script>
+</body>
+</html>
