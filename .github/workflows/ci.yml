@@ -24,7 +24,7 @@ jobs:
       - run: docker build -t decider-agentcore runtime/
       - name: container starts and answers /ping and health
         run: |
-          docker run -d --name d -p 8080:8080 -e DECIDER_WARMUP=0 -e DECIDER_LOAD_TIMEOUT_S=60 decider-agentcore
+          docker run -d --name decider -p 8080:8080 -e DECIDER_WARMUP=0 decider-agentcore
           for i in $(seq 1 30); do curl -sf localhost:8080/ping && break; sleep 2; done
           curl -sf -X POST localhost:8080/invocations -H 'Content-Type: application/json' -d '{"action":"health"}'
-          docker logs d | tail -20
+          docker logs decider | tail -20
