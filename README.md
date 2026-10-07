@@ -70,6 +70,8 @@ python deciderctl.py add triage --model v21
 python deciderctl.py add legacy --model v19        # optional: a second model, same image
 
 # 3. deploy with the AgentCore CLI (about 10 minutes the first time)
+(cd agentcore/cdk && npm ci)                       # once: the CDK app's dependencies
+agentcore deploy --dry-run                         # optional: synthesize and check, deploy nothing
 agentcore deploy -y                                # run from the repository root
 
 # 4. check it: the first call starts a microVM and loads the model (about a minute)
@@ -259,6 +261,7 @@ You pay for AgentCore Runtime (vCPU and memory while sessions are active), CodeB
 | `Invalid length for parameter runtimeSessionId` | session ids need at least 33 characters |
 | every call is slow, as if cold | you are sending a new session id each time; reuse one (or a fixed pool) |
 | health shows `state: failed` | the error is in `health.error` and in CloudWatch Logs (`agentcore logs`); common causes are a wrong `DECIDER_REVISION` or a private model without `HF_TOKEN` |
+| `sh: tsc: command not found` during deploy | the CDK app's dependencies are missing: `(cd agentcore/cdk && npm ci)` |
 | `agentcore: command not found` | see [Prerequisites](#prerequisites); or set `AGENTCORE_CLI=/path/to/agentcore` for `deciderctl deploy` |
 
 To run the container locally (Docker on an arm64 or x86 machine):
