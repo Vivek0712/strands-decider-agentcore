@@ -69,7 +69,7 @@ python deciderctl.py target --region us-east-1
 python deciderctl.py add triage --model v21
 python deciderctl.py add legacy --model v19        # optional: a second model, same image
 
-# 3. deploy with the AgentCore CLI (about 10 minutes the first time)
+# 3. deploy with the AgentCore CLI (about 5 minutes the first time)
 (cd agentcore/cdk && npm ci)                       # once: the CDK app's dependencies
 agentcore deploy --dry-run                         # optional: synthesize and check, deploy nothing
 agentcore deploy -y                                # run from the repository root
