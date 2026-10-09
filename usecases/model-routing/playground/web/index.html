@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Model Routing Playground</title>
+<title>Model Routing Playground by Vivek Raja, AWS AI Hero</title>
+<meta name="author" content="Vivek Raja, AWS AI Hero">
 <meta name="description" content="Route each request to the cheapest Amazon Nova model that can answer it: a Strands Decider on AgentCore Runtime against an LLM classifier and Bedrock Intelligent Prompt Routing.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -71,6 +72,7 @@
 <body>
 <header>
   <h1><b>Model routing</b> playground</h1>
+  <div class="small muted" style="margin-top:4px">Built by <b>Vivek Raja</b>, AWS AI Hero</div>
   <p class="sub">Send a request and watch four routers pick the cheapest Amazon Nova model that can answer it: a Strands Decider on Amazon Bedrock AgentCore Runtime (calibrated probabilities), Nova Micro and Claude Haiku 4.5 as LLM classifiers, and Bedrock Intelligent Prompt Routing. The decider's choice answers your request.</p>
   <nav><button class="on" data-tab="try">Try it</button><button data-tab="bench">Benchmark</button><button data-tab="about">How it works</button></nav>
 </header>
