@@ -160,3 +160,21 @@
 {"id": "extract-06", "family": "extract", "split": "test", "model": "lite", "score": 1.0, "in": 87, "out": 3, "cost": 5.94e-06, "latency_s": 1.07, "text": "3"}
 {"id": "extract-27", "family": "extract", "split": "test", "model": "lite", "score": 1.0, "in": 84, "out": 3, "cost": 5.76e-06, "latency_s": 1.131, "text": "Hannah Costa"}
 {"id": "extract-25", "family": "extract", "split": "test", "model": "lite", "score": 1.0, "in": 87, "out": 3, "cost": 5.94e-06, "latency_s": 1.089, "text": "Lena Brooks"}
+{"id": "extract-33", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 177, "out": 8, "cost": 0.0001672, "latency_s": 1.188, "text": "249.99"}
+{"id": "extract-05", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 177, "out": 4, "cost": 0.0001544, "latency_s": 1.514, "text": "12"}
+{"id": "extract-07", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 174, "out": 3, "cost": 0.00014879999999999998, "latency_s": 0.558, "text": "Hannah Khan"}
+{"id": "extract-00", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 174, "out": 9, "cost": 0.000168, "latency_s": 0.599, "text": "ORD-38155"}
+{"id": "extract-18", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 177, "out": 8, "cost": 0.0001672, "latency_s": 0.656, "text": "$399.00"}
+{"id": "extract-01", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 175, "out": 9, "cost": 0.00016879999999999998, "latency_s": 0.587, "text": "ORD-57788"}
+{"id": "extract-17", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 176, "out": 7, "cost": 0.0001632, "latency_s": 0.637, "text": "24.99"}
+{"id": "extract-31", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 175, "out": 9, "cost": 0.00016879999999999998, "latency_s": 0.546, "text": "ORD-62787"}
+{"id": "extract-13", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 174, "out": 4, "cost": 0.000152, "latency_s": 0.56, "text": "28"}
+{"id": "extract-20", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 175, "out": 9, "cost": 0.00016879999999999998, "latency_s": 0.904, "text": "ORD-95327"}
+{"id": "extract-22", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 177, "out": 7, "cost": 0.000164, "latency_s": 0.575, "text": "24.99"}
+{"id": "extract-08", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 176, "out": 3, "cost": 0.0001504, "latency_s": 0.605, "text": "Marco Iyer"}
+{"id": "extract-06", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 177, "out": 3, "cost": 0.0001512, "latency_s": 1.137, "text": "3"}
+{"id": "extract-27", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 174, "out": 3, "cost": 0.00014879999999999998, "latency_s": 1.04, "text": "Hannah Costa"}
+{"id": "extract-11", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 172, "out": 3, "cost": 0.00014719999999999997, "latency_s": 1.075, "text": "Lena Iyer"}
+{"id": "extract-25", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 177, "out": 3, "cost": 0.0001512, "latency_s": 1.08, "text": "Lena Brooks"}
+{"id": "extract-09", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 177, "out": 8, "cost": 0.0001672, "latency_s": 1.106, "text": "$399.00"}
+{"id": "extract-21", "family": "extract", "split": "test", "model": "pro", "score": 1.0, "in": 174, "out": 3, "cost": 0.00014879999999999998, "latency_s": 1.158, "text": "Aisha Haddad"}

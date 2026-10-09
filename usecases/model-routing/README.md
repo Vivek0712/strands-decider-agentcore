@@ -182,7 +182,7 @@ The setup:
 - **Templates:** 6 (one per task family), 18 train samples each ([`data/apo_input.jsonl`](data/apo_input.jsonl)).
 - **Evaluator:** a Lambda function running the same exact graders as the benchmark, for 5 families ([`apo/lambda_function.py`](apo/lambda_function.py)). APO evaluators may not execute code (the service rejects `os`, `subprocess`, `sys` and `tempfile` imports and `exec`/`compile`), so the code family uses an LLM judge, Claude Sonnet 4.6, that traces the reference tests.
 - **Targets:** Nova Micro, Nova Lite, Nova Pro, Claude Haiku 4.5 and Claude Sonnet 4.6, one job per model ([`apo/apo.py`](apo/apo.py): `create <model> [families]`).
-- **Coverage:** with the account's Claude quota at 10 requests per minute, many entries were throttled or hit an intermittent service error. 9 (family, model) pairs completed; every family has at least one.
+- **Coverage:** with the account's Claude quota at 10 requests per minute, many entries were throttled or hit an intermittent service error. 10 (family, model) pairs completed, all on Nova targets (the Claude Haiku 4.5 and Claude Sonnet 4.6 target jobs produced none); every family has at least one.
 
 Each completed pair was then run on the **held-out test split** with its optimized prompt ([`results/apo_pairs.json`](results/apo_pairs.json)):
 
@@ -194,6 +194,7 @@ Each completed pair was then run on the **held-out test split** with its optimiz
 | code / Nova Pro | 0.23 -> 0.74 (judge scale) | 87.0 -> 87.0 | 100 -> 334 |
 | extract / Nova Lite | 1.00 -> 1.00 | 88.9 -> 72.2 | 70 -> 85 |
 | extract / Nova Micro | 1.00 -> 1.00 | 94.4 -> 100.0 | 70 -> 93 |
+| extract / Nova Pro | 0.94 -> 1.00 | 100.0 -> 100.0 | 70 -> 175 |
 | json / Nova Micro | 1.00 -> 1.00 | 98.9 -> 98.9 | 81 -> 81 |
 | logic / Nova Micro | 0.72 -> 0.94 | 61.1 -> 66.7 | 173 -> 591 |
 | math / Nova Pro | 0.78 -> 1.00 | 94.1 -> 100.0 | 84 -> 381 |

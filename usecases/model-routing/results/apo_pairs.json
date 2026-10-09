@@ -65,6 +65,19 @@
   "cost_per_1k_optimized": 0.00634
  },
  {
+  "family": "extract",
+  "model": "pro",
+  "n_test": 18,
+  "apo_train_original": 0.9444444444444444,
+  "apo_train_optimized": 1.0,
+  "test_original": 1.0,
+  "test_optimized": 1.0,
+  "tokens_in_original": 70.44444444444444,
+  "tokens_in_optimized": 175.44444444444446,
+  "cost_per_1k_original": 0.07466666666666667,
+  "cost_per_1k_optimized": 0.15866666666666665
+ },
+ {
   "family": "sports",
   "model": "micro",
   "n_test": 18,

@@ -103,6 +103,26 @@
         "medianTtftInSec": 0.3885,
         "medianLatencyInSec": 0.3897
       }
+    },
+    "pro": {
+      "original": {
+        "averageInputTokens": 71,
+        "averageOutputTokens": 4,
+        "averageScore": 0.9444444444444444,
+        "averageTtftInSec": 35.0609,
+        "averageLatencyInSec": 35.0679,
+        "medianTtftInSec": 31.2268,
+        "medianLatencyInSec": 31.2279
+      },
+      "optimized": {
+        "averageInputTokens": 176,
+        "averageOutputTokens": 4,
+        "averageScore": 1.0,
+        "averageTtftInSec": 13.5301,
+        "averageLatencyInSec": 13.5393,
+        "medianTtftInSec": 7.492,
+        "medianLatencyInSec": 7.5076
+      }
     }
   },
   "sports": {
