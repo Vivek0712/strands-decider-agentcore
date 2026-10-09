@@ -1,0 +1,1557 @@
+[
+ {
+  "tau": 0.0,
+  "train": {
+   "strategy": "",
+   "quality": 0.9753086419753086,
+   "cost_per_1k": 3.4607838034979417,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 30.2395,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9532710280373832,
+   "cost_per_1k": 2.7222237548805808,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 22.36,
+   "latency_p95": 58.096000000000004,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.02,
+  "train": {
+   "strategy": "",
+   "quality": 0.9753086419753086,
+   "cost_per_1k": 3.4607838034979417,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 30.2395,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9532710280373832,
+   "cost_per_1k": 2.7222237548805808,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 22.36,
+   "latency_p95": 58.096000000000004,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.04,
+  "train": {
+   "strategy": "",
+   "quality": 0.9753086419753086,
+   "cost_per_1k": 3.4607838034979417,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 30.2395,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9532710280373832,
+   "cost_per_1k": 2.7222237548805808,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 22.36,
+   "latency_p95": 58.096000000000004,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.06,
+  "train": {
+   "strategy": "",
+   "quality": 0.9753086419753086,
+   "cost_per_1k": 3.4607838034979417,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 30.2395,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9532710280373832,
+   "cost_per_1k": 2.7222237548805808,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 22.36,
+   "latency_p95": 58.096000000000004,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.08,
+  "train": {
+   "strategy": "",
+   "quality": 0.9753086419753086,
+   "cost_per_1k": 3.4607838034979417,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 30.2395,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9532710280373832,
+   "cost_per_1k": 2.7222237548805808,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 22.36,
+   "latency_p95": 58.096000000000004,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.1,
+  "train": {
+   "strategy": "",
+   "quality": 0.9753086419753086,
+   "cost_per_1k": 3.4607838034979417,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 30.2395,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9532710280373832,
+   "cost_per_1k": 2.7191352969366553,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 22.36,
+   "latency_p95": 58.096000000000004,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.009345794392523364,
+   "mix": {
+    "micro": 0.009345794392523364,
+    "sonnet46": 0.9906542056074766
+   }
+  }
+ },
+ {
+  "tau": 0.12,
+  "train": {
+   "strategy": "",
+   "quality": 0.9660493827160493,
+   "cost_per_1k": 3.444883340534979,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 29.3345,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.037037037037037035,
+   "mix": {
+    "micro": 0.046296296296296294,
+    "sonnet46": 0.9537037037037037
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9439252336448598,
+   "cost_per_1k": 2.701301792263758,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 21.567999999999998,
+   "latency_p95": 55.587,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.04672897196261682,
+   "mix": {
+    "micro": 0.056074766355140186,
+    "sonnet46": 0.9439252336448598
+   }
+  }
+ },
+ {
+  "tau": 0.14,
+  "train": {
+   "strategy": "",
+   "quality": 0.9660493827160493,
+   "cost_per_1k": 3.429534405349793,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 27.427999999999997,
+   "latency_p95": 65.78,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.09259259259259259,
+   "mix": {
+    "micro": 0.1111111111111111,
+    "sonnet46": 0.8888888888888888
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9345794392523364,
+   "cost_per_1k": 2.676832586656282,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 20.7,
+   "latency_p95": 55.587,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.12149532710280374,
+   "mix": {
+    "micro": 0.14018691588785046,
+    "sonnet46": 0.8598130841121495
+   }
+  }
+ },
+ {
+  "tau": 0.16,
+  "train": {
+   "strategy": "",
+   "quality": 0.95679012345679,
+   "cost_per_1k": 3.4078358868312746,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 25.734,
+   "latency_p95": 65.169,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.1574074074074074,
+   "mix": {
+    "micro": 0.19444444444444445,
+    "sonnet46": 0.8055555555555556
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9345794392523364,
+   "cost_per_1k": 2.6563931941329173,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 19.294999999999998,
+   "latency_p95": 55.584999999999994,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.17757009345794392,
+   "mix": {
+    "micro": 0.21495327102803738,
+    "sonnet46": 0.7850467289719626
+   }
+  }
+ },
+ {
+  "tau": 0.18,
+  "train": {
+   "strategy": "",
+   "quality": 0.9382716049382716,
+   "cost_per_1k": 3.394520377572016,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.851,
+   "latency_p95": 57.306000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.2037037037037037,
+   "mix": {
+    "micro": 0.25925925925925924,
+    "sonnet46": 0.7407407407407407
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9252336448598131,
+   "cost_per_1k": 2.6390540819833848,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 18.183,
+   "latency_p95": 55.584999999999994,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.22429906542056074,
+   "mix": {
+    "micro": 0.2897196261682243,
+    "sonnet46": 0.7102803738317757
+   }
+  }
+ },
+ {
+  "tau": 0.2,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.3862813497942374,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.851,
+   "latency_p95": 57.306000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.2222222222222222,
+   "mix": {
+    "micro": 0.28703703703703703,
+    "sonnet46": 0.7129629629629629
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9158878504672897,
+   "cost_per_1k": 2.628836231516095,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 17.119,
+   "latency_p95": 52.615,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.2616822429906542,
+   "mix": {
+    "micro": 0.3364485981308411,
+    "sonnet46": 0.6635514018691588
+   }
+  }
+ },
+ {
+  "tau": 0.22,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.3601608868312742,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.6655,
+   "latency_p95": 57.306000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.26851851851851855,
+   "mix": {
+    "micro": 0.3333333333333333,
+    "sonnet46": 0.6666666666666666
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9158878504672897,
+   "cost_per_1k": 2.6044180072170295,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.885,
+   "latency_p95": 52.475,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.2803738317757009,
+   "mix": {
+    "micro": 0.35514018691588783,
+    "sonnet46": 0.6448598130841121
+   }
+  }
+ },
+ {
+  "tau": 0.24,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.3076769053497936,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 56.632,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.3148148148148148,
+   "mix": {
+    "micro": 0.37962962962962965,
+    "sonnet46": 0.6203703703703703
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9158878504672897,
+   "cost_per_1k": 2.5915703903946,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.885,
+   "latency_p95": 52.475,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.2897196261682243,
+   "mix": {
+    "micro": 0.3644859813084112,
+    "sonnet46": 0.6355140186915887
+   }
+  }
+ },
+ {
+  "tau": 0.26,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.2955219979423855,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 56.632,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.32407407407407407,
+   "mix": {
+    "micro": 0.3888888888888889,
+    "sonnet46": 0.6111111111111112
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9158878504672897,
+   "cost_per_1k": 2.56385730628245,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.818,
+   "latency_p95": 52.475,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.308411214953271,
+   "mix": {
+    "micro": 0.38317757009345793,
+    "sonnet46": 0.616822429906542
+   }
+  }
+ },
+ {
+  "tau": 0.28,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.2311327386831272,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 56.632,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.37037037037037035,
+   "mix": {
+    "micro": 0.4351851851851852,
+    "sonnet46": 0.5648148148148148
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.502727913759085,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.595,
+   "latency_p95": 47.185,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.34579439252336447,
+   "mix": {
+    "micro": 0.42990654205607476,
+    "sonnet46": 0.5700934579439252
+   }
+  }
+ },
+ {
+  "tau": 0.3,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.192301534979424,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 55.904,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.39814814814814814,
+   "mix": {
+    "micro": 0.46296296296296297,
+    "sonnet46": 0.5370370370370371
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.4877889885254403,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.595,
+   "latency_p95": 47.185,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.35514018691588783,
+   "mix": {
+    "micro": 0.4392523364485981,
+    "sonnet46": 0.5607476635514018
+   }
+  }
+ },
+ {
+  "tau": 0.32,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.1786298683127563,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 55.904,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4074074074074074,
+   "mix": {
+    "micro": 0.4722222222222222,
+    "sonnet46": 0.5277777777777778
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.4532173062824496,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 47.185,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.38317757009345793,
+   "mix": {
+    "micro": 0.4672897196261682,
+    "sonnet46": 0.5327102803738317
+   }
+  }
+ },
+ {
+  "tau": 0.34,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.152992460905349,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.42592592592592593,
+   "mix": {
+    "micro": 0.49074074074074076,
+    "sonnet46": 0.5092592592592593
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.42429683899273,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.40186915887850466,
+   "mix": {
+    "micro": 0.48598130841121495,
+    "sonnet46": 0.514018691588785
+   }
+  }
+ },
+ {
+  "tau": 0.36,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.140016118312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4351851851851852,
+   "mix": {
+    "micro": 0.5,
+    "sonnet46": 0.5
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.4109390819833845,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.411214953271028,
+   "mix": {
+    "micro": 0.4953271028037383,
+    "sonnet46": 0.5046728971962616
+   }
+  }
+ },
+ {
+  "tau": 0.38,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.140016118312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4351851851851852,
+   "mix": {
+    "micro": 0.5,
+    "sonnet46": 0.5
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.398538381048805,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4205607476635514,
+   "mix": {
+    "micro": 0.5046728971962616,
+    "sonnet46": 0.4953271028037383
+   }
+  }
+ },
+ {
+  "tau": 0.4,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.140016118312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4351851851851852,
+   "mix": {
+    "micro": 0.5,
+    "sonnet46": 0.5
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.398538381048805,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4205607476635514,
+   "mix": {
+    "micro": 0.5046728971962616,
+    "sonnet46": 0.4953271028037383
+   }
+  }
+ },
+ {
+  "tau": 0.42,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.140016118312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4351851851851852,
+   "mix": {
+    "micro": 0.5,
+    "sonnet46": 0.5
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.398538381048805,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4205607476635514,
+   "mix": {
+    "micro": 0.5046728971962616,
+    "sonnet46": 0.4953271028037383
+   }
+  }
+ },
+ {
+  "tau": 0.44,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.140016118312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4351851851851852,
+   "mix": {
+    "micro": 0.5,
+    "sonnet46": 0.5
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.398538381048805,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4205607476635514,
+   "mix": {
+    "micro": 0.5046728971962616,
+    "sonnet46": 0.4953271028037383
+   }
+  }
+ },
+ {
+  "tau": 0.46,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.131245794238683,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4444444444444444,
+   "mix": {
+    "micro": 0.5092592592592593,
+    "sonnet46": 0.49074074074074076
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.914018691588785,
+   "cost_per_1k": 2.3220819791796465,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.568,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.42990654205607476,
+   "mix": {
+    "micro": 0.514018691588785,
+    "sonnet46": 0.48598130841121495
+   }
+  }
+ },
+ {
+  "tau": 0.48,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.131245794238683,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 53.284,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4444444444444444,
+   "mix": {
+    "micro": 0.5092592592592593,
+    "sonnet46": 0.49074074074074076
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.2693341287123565,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.381,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.42990654205607476,
+   "mix": {
+    "micro": 0.5233644859813084,
+    "sonnet46": 0.4766355140186916
+   }
+  }
+ },
+ {
+  "tau": 0.5,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.08970107201646,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 50.974000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4537037037037037,
+   "mix": {
+    "micro": 0.5185185185185185,
+    "sonnet46": 0.48148148148148145
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.2065781474039454,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.342,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4485981308411215,
+   "mix": {
+    "micro": 0.5420560747663551,
+    "sonnet46": 0.45794392523364486
+   }
+  }
+ },
+ {
+  "tau": 0.52,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.081115284979424,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 50.974000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.46296296296296297,
+   "mix": {
+    "micro": 0.5277777777777778,
+    "sonnet46": 0.4722222222222222
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.2065781474039454,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.342,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4485981308411215,
+   "mix": {
+    "micro": 0.5420560747663551,
+    "sonnet46": 0.45794392523364486
+   }
+  }
+ },
+ {
+  "tau": 0.54,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.081115284979424,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 50.974000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.46296296296296297,
+   "mix": {
+    "micro": 0.5277777777777778,
+    "sonnet46": 0.4722222222222222
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.157596044600207,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.289,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.45794392523364486,
+   "mix": {
+    "micro": 0.5514018691588785,
+    "sonnet46": 0.4485981308411215
+   }
+  }
+ },
+ {
+  "tau": 0.56,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.0706590349794234,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 50.974000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4722222222222222,
+   "mix": {
+    "micro": 0.5370370370370371,
+    "sonnet46": 0.46296296296296297
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.157596044600207,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.289,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.45794392523364486,
+   "mix": {
+    "micro": 0.5514018691588785,
+    "sonnet46": 0.4485981308411215
+   }
+  }
+ },
+ {
+  "tau": 0.58,
+  "train": {
+   "strategy": "",
+   "quality": 0.9290123456790123,
+   "cost_per_1k": 3.0706590349794234,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.4865,
+   "latency_p95": 50.974000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.4722222222222222,
+   "mix": {
+    "micro": 0.5370370370370371,
+    "sonnet46": 0.46296296296296297
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.157596044600207,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.289,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.45794392523364486,
+   "mix": {
+    "micro": 0.5514018691588785,
+    "sonnet46": 0.4485981308411215
+   }
+  }
+ },
+ {
+  "tau": 0.6,
+  "train": {
+   "strategy": "",
+   "quality": 0.9197530864197531,
+   "cost_per_1k": 2.93168445164609,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.347,
+   "latency_p95": 47.099000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.5,
+   "mix": {
+    "micro": 0.5740740740740741,
+    "sonnet46": 0.42592592592592593
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.157596044600207,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.289,
+   "latency_p95": 37.725,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.45794392523364486,
+   "mix": {
+    "micro": 0.5514018691588785,
+    "sonnet46": 0.4485981308411215
+   }
+  }
+ },
+ {
+  "tau": 0.62,
+  "train": {
+   "strategy": "",
+   "quality": 0.9197530864197531,
+   "cost_per_1k": 2.8589452386831273,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.347,
+   "latency_p95": 47.099000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.5092592592592593,
+   "mix": {
+    "micro": 0.5833333333333334,
+    "sonnet46": 0.4166666666666667
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.9046728971962616,
+   "cost_per_1k": 2.0743276333852534,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.151,
+   "latency_p95": 36.701,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4766355140186916,
+   "mix": {
+    "micro": 0.5700934579439252,
+    "sonnet46": 0.42990654205607476
+   }
+  }
+ },
+ {
+  "tau": 0.64,
+  "train": {
+   "strategy": "",
+   "quality": 0.9197530864197531,
+   "cost_per_1k": 2.83555195164609,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.347,
+   "latency_p95": 47.099000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.5277777777777778,
+   "mix": {
+    "micro": 0.6018518518518519,
+    "sonnet46": 0.39814814814814814
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8953271028037383,
+   "cost_per_1k": 2.023316558618898,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.151,
+   "latency_p95": 36.701,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.4766355140186916,
+   "mix": {
+    "micro": 0.5794392523364486,
+    "sonnet46": 0.4205607476635514
+   }
+  }
+ },
+ {
+  "tau": 0.66,
+  "train": {
+   "strategy": "",
+   "quality": 0.9104938271604938,
+   "cost_per_1k": 2.60628232201646,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.245,
+   "latency_p95": 47.099000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.5740740740740741,
+   "mix": {
+    "micro": 0.6574074074074074,
+    "sonnet46": 0.3425925925925926
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8859813084112149,
+   "cost_per_1k": 1.9638779604880574,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 16.151,
+   "latency_p95": 36.046,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.48598130841121495,
+   "mix": {
+    "micro": 0.5981308411214953,
+    "sonnet46": 0.40186915887850466
+   }
+  }
+ },
+ {
+  "tau": 0.68,
+  "train": {
+   "strategy": "",
+   "quality": 0.9104938271604938,
+   "cost_per_1k": 2.5409143590534975,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.245,
+   "latency_p95": 47.099000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.5833333333333334,
+   "mix": {
+    "micro": 0.6666666666666666,
+    "sonnet46": 0.3333333333333333
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8766355140186916,
+   "cost_per_1k": 1.8026684277777771,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.981,
+   "latency_p95": 29.683,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.5327102803738317,
+   "mix": {
+    "micro": 0.6542056074766355,
+    "sonnet46": 0.34579439252336447
+   }
+  }
+ },
+ {
+  "tau": 0.7,
+  "train": {
+   "strategy": "",
+   "quality": 0.9104938271604938,
+   "cost_per_1k": 2.460376627572016,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.245,
+   "latency_p95": 47.099000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.6018518518518519,
+   "mix": {
+    "micro": 0.6851851851851852,
+    "sonnet46": 0.3148148148148148
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8766355140186916,
+   "cost_per_1k": 1.8026684277777771,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.981,
+   "latency_p95": 29.683,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.5327102803738317,
+   "mix": {
+    "micro": 0.6542056074766355,
+    "sonnet46": 0.34579439252336447
+   }
+  }
+ },
+ {
+  "tau": 0.72,
+  "train": {
+   "strategy": "",
+   "quality": 0.9104938271604938,
+   "cost_per_1k": 2.3666773683127564,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.245,
+   "latency_p95": 46.413000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.6481481481481481,
+   "mix": {
+    "micro": 0.7314814814814815,
+    "sonnet46": 0.26851851851851855
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8704049844236761,
+   "cost_per_1k": 1.756352353011422,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.981,
+   "latency_p95": 29.683,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.5607476635514018,
+   "mix": {
+    "micro": 0.6915887850467289,
+    "sonnet46": 0.308411214953271
+   }
+  }
+ },
+ {
+  "tau": 0.74,
+  "train": {
+   "strategy": "",
+   "quality": 0.9104938271604938,
+   "cost_per_1k": 2.280184868312756,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 22.245,
+   "latency_p95": 46.413000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.6666666666666666,
+   "mix": {
+    "micro": 0.7592592592592593,
+    "sonnet46": 0.24074074074074073
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8610591900311527,
+   "cost_per_1k": 1.7143603436656274,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.981,
+   "latency_p95": 29.683,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.5700934579439252,
+   "mix": {
+    "micro": 0.7102803738317757,
+    "sonnet46": 0.2897196261682243
+   }
+  }
+ },
+ {
+  "tau": 0.76,
+  "train": {
+   "strategy": "",
+   "quality": 0.9012345679012346,
+   "cost_per_1k": 2.2206388960905343,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 21.736000000000004,
+   "latency_p95": 46.413000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.7037037037037037,
+   "mix": {
+    "micro": 0.8055555555555556,
+    "sonnet46": 0.19444444444444445
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8548286604361371,
+   "cost_per_1k": 1.5939494558151603,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.916,
+   "latency_p95": 28.067,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.6355140186915887,
+   "mix": {
+    "micro": 0.7850467289719626,
+    "sonnet46": 0.21495327102803738
+   }
+  }
+ },
+ {
+  "tau": 0.78,
+  "train": {
+   "strategy": "",
+   "quality": 0.8950617283950618,
+   "cost_per_1k": 2.1594434331275716,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 21.534,
+   "latency_p95": 46.413000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.7314814814814815,
+   "mix": {
+    "micro": 0.8425925925925926,
+    "sonnet46": 0.1574074074074074
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8548286604361371,
+   "cost_per_1k": 1.5043982875908615,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.562000000000001,
+   "latency_p95": 28.067,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.6728971962616822,
+   "mix": {
+    "micro": 0.822429906542056,
+    "sonnet46": 0.17757009345794392
+   }
+  }
+ },
+ {
+  "tau": 0.8,
+  "train": {
+   "strategy": "",
+   "quality": 0.8858024691358025,
+   "cost_per_1k": 1.9938559794238682,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 19.5785,
+   "latency_p95": 46.413000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.7777777777777778,
+   "mix": {
+    "micro": 0.8981481481481481,
+    "sonnet46": 0.10185185185185185
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8361370716510904,
+   "cost_per_1k": 1.4138937548805808,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.408,
+   "latency_p95": 26.313000000000002,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7102803738317757,
+   "mix": {
+    "micro": 0.8785046728971962,
+    "sonnet46": 0.12149532710280374
+   }
+  }
+ },
+ {
+  "tau": 0.82,
+  "train": {
+   "strategy": "",
+   "quality": 0.867283950617284,
+   "cost_per_1k": 1.934455146090535,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 19.5785,
+   "latency_p95": 46.413000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8148148148148148,
+   "mix": {
+    "micro": 0.9537037037037037,
+    "sonnet46": 0.046296296296296294
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8361370716510904,
+   "cost_per_1k": 1.3633742688992725,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 15.288,
+   "latency_p95": 24.923000000000002,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7476635514018691,
+   "mix": {
+    "micro": 0.9158878504672897,
+    "sonnet46": 0.08411214953271028
+   }
+  }
+ },
+ {
+  "tau": 0.84,
+  "train": {
+   "strategy": "",
+   "quality": 0.867283950617284,
+   "cost_per_1k": 1.9095857942386831,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 19.5785,
+   "latency_p95": 46.413000000000004,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8333333333333334,
+   "mix": {
+    "micro": 0.9722222222222222,
+    "sonnet46": 0.027777777777777776
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8174454828660437,
+   "cost_per_1k": 1.317205203478712,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.864999999999998,
+   "latency_p95": 24.834,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7663551401869159,
+   "mix": {
+    "micro": 0.9532710280373832,
+    "sonnet46": 0.04672897196261682
+   }
+  }
+ },
+ {
+  "tau": 0.86,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.2346380539460018,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.679,
+   "latency_p95": 24.834,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7757009345794392,
+   "mix": {
+    "micro": 0.9813084112149533,
+    "sonnet46": 0.018691588785046728
+   }
+  }
+ },
+ {
+  "tau": 0.88,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.1985338483385255,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.610000000000001,
+   "latency_p95": 23.956,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.9,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.1985338483385255,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.610000000000001,
+   "latency_p95": 23.956,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.92,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.1985338483385255,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.610000000000001,
+   "latency_p95": 23.956,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.94,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.1985338483385255,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.610000000000001,
+   "latency_p95": 23.956,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.96,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.1985338483385255,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.610000000000001,
+   "latency_p95": 23.956,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   }
+  }
+ },
+ {
+  "tau": 0.98,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.1985338483385255,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.610000000000001,
+   "latency_p95": 23.956,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   }
+  }
+ },
+ {
+  "tau": 1.0,
+  "train": {
+   "strategy": "",
+   "quality": 0.8518518518518519,
+   "cost_per_1k": 1.8442671368312757,
+   "router_cost_per_1k": 1.8234032479423874,
+   "latency_p50": 17.419,
+   "latency_p95": 45.25,
+   "router_latency_p50": 15.07,
+   "oracle_match": 0.8425925925925926,
+   "mix": {
+    "micro": 1.0
+   }
+  },
+  "test": {
+   "strategy": "",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 1.1985338483385255,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.610000000000001,
+   "latency_p95": 23.956,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   }
+  }
+ }
+]

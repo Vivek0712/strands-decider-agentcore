@@ -82,6 +82,38 @@
    "break_even_multiplier": 1
   },
   {
+   "strategy": "always haiku45",
+   "quality": 0.9065420560747663,
+   "cost_per_1k": 0.6919,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 2.57,
+   "latency_p95": 9.588,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.0,
+   "mix": {
+    "haiku45": 1.0
+   },
+   "quality_vs_pro": 0.9732441471571907,
+   "savings_vs_pro": -1.0855860677904987,
+   "break_even_multiplier": 4
+  },
+  {
+   "strategy": "always sonnet46",
+   "quality": 0.9532710280373832,
+   "cost_per_1k": 1.542919626168224,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 6.174,
+   "latency_p95": 47.595,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.0,
+   "mix": {
+    "sonnet46": 1.0
+   },
+   "quality_vs_pro": 1.0234113712374582,
+   "savings_vs_pro": -3.65080456143514,
+   "break_even_multiplier": 8
+  },
+  {
    "strategy": "oracle (micro/lite/pro)",
    "quality": 0.9626168224299065,
    "cost_per_1k": 0.05638275700934578,
@@ -212,6 +244,76 @@
    "break_even_multiplier": 1
   },
   {
+   "strategy": "classifier-haiku45",
+   "quality": 0.8660436137071652,
+   "cost_per_1k": 0.4251996261682242,
+   "router_cost_per_1k": 0.26885981308411216,
+   "latency_p50": 6.862,
+   "latency_p95": 29.179,
+   "router_latency_p50": 5.607,
+   "oracle_match": 0.3925233644859813,
+   "mix": {
+    "lite": 0.32710280373831774,
+    "micro": 0.40186915887850466,
+    "pro": 0.27102803738317754
+   },
+   "quality_vs_pro": 0.9297658862876256,
+   "savings_vs_pro": -0.28167425403407553,
+   "break_even_multiplier": 2
+  },
+  {
+   "strategy": "classifier-sonnet46",
+   "quality": 0.8878504672897196,
+   "cost_per_1k": 1.0384265887850463,
+   "router_cost_per_1k": 0.8070000000000004,
+   "latency_p50": 6.866,
+   "latency_p95": 31.208,
+   "router_latency_p50": 5.527,
+   "oracle_match": 0.37383177570093457,
+   "mix": {
+    "lite": 0.22429906542056074,
+    "micro": 0.3644859813084112,
+    "pro": 0.411214953271028
+   },
+   "quality_vs_pro": 0.9531772575250836,
+   "savings_vs_pro": -2.1301171065086084,
+   "break_even_multiplier": 8
+  },
+  {
+   "strategy": "classifier-haiku45-hard",
+   "quality": 0.8922118380062305,
+   "cost_per_1k": 0.45556939252336465,
+   "router_cost_per_1k": 0.1947009345794393,
+   "latency_p50": 6.648999999999999,
+   "latency_p95": 28.714,
+   "router_latency_p50": 5.614,
+   "oracle_match": 0.34579439252336447,
+   "mix": {
+    "micro": 0.35514018691588783,
+    "pro": 0.6448598130841121
+   },
+   "quality_vs_pro": 0.9578595317725752,
+   "savings_vs_pro": -0.3732174851257557,
+   "break_even_multiplier": 4
+  },
+  {
+   "strategy": "classifier-sonnet46-hard",
+   "quality": 0.8859813084112149,
+   "cost_per_1k": 0.8164926635514017,
+   "router_cost_per_1k": 0.5811588785046732,
+   "latency_p50": 6.862,
+   "latency_p95": 30.676,
+   "router_latency_p50": 5.683,
+   "oracle_match": 0.5327102803738317,
+   "mix": {
+    "micro": 0.5794392523364486,
+    "pro": 0.4205607476635514
+   },
+   "quality_vs_pro": 0.9511705685618729,
+   "savings_vs_pro": -1.4611442745425043,
+   "break_even_multiplier": 8
+  },
+  {
    "strategy": "bedrock intelligent prompt routing (lite/pro)",
    "quality": 0.8785046728971962,
    "cost_per_1k": 0.12938915887850466,
@@ -298,50 +400,261 @@
    "quality_vs_pro": 0.9377926421404682,
    "savings_vs_pro": -3.2094106861371516,
    "break_even_multiplier": 16
+  },
+  {
+   "strategy": "APO model selection + optimized prompts",
+   "quality": 0.8828660436137071,
+   "cost_per_1k": 0.27818616822429915,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 0.899,
+   "latency_p95": 1.815,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.4953271028037383,
+   "mix": {
+    "lite": 0.16822429906542055,
+    "micro": 0.5046728971962616,
+    "pro": 0.32710280373831774
+   },
+   "table": {
+    "extract": "micro",
+    "sports": "lite",
+    "json": "micro",
+    "math": "pro",
+    "code": "pro",
+    "logic": "micro"
+   },
+   "quality_vs_pro": 0.9478260869565217,
+   "savings_vs_pro": 0.16146669070585007,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "APO model selection, original prompts",
+   "quality": 0.8361370716510904,
+   "cost_per_1k": 0.12359112149532708,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.166,
+   "latency_p95": 2.606,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.4953271028037383,
+   "mix": {
+    "lite": 0.16822429906542055,
+    "micro": 0.5046728971962616,
+    "pro": 0.32710280373831774
+   },
+   "table": {
+    "extract": "micro",
+    "sports": "lite",
+    "json": "micro",
+    "math": "pro",
+    "code": "pro",
+    "logic": "micro"
+   },
+   "quality_vs_pro": 0.8976588628762543,
+   "savings_vs_pro": 0.6274607297394753,
+   "break_even_multiplier": 1
   }
  ],
+ "frontier_ladder": {
+  "top": "sonnet46",
+  "strategies": [
+   {
+    "strategy": "always micro",
+    "quality": 0.8049844236760125,
+    "cost_per_1k": 0.019229719626168224,
+    "router_cost_per_1k": 0.0,
+    "latency_p50": 1.069,
+    "latency_p95": 2.38,
+    "router_latency_p50": 0.0,
+    "oracle_match": 0.7850467289719626,
+    "mix": {
+     "micro": 1.0
+    },
+    "quality_vs_top": 0.8444444444444446,
+    "savings_vs_top": 0.9875367975751761
+   },
+   {
+    "strategy": "always sonnet46",
+    "quality": 0.9532710280373832,
+    "cost_per_1k": 1.542919626168224,
+    "router_cost_per_1k": 0.0,
+    "latency_p50": 6.174,
+    "latency_p95": 47.595,
+    "router_latency_p50": 0.0,
+    "oracle_match": 0.21495327102803738,
+    "mix": {
+     "sonnet46": 1.0
+    },
+    "quality_vs_top": 1.0,
+    "savings_vs_top": 0.0
+   },
+   {
+    "strategy": "oracle (micro/sonnet46)",
+    "quality": 0.9532710280373832,
+    "cost_per_1k": 0.3653625700934579,
+    "router_cost_per_1k": 0.0,
+    "latency_p50": 1.219,
+    "latency_p95": 14.423,
+    "router_latency_p50": 0.0,
+    "oracle_match": 1.0,
+    "mix": {
+     "micro": 0.7850467289719626,
+     "sonnet46": 0.21495327102803738
+    },
+    "quality_vs_top": 1.0,
+    "savings_vs_top": 0.7632005168015003
+   },
+   {
+    "strategy": "classifier-micro-hard",
+    "quality": 0.9158878504672897,
+    "cost_per_1k": 1.2151088785046726,
+    "router_cost_per_1k": 0.005956542056074766,
+    "latency_p50": 5.979,
+    "latency_p95": 42.632,
+    "router_latency_p50": 0.616,
+    "oracle_match": 0.2616822429906542,
+    "mix": {
+     "micro": 0.17757009345794392,
+     "sonnet46": 0.822429906542056
+    },
+    "quality_vs_top": 0.9607843137254902,
+    "savings_vs_top": 0.21246132468847756
+   },
+   {
+    "strategy": "classifier-lite-hard",
+    "quality": 0.9065420560747663,
+    "cost_per_1k": 1.410091682242991,
+    "router_cost_per_1k": 0.010060934579439258,
+    "latency_p50": 4.971,
+    "latency_p95": 37.449000000000005,
+    "router_latency_p50": 0.684,
+    "oracle_match": 0.4205607476635514,
+    "mix": {
+     "micro": 0.37383177570093457,
+     "sonnet46": 0.6261682242990654
+    },
+    "quality_vs_top": 0.9509803921568627,
+    "savings_vs_top": 0.08608869941923403
+   },
+   {
+    "strategy": "classifier-haiku45-hard",
+    "quality": 0.9327102803738317,
+    "cost_per_1k": 1.4431871495327098,
+    "router_cost_per_1k": 0.1947009345794393,
+    "latency_p50": 9.546,
+    "latency_p95": 50.413,
+    "router_latency_p50": 5.614,
+    "oracle_match": 0.4392523364485981,
+    "mix": {
+     "micro": 0.35514018691588783,
+     "sonnet46": 0.6448598130841121
+    },
+    "quality_vs_top": 0.9784313725490196,
+    "savings_vs_top": 0.0646388022707286
+   },
+   {
+    "strategy": "classifier-sonnet46-hard",
+    "quality": 0.9046728971962616,
+    "cost_per_1k": 1.6989954672897196,
+    "router_cost_per_1k": 0.5811588785046732,
+    "latency_p50": 8.487,
+    "latency_p95": 42.553999999999995,
+    "router_latency_p50": 5.683,
+    "oracle_match": 0.5887850467289719,
+    "mix": {
+     "micro": 0.5794392523364486,
+     "sonnet46": 0.4205607476635514
+    },
+    "quality_vs_top": 0.9490196078431372,
+    "savings_vs_top": -0.10115617072621164
+   },
+   {
+    "strategy": "decider-hard (P >= 0.50)",
+    "quality": 0.9046728971962616,
+    "cost_per_1k": 2.2065781474039454,
+    "router_cost_per_1k": 1.1793041287123567,
+    "latency_p50": 16.342,
+    "latency_p95": 37.725,
+    "router_latency_p50": 13.249,
+    "oracle_match": 0.5700934579439252,
+    "mix": {
+     "micro": 0.5420560747663551,
+     "sonnet46": 0.45794392523364486
+    },
+    "quality_vs_top": 0.9490196078431372,
+    "savings_vs_top": -0.4301316218809721
+   },
+   {
+    "strategy": "decider-hard (threshold 0.16, tuned on train)",
+    "quality": 0.9345794392523364,
+    "cost_per_1k": 2.6563931941329173,
+    "router_cost_per_1k": 1.1793041287123567,
+    "latency_p50": 19.294999999999998,
+    "latency_p95": 55.584999999999994,
+    "router_latency_p50": 13.249,
+    "oracle_match": 0.35514018691588783,
+    "mix": {
+     "micro": 0.21495327102803738,
+     "sonnet46": 0.7850467289719626
+    },
+    "quality_vs_top": 0.9803921568627451,
+    "savings_vs_top": -0.7216666047148275
+   }
+  ]
+ },
  "per_family_test": {
   "extract": {
    "micro": 0.9444444444444444,
    "lite": 0.8888888888888888,
    "pro": 1.0,
    "scout": 1.0,
-   "llama8b": 1.0
+   "llama8b": 1.0,
+   "haiku45": 1.0,
+   "sonnet46": 1.0
   },
   "sports": {
    "micro": 0.6111111111111112,
    "lite": 0.6666666666666666,
    "pro": 0.8333333333333334,
    "scout": 0.7222222222222222,
-   "llama8b": 0.5555555555555556
+   "llama8b": 0.5555555555555556,
+   "haiku45": 0.6666666666666666,
+   "sonnet46": 0.7777777777777778
   },
   "json": {
    "micro": 0.9888888888888889,
    "lite": 1.0,
    "pro": 1.0,
    "scout": 1.0,
-   "llama8b": 1.0
+   "llama8b": 1.0,
+   "haiku45": 1.0,
+   "sonnet46": 1.0
   },
   "math": {
    "micro": 0.9411764705882353,
    "lite": 0.9411764705882353,
    "pro": 0.9411764705882353,
    "scout": 0.9411764705882353,
-   "llama8b": 0.5294117647058824
+   "llama8b": 0.5294117647058824,
+   "haiku45": 0.8823529411764706,
+   "sonnet46": 1.0
   },
   "code": {
    "micro": 0.7407407407407407,
    "lite": 0.8333333333333334,
    "pro": 0.8703703703703703,
    "scout": 0.9074074074074074,
-   "llama8b": 0.7592592592592593
+   "llama8b": 0.7592592592592593,
+   "haiku45": 0.8888888888888888,
+   "sonnet46": 0.9444444444444444
   },
   "logic": {
    "micro": 0.6111111111111112,
    "lite": 0.8333333333333334,
    "pro": 0.9444444444444444,
    "scout": 1.0,
-   "llama8b": 0.5
+   "llama8b": 0.5,
+   "haiku45": 1.0,
+   "sonnet46": 1.0
   }
  },
  "price_multipliers": [
@@ -398,6 +711,24 @@
    0.03912,
    0.03912,
    0.03912
+  ],
+  "always haiku45": [
+   0.6919,
+   0.6919,
+   0.6919,
+   0.6919,
+   0.6919,
+   0.6919,
+   0.6919
+  ],
+  "always sonnet46": [
+   1.54292,
+   1.54292,
+   1.54292,
+   1.54292,
+   1.54292,
+   1.54292,
+   1.54292
   ],
   "oracle (micro/lite/pro)": [
    0.05638,
@@ -462,6 +793,42 @@
    8.75828,
    17.50391
   ],
+  "classifier-haiku45": [
+   0.4252,
+   0.56595,
+   0.84747,
+   1.41049,
+   2.53653,
+   4.78861,
+   9.29277
+  ],
+  "classifier-sonnet46": [
+   1.03843,
+   1.26278,
+   1.71148,
+   2.60889,
+   4.4037,
+   7.99332,
+   15.17256
+  ],
+  "classifier-haiku45-hard": [
+   0.45557,
+   0.71316,
+   1.22835,
+   2.25872,
+   4.31946,
+   8.44094,
+   16.6839
+  ],
+  "classifier-sonnet46-hard": [
+   0.81649,
+   1.04766,
+   1.51,
+   2.43468,
+   4.28404,
+   7.98277,
+   15.38021
+  ],
   "bedrock intelligent prompt routing (lite/pro)": [
    0.12939,
    0.2375,
@@ -506,6 +873,24 @@
    4.56707,
    7.94902,
    14.71292
+  ],
+  "APO model selection + optimized prompts": [
+   0.27819,
+   0.54006,
+   1.06382,
+   2.11132,
+   4.20634,
+   8.39636,
+   16.77641
+  ],
+  "APO model selection, original prompts": [
+   0.12359,
+   0.23542,
+   0.45908,
+   0.90639,
+   1.80101,
+   3.59026,
+   7.16876
   ]
  }
 }

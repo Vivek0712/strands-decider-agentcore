@@ -28,7 +28,17 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "bench"))
 from models import MODELS, PROFILE, REGION  # noqa: E402
 
-APO_MODELS = ["micro", "lite", "pro", "scout", "llama8b"]
+APO_MODELS = ["micro", "lite", "pro", "haiku45", "sonnet46"]
+JUDGE = "anthropic.claude-sonnet-4-6"  # one of the judge models APO allows; used for the code family only
+CODE_JUDGE_PROMPT = (
+    "You grade a Python answer to a programming task. The reference contains a working solution, then a line "
+    "'# tests', then the unit tests the answer's function must pass.\n\nTask and answer format: {{prompt}}\n\n"
+    "Candidate answer: {{response}}\n\nReference solution and tests: {{referenceResponse}}\n\n"
+    "Trace the candidate's function on every test input. Score 5 if it would pass every test and follows the "
+    "requested format (one python code block, no tests, no explanation); 4 if it passes every test but breaks the "
+    "format; 3 if it passes most tests; 2 if it passes some; 1 if it passes none or would not run. Explain briefly, "
+    "then give the score."
+)
 FUNCTION = "decider-routing-apo-evaluator"
 STATE = ROOT / "results" / "apo_job.json"
 session = boto3.Session(profile_name=PROFILE, region_name=REGION)
@@ -132,36 +142,51 @@ def make_input() -> None:
             for t in tasks
             if t["family"] == fam and t["split"] == "train"
         ]
-        lines.append(
-            {
-                "version": "bedrock-2026-05-14",
-                "templateId": fam,
-                "promptTemplate": tpl,
-                "customEvaluationMetricLabel": f"{fam}exactscore",
-                "evaluationMetricLambdaArn": arn,
-                "evaluationSamples": samples,
-            }
-        )
+        line = {"version": "bedrock-2026-05-14", "templateId": fam, "promptTemplate": tpl, "evaluationSamples": samples}
+        if fam == "code":  # an APO evaluator Lambda may not execute code, so a judge traces the tests instead
+            line.update(
+                customEvaluationMetricLabel="codetestjudge",
+                customLLMJConfig={"customLLMJPrompt": CODE_JUDGE_PROMPT, "customLLMJModelId": JUDGE},
+            )
+        else:
+            line.update(customEvaluationMetricLabel=f"{fam}exactscore", evaluationMetricLambdaArn=arn)
+        lines.append(line)
     path = ROOT / "data" / "apo_input.jsonl"
     path.write_text("\n".join(json.dumps(x) for x in lines) + "\n")
     session.client("s3").upload_file(str(path), BUCKET, "input/apo_input.jsonl")
     print(f"{len(lines)} templates, {sum(len(x['evaluationSamples']) for x in lines)} samples -> s3://{BUCKET}/input/")
 
 
-def create() -> None:
+JOBS = ROOT / "results" / "apo_jobs.json"
+
+
+def create(models: list[str] | None = None, families: list[str] | None = None) -> None:
+    """Start one job for the given target models (default: all of APO_MODELS). Smaller jobs make fewer
+    concurrent calls, which matters when the account's Claude quota is small."""
+    models = models or APO_MODELS
     br = session.client("bedrock")
-    name = f"decider-routing-{time.strftime('%Y%m%d-%H%M%S')}"
+    key = "input/apo_input.jsonl"
+    if families:  # a retry of only some templates: upload a subset of the input file
+        lines = [
+            x
+            for x in (ROOT / "data" / "apo_input.jsonl").read_text().splitlines()
+            if x and json.loads(x)["templateId"] in families
+        ]
+        key = f"input/apo_input-{'-'.join(families)}.jsonl"
+        session.client("s3").put_object(Bucket=BUCKET, Key=key, Body=("\n".join(lines) + "\n").encode())
+    name = f"decider-routing-{'-'.join(models)}-{time.strftime('%Y%m%d-%H%M%S')}"
     arn = br.create_advanced_prompt_optimization_job(
         jobName=name,
         jobDescription="Model selection for 6 task families (decider routing benchmark)",
         modelConfigurations=[
-            {"modelId": MODELS[m].model_id, "inferenceConfig": {"temperature": 0.0, "maxTokens": 1500}}
-            for m in APO_MODELS
+            {"modelId": MODELS[m].model_id, "inferenceConfig": {"temperature": 0.0, "maxTokens": 1500}} for m in models
         ],
-        inputConfig={"s3Uri": f"s3://{BUCKET}/input/apo_input.jsonl"},
+        inputConfig={"s3Uri": f"s3://{BUCKET}/{key}"},
         outputConfig={"s3Uri": f"s3://{BUCKET}/output/"},
     )["jobArn"]
     STATE.write_text(json.dumps({"jobArn": arn, "jobName": name, "created": time.time()}, indent=2))
+    jobs = json.loads(JOBS.read_text()) if JOBS.exists() else []
+    JOBS.write_text(json.dumps(jobs + [{"jobArn": arn, "models": models}], indent=2))
     print(arn)
 
 
@@ -190,12 +215,13 @@ def parse() -> None:
     results/apo_prompts.json {family: {model: optimized template}} and
     results/apo_scores.json  {family: {model: average score of the optimized prompt (train samples)}}."""
     by_id = {v.model_id: k for k, v in MODELS.items()}
-    job = json.loads(STATE.read_text())["jobArn"].split("/")[-1]
-    path = next((ROOT / "results" / "apo_raw").glob(f"*{job}*results.jsonl"))
+    jobs = [j["jobArn"].split("/")[-1] for j in json.loads(JOBS.read_text())]
+    paths = [p for j in jobs for p in (ROOT / "results" / "apo_raw").glob(f"*{j}*results.jsonl")]  # oldest first
     prompts: dict = {}
     scores: dict = {}
+    metrics: dict = {}
     failed = []
-    for line in path.read_text().splitlines():
+    for line in [line for path in paths for line in path.read_text().splitlines()]:
         rec = json.loads(line)
         fam = rec["promptTemplateId"]
         for r in rec["promptOptimizationResults"]:
@@ -205,14 +231,22 @@ def parse() -> None:
                 continue
             prompts.setdefault(fam, {})[m] = r["optimizedPromptTemplate"]
             scores.setdefault(fam, {})[m] = r["optimizedPromptMetrics"]["averageScore"]
+            metrics.setdefault(fam, {})[m] = {
+                "original": r["originalPromptMetrics"],
+                "optimized": r["optimizedPromptMetrics"],
+            }
     (ROOT / "results" / "apo_prompts.json").write_text(json.dumps(prompts, indent=2))
     (ROOT / "results" / "apo_scores.json").write_text(json.dumps(scores, indent=2))
+    (ROOT / "results" / "apo_metrics.json").write_text(json.dumps(metrics, indent=2))
+    failed = [f for f in failed if f[1] not in scores.get(f[0], {})]  # a later job may have succeeded
     print(f"{sum(len(v) for v in scores.values())} optimized (family, model) pairs; {len(failed)} failed")
     for f in failed[:10]:
         print("  failed:", *f)
 
 
 if __name__ == "__main__":
-    {"setup": setup, "input": make_input, "create": create, "status": status, "fetch": fetch, "parse": parse}[
-        sys.argv[1]
-    ]()
+    cmd = sys.argv[1]
+    if cmd == "create" and len(sys.argv) > 2:
+        create(sys.argv[2].split(","), sys.argv[3].split(",") if len(sys.argv) > 3 else None)
+    else:
+        {"setup": setup, "input": make_input, "create": create, "status": status, "fetch": fetch, "parse": parse}[cmd]()

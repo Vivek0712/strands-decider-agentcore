@@ -59,6 +59,9 @@ export class PlaygroundStack extends Stack {
         "arn:aws:bedrock:*::foundation-model/amazon.nova-*",
         `arn:aws:bedrock:${this.region}:${this.account}:inference-profile/us.amazon.nova-*`,
         `arn:aws:bedrock:${this.region}:${this.account}:default-prompt-router/amazon.nova:1`,
+        // Claude Haiku 4.5 as a classifier, through the global cross-Region profile
+        "arn:aws:bedrock:*::foundation-model/anthropic.claude-haiku-4-5-*",
+        `arn:aws:bedrock:${this.region}:${this.account}:inference-profile/global.anthropic.claude-haiku-4-5-*`,
       ],
     }));
     fn.addToRolePolicy(new iam.PolicyStatement({

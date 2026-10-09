@@ -37,6 +37,10 @@ MODELS = {
         Model("pro", "us.amazon.nova-pro-v1:0", 0.0008, 0.0032, "Nova Pro"),
         Model("scout", "us.meta.llama4-scout-17b-instruct-v1:0", 0.00017, 0.00066, "Llama 4 Scout 17B"),
         Model("llama8b", "us.meta.llama3-1-8b-instruct-v1:0", 0.00022, 0.00022, "Llama 3.1 8B"),
+        # Anthropic models on Bedrock: regional (us.) cross-Region inference prices, AWS Marketplace listing
+        Model("haiku45", "us.anthropic.claude-haiku-4-5-20251001-v1:0", 0.0011, 0.0055, "Claude Haiku 4.5"),
+        # Claude Sonnet 4.6 stands in for Sonnet 5.5, which is not yet available to this account
+        Model("sonnet46", "us.anthropic.claude-sonnet-4-6", 0.0033, 0.0165, "Claude Sonnet 4.6"),
     ]
 }
 TIERS = ["micro", "lite", "pro"]  # the cheap-to-expensive ladder the online routers choose from

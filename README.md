@@ -185,9 +185,12 @@ A [2-minute recording](docs/img/triage-console.mp4) shows the whole run at 8× s
 
 ## Use case: intelligent model routing
 
-[`usecases/model-routing`](usecases/model-routing) puts a decider in front of Amazon Nova Micro, Lite and Pro to route each request to the cheapest model that can answer it. It benchmarks the decider against LLM classifiers (Nova Micro, Nova Lite, Llama 3.1 8B), against Bedrock Intelligent Prompt Routing, and against offline model selection with Bedrock Advanced Prompt Optimization, on 216 automatically graded requests. A [live playground](https://d3jcg138x8aln8.cloudfront.net) lets you try it, rate limited with no sign-in.
+[`usecases/model-routing`](usecases/model-routing) benchmarks a decider against LLM classifiers (Nova Micro, Nova Lite, Llama 3.1 8B, Claude Haiku 4.5, Claude Sonnet 4.6), against Bedrock Intelligent Prompt Routing, and against per-task model selection with Bedrock Advanced Prompt Optimization. It uses 216 automatically graded requests, routed across Amazon Nova models and Claude Sonnet 4.6. A [live playground](https://d3jcg138x8aln8.cloudfront.net) lets you try it, rate limited with no sign-in.
 
-The short answer: on 2 vCPUs a decider is the best judge of how hard a request is, but each decision costs about $0.001. That is more than Nova Pro charges to answer a typical request, so per-request routing with a CPU decider only pays off when the expensive model costs well over 10 times Nova Pro.
+The short answer:
+- **Difficulty judge:** the decider was the most reliable judge of request difficulty (ROC AUC 1.00, against 0.88 for Claude Sonnet 4.6), and it never drifted into answering the task.
+- **Cost:** on 2 vCPUs each decision costs about $0.0012, more than a typical Nova Pro answer.
+- **The pattern the measurements support:** a decision model for judgments that are reused (a multi-step process, a task type, a guardrail), and a small LLM classifier or Bedrock's router for per-request calls.
 
 ![The routing playground](usecases/model-routing/docs/img/playground-logic.png)
 

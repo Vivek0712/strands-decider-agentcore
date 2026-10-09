@@ -127,6 +127,10 @@ def main() -> None:
         "classifier-llama8b",
         "classifier-micro-hard",
         "classifier-lite-hard",
+        "classifier-haiku45",
+        "classifier-sonnet46",
+        "classifier-haiku45-hard",
+        "classifier-sonnet46-hard",
     ]:
         rr = {r["id"]: r for r in jsonl(RES / f"routes-{name}.jsonl")}
         if all(i in rr for i in test):
@@ -195,34 +199,128 @@ def main() -> None:
 
     apo_scores = RES / "apo_scores.json"
     if apo_scores.exists():
-        sc = json.loads(apo_scores.read_text())  # {family: {model: score}} from the APO job (optimized prompts)
-        apo_tbl = family_table(
-            {(f, m): sc[f][m] for f in FAMILIES for m in MODELS if m in sc[f]},
-            [m for m in MODELS if all(m in sc[f] for f in FAMILIES)],
-        )
-        opt = load_answers("answers-optimized.jsonl")
-        if all(apo_tbl[T[i]["family"]] in opt.get(i, {}) for i in test):
-            own = {i: opt[i][apo_tbl[T[i]["family"]]] for i in test}
+        # APO's model selection: per family, the cheapest model whose optimized-prompt score (on the train
+        # samples, as reported by the job) is within 0.03 of the best score APO reported for that family.
+        sc = json.loads(apo_scores.read_text())
+        price = lambda m: MODELS[m].in_per_1k + MODELS[m].out_per_1k  # noqa: E731
+        apo_tbl = {}
+        for f in FAMILIES:
+            cand = {m: v for m, v in sc.get(f, {}).items() if m in MODELS}
+            if cand:
+                best = max(cand.values())
+                apo_tbl[f] = min((m for m, v in cand.items() if v >= best - 0.03), key=price)
+        # per (family, model): APO's reported train scores, and our held-out test scores for both prompts
+        opt_all = load_answers("answers-optimized.jsonl")
+        metrics = json.loads((RES / "apo_metrics.json").read_text()) if (RES / "apo_metrics.json").exists() else {}
+        apo_pairs = []
+        for f, by_m in sc.items():
+            for m in by_m:
+                ids = [i for i in test if T[i]["family"] == f and m in opt_all.get(i, {})]
+                if not ids:
+                    continue
+                mm = metrics.get(f, {}).get(m, {})
+                apo_pairs.append(
+                    {
+                        "family": f,
+                        "model": m,
+                        "n_test": len(ids),
+                        "apo_train_original": mm.get("original", {}).get("averageScore"),
+                        "apo_train_optimized": mm.get("optimized", {}).get("averageScore"),
+                        "test_original": st.mean(ans[i][m]["score"] for i in ids),
+                        "test_optimized": st.mean(opt_all[i][m]["score"] for i in ids),
+                        "tokens_in_original": st.mean(ans[i][m]["in"] for i in ids),
+                        "tokens_in_optimized": st.mean(opt_all[i][m]["in"] for i in ids),
+                        "cost_per_1k_original": st.mean(ans[i][m]["cost"] for i in ids) * 1000,
+                        "cost_per_1k_optimized": st.mean(opt_all[i][m]["cost"] for i in ids) * 1000,
+                    }
+                )
+        (RES / "apo_pairs.json").write_text(json.dumps(apo_pairs, indent=1))
+        for p_ in apo_pairs:
+            print(
+                f"APO {p_['family']:8} {p_['model']:9} train {p_['apo_train_original']} -> {p_['apo_train_optimized']}"
+                f"   test {p_['test_original']:.3f} -> {p_['test_optimized']:.3f}"
+                f"   tokens in {p_['tokens_in_original']:.0f} -> {p_['tokens_in_optimized']:.0f}"
+            )
+        covered = [i for i in test if T[i]["family"] in apo_tbl]
+        if len(covered) == len(test):
+            opt = load_answers("answers-optimized.jsonl")
+            if all(apo_tbl[T[i]["family"]] in opt.get(i, {}) for i in test):
+                own = {i: opt[i][apo_tbl[T[i]["family"]]] for i in test}
+                rows.append(
+                    {
+                        **score_strategy(
+                            "APO model selection + optimized prompts",
+                            {i: apo_tbl[T[i]["family"]] for i in test},
+                            ans,
+                            test,
+                            own_answers=own,
+                        ),
+                        "table": apo_tbl,
+                    }
+                )
             rows.append(
                 {
                     **score_strategy(
-                        "APO model selection + optimized prompts",
-                        {i: apo_tbl[T[i]["family"]] for i in test},
-                        ans,
-                        test,
-                        own_answers=own,
+                        "APO model selection, original prompts", {i: apo_tbl[T[i]["family"]] for i in test}, ans, test
                     ),
                     "table": apo_tbl,
                 }
             )
-        rows.append(
-            {
-                **score_strategy(
-                    "APO model selection, original prompts", {i: apo_tbl[T[i]["family"]] for i in test}, ans, test
-                ),
-                "table": apo_tbl,
-            }
-        )
+        else:
+            print("APO table covers", sorted(apo_tbl), "- not every family yet")
+
+    # Ladder B, with real prices: Nova Micro for easy requests, Claude Sonnet 5.5 for hard ones. Only routers
+    # that judge difficulty apply; a "hard" verdict sends the request to Sonnet 5.5.
+    TOP = "sonnet46"
+    rows_f = []
+    if all(TOP in ans[i] for i in test + train):
+
+        def oracle_f(i: str) -> str:
+            return "micro" if ans[i]["micro"]["score"] >= CORRECT else TOP
+
+        def add_f(name: str, choice: dict, router: dict | None = None) -> dict:
+            r = score_strategy(name, choice, ans, test, router=router)
+            r["oracle_match"] = sum(choice[i] == oracle_f(i) for i in test) / len(test)
+            r.pop("_answer_costs", None)
+            rows_f.append(r)
+            return r
+
+        add_f("always micro", {i: "micro" for i in test})
+        top = add_f(f"always {TOP}", {i: TOP for i in test})
+        add_f(f"oracle (micro/{TOP})", {i: oracle_f(i) for i in test})
+        for name in [
+            "classifier-micro-hard",
+            "classifier-lite-hard",
+            "classifier-haiku45-hard",
+            "classifier-sonnet46-hard",
+        ]:
+            rr = {r["id"]: r for r in jsonl(RES / f"routes-{name}.jsonl")}
+            if all(i in rr for i in test):
+                add_f(name, {i: TOP if rr[i]["tier"] == "pro" else "micro" for i in test}, router=rr)
+        if all(i in dh for i in test + train):
+            top_train = st.mean(ans[i][TOP]["score"] for i in train)
+            best_tau, best_cost = 1.0, None
+            curve_f = []
+            for k in range(0, 101, 2):
+                tau = k / 100
+                ch_tr = {i: TOP if dh[i]["p_hard"] >= tau else "micro" for i in train}
+                ch_te = {i: TOP if dh[i]["p_hard"] >= tau else "micro" for i in test}
+                s_tr = score_strategy("", ch_tr, ans, train, router=dh)
+                s_te = score_strategy("", ch_te, ans, test, router=dh)
+                s_tr.pop("_answer_costs"), s_te.pop("_answer_costs")
+                curve_f.append({"tau": tau, "train": s_tr, "test": s_te})
+                if s_tr["quality"] >= top_train - 0.02 and (best_cost is None or s_tr["cost_per_1k"] < best_cost):
+                    best_tau, best_cost = tau, s_tr["cost_per_1k"]
+            (RES / "curve-decider-frontier.json").write_text(json.dumps(curve_f, indent=1))
+            add_f("decider-hard (P >= 0.50)", {i: TOP if dh[i]["p_hard"] >= 0.5 else "micro" for i in test}, router=dh)
+            add_f(
+                f"decider-hard (threshold {best_tau:.2f}, tuned on train)",
+                {i: TOP if dh[i]["p_hard"] >= best_tau else "micro" for i in test},
+                router=dh,
+            )
+        for r in rows_f:
+            r["quality_vs_top"] = r["quality"] / top["quality"]
+            r["savings_vs_top"] = 1 - r["cost_per_1k"] / top["cost_per_1k"]
 
     pro = next(r for r in rows if r["strategy"] == "always pro")
     for r in rows:
@@ -252,6 +350,7 @@ def main() -> None:
             {
                 "n_test": len(test),
                 "strategies": rows,
+                "frontier_ladder": {"top": TOP, "strategies": rows_f},
                 "per_family_test": per_family,
                 "price_multipliers": multipliers,
                 "sensitivity": sensitivity,
@@ -263,6 +362,13 @@ def main() -> None:
         f"\n{'strategy':52} {'quality':>8} {'vs pro':>7} {'$/1k req':>9} {'saved':>7} "
         f"{'p50 s':>6} {'p95 s':>6} {'oracle':>7}"
     )
+    if rows_f:
+        print(f"\nLADDER B: Nova Micro or {TOP}")
+        for r in rows_f:
+            print(
+                f"  {r['strategy'][:50]:50} {r['quality']:8.3f} {r['quality_vs_top']:7.1%} {r['cost_per_1k']:9.4f} "
+                f"{r['savings_vs_top']:7.1%} {r['latency_p50']:6.2f} {r['oracle_match']:7.1%}"
+            )
     for r in rows:
         print(
             f"{r['strategy'][:52]:52} {r['quality']:8.3f} {r['quality_vs_pro']:7.1%} {r['cost_per_1k']:9.4f} "

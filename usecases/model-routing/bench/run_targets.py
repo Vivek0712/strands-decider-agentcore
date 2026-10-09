@@ -46,6 +46,8 @@ def main() -> None:
     done = {(r["id"], r["model"]) for r in map(json.loads, out.read_text().splitlines())} if out.exists() else set()
     tasks = [t for t in load_tasks() if a.split in (None, t["split"])]
     jobs = [(t, m) for t in tasks for m in a.models.split(",") if (t["id"], m) not in done]
+    if optimized is not None:  # only the (family, model) pairs that APO produced a prompt for
+        jobs = [(t, m) for t, m in jobs if optimized.get(t["family"], {}).get(m)]
     print(f"{len(jobs)} calls to make ({len(done)} already done)")
 
     def one(t: dict, m: str) -> dict:

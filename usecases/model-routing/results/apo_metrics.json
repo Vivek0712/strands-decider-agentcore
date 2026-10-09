@@ -1,0 +1,194 @@
+{
+  "math": {
+    "pro": {
+      "original": {
+        "averageInputTokens": 86,
+        "averageOutputTokens": 113,
+        "averageScore": 0.7777777777777778,
+        "averageTtftInSec": 4.2827,
+        "averageLatencyInSec": 4.7283,
+        "medianTtftInSec": 0.5424,
+        "medianLatencyInSec": 1.4046
+      },
+      "optimized": {
+        "averageInputTokens": 382,
+        "averageOutputTokens": 273,
+        "averageScore": 1.0,
+        "averageTtftInSec": 16.7725,
+        "averageLatencyInSec": 17.8673,
+        "medianTtftInSec": 10.6809,
+        "medianLatencyInSec": 11.2029
+      }
+    }
+  },
+  "code": {
+    "micro": {
+      "original": {
+        "averageInputTokens": 89,
+        "averageOutputTokens": 56,
+        "averageScore": 0.25925925925925924,
+        "averageTtftInSec": 0.3253,
+        "averageLatencyInSec": 0.4292,
+        "medianTtftInSec": 0.3257,
+        "medianLatencyInSec": 0.3883
+      },
+      "optimized": {
+        "averageInputTokens": 225,
+        "averageOutputTokens": 44,
+        "averageScore": 0.6296296296296297,
+        "averageTtftInSec": 0.3103,
+        "averageLatencyInSec": 0.4105,
+        "medianTtftInSec": 0.2986,
+        "medianLatencyInSec": 0.395
+      }
+    },
+    "pro": {
+      "original": {
+        "averageInputTokens": 90,
+        "averageOutputTokens": 54,
+        "averageScore": 0.2277777777777778,
+        "averageTtftInSec": 30.5446,
+        "averageLatencyInSec": 30.7786,
+        "medianTtftInSec": 30.7454,
+        "medianLatencyInSec": 30.8273
+      },
+      "optimized": {
+        "averageInputTokens": 323,
+        "averageOutputTokens": 47,
+        "averageScore": 0.7416666666666667,
+        "averageTtftInSec": 6.4948,
+        "averageLatencyInSec": 6.6426,
+        "medianTtftInSec": 5.5234,
+        "medianLatencyInSec": 5.6959
+      }
+    }
+  },
+  "extract": {
+    "micro": {
+      "original": {
+        "averageInputTokens": 71,
+        "averageOutputTokens": 4,
+        "averageScore": 1.0,
+        "averageTtftInSec": 0.3432,
+        "averageLatencyInSec": 0.3511,
+        "medianTtftInSec": 0.3349,
+        "medianLatencyInSec": 0.3357
+      },
+      "optimized": {
+        "averageInputTokens": 94,
+        "averageOutputTokens": 4,
+        "averageScore": 1.0,
+        "averageTtftInSec": 0.334,
+        "averageLatencyInSec": 0.3406,
+        "medianTtftInSec": 0.3163,
+        "medianLatencyInSec": 0.319
+      }
+    },
+    "lite": {
+      "original": {
+        "averageInputTokens": 71,
+        "averageOutputTokens": 4,
+        "averageScore": 1.0,
+        "averageTtftInSec": 0.3914,
+        "averageLatencyInSec": 0.4118,
+        "medianTtftInSec": 0.4029,
+        "medianLatencyInSec": 0.4143
+      },
+      "optimized": {
+        "averageInputTokens": 86,
+        "averageOutputTokens": 4,
+        "averageScore": 1.0,
+        "averageTtftInSec": 0.3882,
+        "averageLatencyInSec": 0.3967,
+        "medianTtftInSec": 0.3885,
+        "medianLatencyInSec": 0.3897
+      }
+    }
+  },
+  "sports": {
+    "micro": {
+      "original": {
+        "averageInputTokens": 24,
+        "averageOutputTokens": 73,
+        "averageScore": 0.7777777777777778,
+        "averageTtftInSec": 0.3599,
+        "averageLatencyInSec": 0.5648,
+        "medianTtftInSec": 0.3409,
+        "medianLatencyInSec": 0.5285
+      },
+      "optimized": {
+        "averageInputTokens": 283,
+        "averageOutputTokens": 2,
+        "averageScore": 0.9444444444444444,
+        "averageTtftInSec": 0.3062,
+        "averageLatencyInSec": 0.3076,
+        "medianTtftInSec": 0.3094,
+        "medianLatencyInSec": 0.3105
+      }
+    },
+    "lite": {
+      "original": {
+        "averageInputTokens": 24,
+        "averageOutputTokens": 71,
+        "averageScore": 0.7777777777777778,
+        "averageTtftInSec": 0.3995,
+        "averageLatencyInSec": 0.83,
+        "medianTtftInSec": 0.3883,
+        "medianLatencyInSec": 0.7668
+      },
+      "optimized": {
+        "averageInputTokens": 263,
+        "averageOutputTokens": 2,
+        "averageScore": 1.0,
+        "averageTtftInSec": 0.3389,
+        "averageLatencyInSec": 0.3404,
+        "medianTtftInSec": 0.3324,
+        "medianLatencyInSec": 0.3333
+      }
+    }
+  },
+  "logic": {
+    "micro": {
+      "original": {
+        "averageInputTokens": 174,
+        "averageOutputTokens": 347,
+        "averageScore": 0.7222222222222222,
+        "averageTtftInSec": 0.352,
+        "averageLatencyInSec": 1.0598,
+        "medianTtftInSec": 0.3742,
+        "medianLatencyInSec": 0.9959
+      },
+      "optimized": {
+        "averageInputTokens": 593,
+        "averageOutputTokens": 442,
+        "averageScore": 0.9444444444444444,
+        "averageTtftInSec": 0.5191,
+        "averageLatencyInSec": 1.4532,
+        "medianTtftInSec": 0.2796,
+        "medianLatencyInSec": 1.1621
+      }
+    }
+  },
+  "json": {
+    "micro": {
+      "original": {
+        "averageInputTokens": 85,
+        "averageOutputTokens": 56,
+        "averageScore": 1.0,
+        "averageTtftInSec": 0.3192,
+        "averageLatencyInSec": 0.4291,
+        "medianTtftInSec": 0.3074,
+        "medianLatencyInSec": 0.4108
+      },
+      "optimized": {
+        "averageInputTokens": 85,
+        "averageOutputTokens": 56,
+        "averageScore": 1.0,
+        "averageTtftInSec": 0.3027,
+        "averageLatencyInSec": 0.4011,
+        "medianTtftInSec": 0.3099,
+        "medianLatencyInSec": 0.4018
+      }
+    }
+  }
+}

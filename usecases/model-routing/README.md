@@ -1,10 +1,10 @@
 # Intelligent model routing with a Strands Decider on AgentCore Runtime
 
-**Route each request to the cheapest Amazon Nova model that can answer it, and measure honestly whether that pays.** This use case compares a Strands Decider served from Amazon Bedrock AgentCore Runtime with LLM classifiers (Nova Micro, Nova Lite, Llama 3.1 8B), with Bedrock Intelligent Prompt Routing, and with offline model selection, on 216 graded requests across 6 task families.
+**Route each request to the cheapest Amazon Nova model that can answer it, and measure honestly whether that pays.** This use case compares a Strands Decider served from Amazon Bedrock AgentCore Runtime with LLM classifiers (Nova Micro, Nova Lite, Llama 3.1 8B, Claude Haiku 4.5, Claude Sonnet 4.6), with Bedrock Intelligent Prompt Routing, and with per-task model selection from Bedrock Advanced Prompt Optimization, on 216 graded requests across 6 task families.
 
 **Live playground:** https://d3jcg138x8aln8.cloudfront.net (no sign-in, rate limited)
 
-![The playground: three routers decide, the decider's choice answers, and the cost includes the routing](docs/img/playground.gif)
+![The playground: four routers decide, the decider's choice answers, and the cost includes the routing](docs/img/playground.gif)
 
 ## The short version
 
@@ -20,20 +20,35 @@ Measured on 107 held-out requests (us-east-1, 8 to 9 October 2026, on-demand pri
 | LLM classifier: Nova Micro | 83.2 | $0.056 | 83% cheaper | 0.64 s |
 | LLM classifier: Nova Lite | 83.2 | $0.042 | 87% cheaper | 0.59 s |
 | LLM classifier: Nova Micro, "needs multi-step reasoning?" | 88.5 | $0.281 | 15% cheaper | 0.62 s |
+| LLM classifier: Claude Haiku 4.5, "needs multi-step reasoning?" | 89.2 | $0.456 | 37% more expensive | 0.94 s (paced) |
+| LLM classifier: Claude Sonnet 4.6, tier question | 88.8 | $1.038 | 213% more expensive | 1.09 s (paced) |
 | Strands Decider on AgentCore, tier question | 87.5 | $1.068 | **222% more expensive** | 10.7 s |
 | Strands Decider on AgentCore, "needs multi-step reasoning?" (threshold tuned on train) | 87.4 | $1.397 | 321% more expensive | 13.3 s |
 
-Quality is the mean grader score x 100; 1 is a fully correct answer.
+Quality is the mean grader score x 100; 1 is a fully correct answer. The account's Claude quota is 10 requests per minute, which inflated latencies during the full run; the Claude latencies shown are medians of 20 paced requests per model ([`results/claude-latency-paced.json`](results/claude-latency-paced.json)).
+
+With a real frontier model as the expensive tier, **Nova Micro for easy requests and Claude Sonnet 4.6 for hard ones**:
+
+| strategy | quality | cost per 1,000 requests | vs always Sonnet 4.6 |
+|---|---|---|---|
+| always Claude Sonnet 4.6 | 95.3 | $1.543 | baseline |
+| oracle | 95.3 | $0.365 | 76% cheaper |
+| Nova Micro classifier | 91.6 | $1.215 | 21% cheaper |
+| Claude Haiku 4.5 classifier | 93.3 | $1.443 | 6% cheaper |
+| Strands Decider, P >= 0.50 | 90.5 | $2.207 | 43% more expensive |
+| Strands Decider, threshold tuned on train | 93.5 | $2.656 | 72% more expensive |
 
 What the numbers say:
 
 1. **With Nova prices, a CPU decider is too expensive to route each request.** One routing decision on the 2 vCPU microVM takes about 11 seconds and costs about $0.001 of AgentCore compute. That is three times what Nova Pro charges, on average, to answer the request outright ($0.00033). No threshold can fix this, because the router's cost is paid on every request.
-2. **The decider is the best judge of how hard a request is.** Asked "does answering this need careful multi-step reasoning?", it gives P(hard) of 0.15 for extraction and yes/no questions, 0.28 for JSON formatting, and 0.67 to 0.78 for maths, code and logic. Nova Micro asked the same question called 100% of JSON tasks and 72% of extraction tasks hard, and gave 29 answers that were neither yes nor no. The decider's routing matched the oracle's choice on 51% of requests, the most of any router.
-3. **A hard request is not the same as one that needs a big model.** Nova Micro solves 94% of the GSM8K maths here. Routing on difficulty sends that maths to Pro and buys almost nothing.
-4. **Measuring models on your own tasks beats clever routing.** The oracle shows Nova Micro fully solves 79% of requests. Llama 4 Scout matched Nova Pro's quality (92.8 against 93.1) at 77% less cost, with no router at all.
-5. **Bedrock Intelligent Prompt Routing is the practical default for Nova traffic.** It has no router fee, adds no extra call, and saved 61% at 94% of Nova Pro's quality.
-6. **The decider pays off only when the expensive tier is expensive.** With the same tokens and decisions, the decider beats always-top-tier once that model costs about 4 times Nova Pro (tier question, at lower quality) to 16 times (multi-step question). That is the price range of frontier models. See [price sensitivity](#when-does-a-router-pay-for-itself).
-7. **Bedrock Advanced Prompt Optimization could not run in this account.** All six jobs failed. Every evaluation path depends on Anthropic models that the account has not enabled, and the Lambda evaluator has undocumented code restrictions. See [the APO section](#bedrock-advanced-prompt-optimization).
+2. **The decider is the best judge of how hard a request is.** Asked "does answering this need careful multi-step reasoning?", it gives P(hard) of 0.15 for extraction and yes/no questions, 0.28 for JSON formatting, and 0.67 to 0.78 for maths, code and logic: it separates the multi-step families perfectly (ROC AUC 1.00). With the same question Claude Sonnet 4.6 reaches 0.88 (it flagged only 42% of code tasks), Claude Haiku 4.5 0.78 and Nova Micro 0.60 (it called every JSON task hard).
+3. **LLM classifiers can be talked into answering; a decider cannot.** On about 40 of 216 requests each, Claude Haiku 4.5 and Claude Sonnet 4.6 ignored the routing instruction and started solving the task ("249.99", "Let me trace through each..."). A decider only answers its typed question. (One prompt was used for every classifier; a system prompt or prefill would reduce this for Claude.)
+4. **A hard request is not the same as one that needs a big model.** Nova Micro solves 94% of the GSM8K maths here. Routing on difficulty sends that maths to Pro and buys almost nothing.
+5. **Measuring models on your own tasks beats clever routing.** The oracle shows Nova Micro fully solves 79% of requests. Llama 4 Scout matched Nova Pro's quality (92.8 against 93.1) at 77% less cost, with no router at all.
+6. **Bedrock Intelligent Prompt Routing is the practical default for Nova traffic.** It has no router fee, adds no extra call, and saved 61% at 94% of Nova Pro's quality.
+7. **Even against Claude Sonnet 4.6, the decider lost on these short tasks.** An average Sonnet answer here cost $0.0015; a decision costs $0.0012. Routing half the traffic away breaks even once an average expensive answer costs about $0.0022, 1.4 times these. Long contexts and long answers cross that line; short questions do not. See [routing to Claude Sonnet 4.6](#routing-to-claude-sonnet-46) and [price sensitivity](#when-does-a-router-pay-for-itself).
+8. **Bedrock Advanced Prompt Optimization is a useful per-task model selector, if you check it on held-out data.** Its rewrites lifted maths on Nova Pro from 94 to 100 and sports on Nova Micro from 61 to 72 on the test split, but one rewrite that scored 1.00 on training fell from 89 to 72 on test. Model selection with optimized prompts reached 88.3 quality at 16% below always Nova Pro. See [the APO section](#bedrock-advanced-prompt-optimization).
+9. **No combination of decider and LLM classifier beat the best single router** on this single-step benchmark. The pattern that the measurements support is a division of labour: a decision model where one judgment is reused (a multi-step process, a task type, a guardrail) and a small LLM classifier or Bedrock's router for per-request calls. See [combinations](#combining-a-decider-with-an-llm-classifier) and [guidance](#choosing-what-makes-the-routing-call).
 
 ## Contents
 
@@ -41,8 +56,11 @@ What the numbers say:
 - [The routers](#the-routers)
 - [How the benchmark is scored](#how-the-benchmark-is-scored)
 - [Results in detail](#results-in-detail)
+- [Routing to Claude Sonnet 4.6](#routing-to-claude-sonnet-46)
 - [When does a router pay for itself?](#when-does-a-router-pay-for-itself)
+- [Combining a decider with an LLM classifier](#combining-a-decider-with-an-llm-classifier)
 - [Bedrock Advanced Prompt Optimization](#bedrock-advanced-prompt-optimization)
+- [Choosing what makes the routing call](#choosing-what-makes-the-routing-call)
 - [The playground](#the-playground)
 - [Reproduce it](#reproduce-it)
 - [Costs of this study](#costs-of-this-study)
@@ -61,7 +79,7 @@ Six task families, 36 requests each (216 total), split half and half into `train
 | code | MBPP sanitized test | CC-BY-4.0 | fraction of the dataset's unit tests that pass, run in a separate process |
 | logic | BIG-Bench Hard: logical deduction (5 objects), shuffled objects (5), date understanding | MIT | option letter |
 
-Target models: Nova Micro, Nova Lite and Nova Pro (the routing ladder), plus Llama 4 Scout 17B and Llama 3.1 8B as reference points. Every request was answered by all five at temperature 0 (1,079 calls; one Llama 3.1 8B call failed after throttling, so 215 requests have all five answers).
+Target models: Nova Micro, Nova Lite and Nova Pro (the routing ladder), Claude Sonnet 4.6 (the frontier tier of the second ladder), plus Llama 4 Scout 17B, Llama 3.1 8B and Claude Haiku 4.5 as reference points. Every request was answered by all seven at temperature 0 (1,511 calls; one Llama 4 Scout call failed after throttling, so 215 requests have all seven answers). Claude Sonnet 4.6 stands in for Claude Sonnet 5.5, which is not yet available to the test account.
 
 ![Quality by family and model](docs/img/family-quality.png)
 
@@ -75,12 +93,10 @@ All the description-based routers get the same description of the three tiers ([
 |---|---|---|---|
 | **Strands Decider, tier question** | one `choice` question: "Which is the cheapest model that will answer this request correctly?", with the three tier descriptions as options | `strands-decider-2B-hobson-v21`, int8, on AgentCore Runtime (2 vCPU, 8 GB microVM), 4 warm sessions | a calibrated probability per tier; the router takes the cheapest tier whose cumulative probability reaches a threshold |
 | **Strands Decider, multi-step question** | one `noul` question: "Does answering this request correctly need careful multi-step reasoning?", with true/false criteria | same | P(yes); escalate to Pro when P reaches a threshold tuned on train, otherwise Micro |
-| **LLM classifier** | the same tier question (or the same multi-step question) as a prompt, answered with one word | Nova Micro, Nova Lite or Llama 3.1 8B on Bedrock | a label, with no probability |
+| **LLM classifier** | the same tier question (or the same multi-step question) as a prompt, answered with one word | Nova Micro, Nova Lite, Llama 3.1 8B, Claude Haiku 4.5 or Claude Sonnet 4.6 on Bedrock (Claude through the global cross-Region profiles) | a label, with no probability |
 | **Bedrock Intelligent Prompt Routing** | the default Nova Prompt Router predicts which of Nova Lite and Nova Pro will answer better, and answers in the same call | Amazon Bedrock | the answer, plus the model that produced it |
 | **family table** | per task family, the cheapest model within 3 points of the best on the train split | offline | a fixed model per family (this is what model selection without prompt rewriting gives you) |
 | **oracle** | the cheapest tier that answered fully right (Pro if none did) | needs the answers in advance | an upper bound, not a real router |
-
-Claude Haiku could not be included as a classifier: the account's Anthropic model access is not enabled (see [limits](#limits)).
 
 ## How the benchmark is scored
 
@@ -105,12 +121,32 @@ The orange curves trace every threshold of the two decider questions on the test
 How each router behaved:
 
 - **The decider, tier question,** followed the tier descriptions closely. It put JSON on Nova Lite (P = 0.84), as the description says, and spread everything else between Lite and Pro. It sent only 3% to Micro, although Micro was enough for 79%. The descriptions were mine, and the same ones misled every description-based router. A router that only reads descriptions inherits its author's assumptions; data from your own traffic corrects them.
-- **The decider, multi-step question,** separated easy from hard families cleanly and matched the oracle on 51% of requests. That is the best of any router, but at 45% to Pro it still overpaid on maths that Micro solves.
+- **The decider, multi-step question,** separated easy from hard families perfectly and matched the oracle on 51% of requests (the Claude Sonnet 4.6 classifier, at 53%, was the only router above it). At 45% to Pro it still overpaid on maths that Micro solves.
 - **Nova Micro and Nova Lite as classifiers** were cheap and fast (about 0.6 s) but lost 10 points of quality. They sent most logic puzzles to Micro and Lite. With the multi-step question they swung the other way, sending 82% (Micro) and 63% (Lite) to Pro.
 - **Llama 3.1 8B as a classifier** is limited by its account quota (8 requests per minute on demand), which shows up as 4.5 s of added latency.
+- **Claude Haiku 4.5 and Claude Sonnet 4.6 as classifiers** routed with about 87 to 89 quality, but each costs more per decision than routing saves on the Nova ladder (Haiku adds $0.37 to $0.43 per 1,000 requests, Sonnet about $0.8 to $1.0). About 18% of their answers began solving the request instead of routing it; an unparseable answer counts as "pro".
 - **Bedrock Intelligent Prompt Routing** chose Lite for 69% and Pro for 31% of all requests, and kept 94% of Pro's quality. It is the strongest real router here on cost against quality, and the only one with no added latency.
 
 ![Latency added by the router](docs/img/router-latency.png)
+
+## Routing to Claude Sonnet 4.6
+
+Nova Pro is cheap, so the second ladder uses a real frontier price: Nova Micro for easy requests, Claude Sonnet 4.6 ($3.30 / $16.50 per million input / output tokens) for hard ones. Only the routers that judge difficulty apply; a "hard" verdict sends the request to Sonnet.
+
+![Ladder B: Nova Micro or Claude Sonnet 4.6](docs/img/ladder-b.png)
+
+| strategy | quality | $ / 1k requests | vs always Sonnet | oracle match |
+|---|---|---|---|---|
+| always Claude Sonnet 4.6 | 95.3 | 1.543 | baseline | 21% |
+| oracle (Micro if Micro is fully right) | 95.3 | 0.365 | 76% cheaper | 100% |
+| classifier: Nova Micro | 91.6 | 1.215 | 21% cheaper | 26% |
+| classifier: Nova Lite | 90.7 | 1.410 | 9% cheaper | 42% |
+| classifier: Claude Haiku 4.5 | 93.3 | 1.443 | 6% cheaper | 44% |
+| classifier: Claude Sonnet 4.6 | 90.5 | 1.699 | 10% more expensive | 59% |
+| decider, P >= 0.50 | 90.5 | 2.207 | 43% more expensive | 57% |
+| decider, threshold 0.16 (tuned on train) | 93.5 | 2.656 | 72% more expensive | 36% |
+
+The decider routes as well as anything here (57% oracle match at P >= 0.50), but its $0.0012 per decision is close to the $0.0015 an average Sonnet answer cost on these short tasks. At P >= 0.50 it sends 54% of requests to Micro, so it breaks even once an average expensive answer costs about **$0.0022**. Long documents, large agent contexts and long generated answers are above that line.
 
 ## When does a router pay for itself?
 
@@ -140,31 +176,69 @@ On a GPU host its per-decision cost would be far lower. I did not measure that h
 
 ## Bedrock Advanced Prompt Optimization
 
-[Advanced Prompt Optimization](https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompt-optimization.html) (APO, launched 14 May 2026) rewrites a prompt template for up to 5 target models. It scores the original and optimized prompt on each model against your metric, and reports cost and latency, which makes it a per-task model selection tool. The plan was:
-- one template per task family (6 templates, 18 train samples each);
-- five target models: Nova Micro, Nova Lite, Nova Pro, Llama 4 Scout and Llama 3.1 8B;
-- graded by the same exact graders as the benchmark, deployed as a Lambda evaluator;
-- then routing each family to the model APO recommends, run with its optimized prompt on the test split.
+[Advanced Prompt Optimization](https://docs.aws.amazon.com/bedrock/latest/userguide/advanced-prompt-optimization.html) (APO, launched 14 May 2026) rewrites a prompt template for up to 5 target models. It reports the score on your metric, the cost and the latency of the original and optimized prompt per model, which makes it a per-task model selector.
 
-The job input is [`data/apo_input.jsonl`](data/apo_input.jsonl), the evaluator [`apo/lambda_function.py`](apo/lambda_function.py), and the driver [`apo/apo.py`](apo/apo.py) (`setup`, `input`, `create`, `status`, `fetch`, `parse`). `bench/evaluate.py` scores APO's selection as soon as `results/apo_scores.json` exists.
+The setup:
+- **Templates:** 6 (one per task family), 18 train samples each ([`data/apo_input.jsonl`](data/apo_input.jsonl)).
+- **Evaluator:** a Lambda function running the same exact graders as the benchmark, for 5 families ([`apo/lambda_function.py`](apo/lambda_function.py)). APO evaluators may not execute code (the service rejects `os`, `subprocess`, `sys` and `tempfile` imports and `exec`/`compile`), so the code family uses an LLM judge, Claude Sonnet 4.6, that traces the reference tests.
+- **Targets:** Nova Micro, Nova Lite, Nova Pro, Claude Haiku 4.5 and Claude Sonnet 4.6, one job per model ([`apo/apo.py`](apo/apo.py): `create <model> [families]`).
+- **Coverage:** with the account's Claude quota at 10 requests per minute, many entries were throttled or hit an intermittent service error. 9 (family, model) pairs completed; every family has at least one.
 
-All six jobs failed. What each attempt taught:
+Each completed pair was then run on the **held-out test split** with its optimized prompt ([`results/apo_pairs.json`](results/apo_pairs.json)):
 
-![APO jobs and their failure reasons](docs/img/apo-jobs.png)
+![APO original against optimized prompt on the test split](docs/img/apo-pairs.png)
 
-| attempt | result | lesson |
-|---|---|---|
-| Lambda evaluator that ran each code answer's unit tests in a subprocess | `Metric code validation failed: Imports ... not in allowlist: __future__, os, subprocess, sys, tempfile` | Bedrock reads the evaluator's source before the job and allows only some imports. This is not in the documentation. |
-| Evaluator using `compile()` and `exec()` to run tests in-process | `Uses potentially dangerous builtin: compile(); ... exec()` | An APO evaluator cannot execute code at all. For code tasks it can only check the answer's shape (function name, arguments, a return). On this data that static check gave every answer 1.0, whether or not its tests passed. |
-| Evaluator using only `json`, `re` and `logging` (agrees with the local graders on 216 of 216 real answers) | every entry: `The text field in the ContentBlock object at messages.0.content.0 is blank`, with `dataset: []` | No samples reached the models. |
-| AWS's documentation example 1, verbatim, with steering criteria | `Model 'us.anthropic.claude-sonnet-4-6' is not available. Model use case details have not been submitted for this account.` | Steering criteria and the default evaluator are judged by Claude Sonnet 4.6. |
-| The same documentation example with the Lambda evaluator | the same blank-message failure | The failure is not caused by this dataset. |
+| family / model | APO train score, original -> optimized | test score, original -> optimized | input tokens, original -> optimized |
+|---|---|---|---|
+| code / Nova Micro | 0.26 -> 0.63 (judge scale) | 74.1 -> 72.2 | 100 -> 236 |
+| code / Nova Pro | 0.23 -> 0.74 (judge scale) | 87.0 -> 87.0 | 100 -> 334 |
+| extract / Nova Lite | 1.00 -> 1.00 | 88.9 -> 72.2 | 70 -> 85 |
+| extract / Nova Micro | 1.00 -> 1.00 | 94.4 -> 100.0 | 70 -> 93 |
+| json / Nova Micro | 1.00 -> 1.00 | 98.9 -> 98.9 | 81 -> 81 |
+| logic / Nova Micro | 0.72 -> 0.94 | 61.1 -> 66.7 | 173 -> 591 |
+| math / Nova Pro | 0.78 -> 1.00 | 94.1 -> 100.0 | 84 -> 381 |
+| sports / Nova Lite | 0.78 -> 1.00 | 66.7 -> 77.8 | 23 -> 262 |
+| sports / Nova Micro | 0.78 -> 0.94 | 61.1 -> 72.2 | 23 -> 282 |
 
-**Conclusion:** in an account without Anthropic model access, APO cannot run with any evaluation method. The built-in judges, custom LLM judges and steering criteria all run on Claude models. The Lambda path also failed, the same way, even on the documentation's own example. To finish the comparison, enable Anthropic model access (the use case details form in the Bedrock console), then run `python apo/apo.py create`, `fetch` and `parse` followed by `python bench/evaluate.py`. Two smaller notes:
-- The list API returns its jobs under `jobSummaries`, not `advancedPromptOptimizationJobSummaries` as the documentation shows.
-- The results files of the failed jobs report zero input tokens, zero output tokens and a score of 0 for every model.
+What it shows:
+- **Most rewrites helped on unseen requests:** maths on Nova Pro 94 to 100, extract on Nova Micro 94 to 100, sports on Micro and Lite +11 points each, logic on Micro +6.
+- **The train score did not predict the test score.** Extract on Nova Lite scored 1.00 on train before and after, yet the optimized prompt fell from 89 to 72 on test. The Nova Pro code rewrite memorised details of training examples (a regex for words starting with a capital P) and gained nothing on test.
+- **Rewrites are longer:** sports went from 23 to 282 input tokens, logic from 173 to 591. On Nova Micro that is still cheap; on a frontier model it matters.
 
-Until then, the **family table** row is the closest stand-in for APO's model selection without prompt rewriting. It is the cheapest model per family within 3 points of the best on train: 88.0 quality, 32% cheaper than always Pro. It did worse than Bedrock's router and much worse than simply choosing Llama 4 Scout. With 18 train samples per family, 3 points is less than one wrong answer, so the table often fell back to Pro.
+**APO as model selection:** per family, the cheapest model within 0.03 of APO's best reported score. On the test split it reached **88.3 quality at $0.278 per 1,000 requests (16% cheaper than always Nova Pro)** with the optimized prompts, against 83.6 at $0.124 with the same models and the original prompts.
+
+## Combining a decider with an LLM classifier
+
+The obvious next step is to combine the two kinds of router. I measured each combination per request, which is k = 1: one decider judgment per request. The k = 5 and k = 10 columns are a **projection**: they assume one decider judgment covers k steps of a multi-step process. No real multi-step workflow was benchmarked.
+
+| ladder | combination | quality | $ / 1k, measured (k = 1) | projection k = 5 | projection k = 10 |
+|---|---|---|---|---|---|
+| Nova | decider gate (P < 0.5 to Micro), hard to Nova Micro tier classifier | 83.0 | 1.22 | 0.28 | 0.16 |
+| Nova | decider gate, hard to a classifier choosing Lite or Pro | 85.8 | 1.23 | 0.28 | 0.17 |
+| Nova | Nova Micro classifier first, decider confirms escalations | 86.4 | 1.17 | 0.40 | 0.31 |
+| Nova | Claude Haiku 4.5 classifier first, decider confirms escalations | 87.4 | 1.22 | 0.58 | 0.49 |
+| Nova | decider alone (P >= 0.5) | 87.4 | 1.40 | 0.46 | 0.34 |
+| Sonnet | decider gate, hard to Nova Micro tier classifier | 86.7 | 1.62 | 0.68 | 0.56 |
+| Sonnet | Nova Micro classifier first, decider confirms escalations | 89.5 | 1.82 | 1.05 | 0.96 |
+| Sonnet | decider alone (P >= 0.5) | 90.5 | 2.21 | 1.26 | 1.15 |
+
+Single routers on the Sonnet ladder for comparison: Nova Micro tier classifier 86.9 at $0.74, Nova Micro multi-step classifier 91.6 at $1.22, Claude Haiku 4.5 multi-step classifier 93.3 at $1.44, always Sonnet 95.3 at $1.54.
+
+**Measured verdict:** no combination beat the best single routers on quality per dollar. Gating with a perfect difficulty judge does not help when "hard" is a poor predictor of "the small model fails" (maths is hard but Micro solves 94% of it; sports is easy but Micro gets 61%). **Projection:** if one decider judgment is shared by about 5 to 10 steps, decider routing on the Sonnet ladder reaches 90.5 quality at $1.15 to $1.26 per 1,000, 18 to 25% cheaper than always Sonnet, still below Haiku's 93.3.
+
+## Choosing what makes the routing call
+
+![Decision diagram: price single-model baselines first; if one judgment is reused across steps, a task type or a guardrail, use a decision model; otherwise use Bedrock Intelligent Prompt Routing when the models fit one of its routers, or a small LLM classifier; for fixed task types choose the model once per type and verify on held-out data](docs/img/routing-guidance.png)
+
+What the measurements support:
+
+1. **Price the single-model baselines first.** Always Llama 4 Scout (92.8 at $0.076) beat every router here on quality.
+2. **Per-request routing:** Bedrock Intelligent Prompt Routing when your models fit one of its routers (no fee, no added latency, 61% saved); otherwise a small LLM classifier with a one-word answer, strict parsing and a default tier.
+3. **Do not use a frontier model as the per-request router** for a cheap ladder: the Claude classifiers cost more than they saved and drifted into answering on about 18% of requests.
+4. **Use a decision model for judgments that are reused** (once per multi-step process, once per task type, guardrails, triage). It judged difficulty perfectly (ROC AUC 1.00), never drifted, and gave a probability whose threshold can be tuned on data.
+5. **On CPU, per-request decider routing pays only when the expensive answer is expensive:** break-even here is an average expensive answer of about $0.0022.
+6. **Route on measured capability per task family**, and check every description you give a router against those measurements.
+7. **For fixed task types, choose the model once per type** (APO model selection or one decider judgment) and keep any rewritten prompt only after a held-out check.
 
 ## The playground
 
@@ -175,7 +249,7 @@ https://d3jcg138x8aln8.cloudfront.net
 | ![A logic puzzle: the three routers disagree](docs/img/playground-logic.png) | ![The benchmark tab](docs/img/playground-benchmark.png) |
 
 How to use it:
-- **Try it:** send a request, or pick one of 12 samples from the test set. Three routers decide in parallel: the decider (with a threshold slider), Nova Micro as a classifier, and Bedrock's Nova router. The decider's choice answers.
+- **Try it:** send a request, or pick one of 12 samples from the test set. Four routers decide in parallel: the decider (with a threshold slider), Nova Micro and Claude Haiku 4.5 as classifiers, and Bedrock's Nova router. The decider's choice answers.
 - **Costs are honest:** the page shows the answer's cost, the decider's routing cost and the total next to what Nova Pro would have cost for the same tokens. It also keeps running totals for you and for the whole playground. The totals usually show the decider making requests more expensive, which is the point of this study.
 - **Benchmark tab:** the full results table and charts.
 - **A 3x-speed recording:** [`docs/img/playground.mp4`](docs/img/playground.mp4).
@@ -192,7 +266,7 @@ EventBridge (every 10 min) ── Lambda {"warm": true} ── keeps one decider
 ```
 
 Rate limits, with no keys or sign-in:
-- **Per visitor:** 40 calls per hour per IP; one playground run uses 4.
+- **Per visitor:** 40 calls per hour per IP; one playground run uses 5.
 - **Whole playground:** 1,500 calls per day.
 - **API Gateway throttle:** 5 requests per second.
 - **Input and output caps:** prompts of 2,500 characters or fewer, answers of 700 tokens or fewer.
@@ -235,17 +309,20 @@ The decider router needs a deployed decider (`python deciderctl.py add triage --
 
 | item | cost |
 |---|---|
-| 1,079 benchmark answers (5 models) | $0.106 |
+| 1,079 benchmark answers (Nova and Llama, 5 models) | $0.106 |
 | 432 decider routing decisions on AgentCore (compute) | $0.54 |
 | 1,080 LLM classifier decisions | $0.020 |
 | 216 Bedrock router answers | $0.031 |
-| Advanced Prompt Optimization (6 failed jobs) | no optimization metrics were produced; any charge would be small |
+| 432 Claude answers (Haiku 4.5, Sonnet 4.6) | $0.50 |
+| 864 Claude classifier decisions | $0.40 |
+| Advanced Prompt Optimization jobs | billed as Bedrock inference tokens; not separated in this account |
 
 ## Limits
 
 - **Small and narrow.** 107 test requests in 6 families. Differences under about 3 quality points are within noise. A different traffic mix, with longer documents or harder reasoning, would change the ladder and the oracle.
 - **Zero-shot decider.** The decider was used without any training for routing. A decider fine-tuned on oracle labels from your own traffic is the obvious next step, but it does not change the per-decision compute cost on CPU.
-- **Gated models.** Claude models (including Haiku, the classifier originally planned) are gated in the test account, which also blocked APO.
+- **Claude availability and quota.** Claude Haiku 5.5 and Claude Sonnet 5.5 are not yet available to the test account, so Claude Sonnet 4.6 stands in as the frontier tier. The account's Claude quota is 10 requests per minute per model and profile, which slowed the runs and inflated recorded Claude latencies; the latencies quoted come from a paced sample.
+- **One classifier prompt.** Every LLM classifier got the same prompt. Per-model prompting (for example a system prompt or prefill for Claude) would cut the answers that started solving the task instead of routing it.
 - **Quota-bound Llama latency.** Llama 4 Scout and Llama 3.1 8B latencies include throttling under low account quotas (Scout's p95 of 37 s is quota-bound, not model speed).
 - **Price sensitivity is a what-if.** It scales token prices only. A real frontier model would also answer differently.
 - **Approximate decider cost.** The decider's cost uses AgentCore's consumption pricing for active CPU plus memory during inference. The idle memory of warm sessions is a separate fixed cost, about $0.071 per session-hour.

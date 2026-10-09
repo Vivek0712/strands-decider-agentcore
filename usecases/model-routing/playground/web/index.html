@@ -64,13 +64,14 @@
   input[type=range] { width:160px; accent-color:var(--accent); }
   footer { max-width:1240px; margin:0 auto; padding:0 24px 30px; color:var(--mute); font-size:12.5px; }
   a { color:var(--accent); }
+  @media (max-width:1100px) { .cols4 { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   @media (max-width:900px) { .cols3, .cols4, .charts { grid-template-columns:1fr; } header, main, footer { padding-left:16px; padding-right:16px; } }
 </style>
 </head>
 <body>
 <header>
   <h1><b>Model routing</b> playground</h1>
-  <p class="sub">Send a request and watch three routers pick the cheapest Amazon Nova model that can answer it: a Strands Decider on Amazon Bedrock AgentCore Runtime (calibrated probabilities), Nova Micro as an LLM classifier, and Bedrock Intelligent Prompt Routing. The decider's choice answers your request.</p>
+  <p class="sub">Send a request and watch four routers pick the cheapest Amazon Nova model that can answer it: a Strands Decider on Amazon Bedrock AgentCore Runtime (calibrated probabilities), Nova Micro and Claude Haiku 4.5 as LLM classifiers, and Bedrock Intelligent Prompt Routing. The decider's choice answers your request.</p>
   <nav><button class="on" data-tab="try">Try it</button><button data-tab="bench">Benchmark</button><button data-tab="about">How it works</button></nav>
 </header>
 <main>
@@ -85,9 +86,10 @@
       </div>
       <p class="small muted" style="margin:8px 0 0">Lower threshold: cheaper, more requests go to small models. Higher: safer, more go to Nova Pro.</p>
     </div>
-    <div class="grid cols3" style="margin-top:16px">
+    <div class="grid cols4" style="margin-top:16px">
       <div class="card" id="c-decider"><h3>Strands Decider</h3><div class="who">2B decision model on AgentCore Runtime (CPU)</div><div class="body muted small">Waiting for a request.</div></div>
       <div class="card" id="c-classifier"><h3>LLM classifier</h3><div class="who">Nova Micro, one-word answer</div><div class="body muted small">Waiting for a request.</div></div>
+      <div class="card" id="c-haiku"><h3>LLM classifier</h3><div class="who">Claude Haiku 4.5, one-word answer</div><div class="body muted small">Waiting for a request.</div></div>
       <div class="card" id="c-bedrock"><h3>Bedrock prompt router</h3><div class="who">Nova Prompt Router (Lite or Pro)</div><div class="body muted small">Waiting for a request.</div></div>
     </div>
     <div class="card" style="margin-top:16px" id="c-answer"><h3>Answer</h3><div class="body muted small">The decider's chosen model answers here.</div></div>
@@ -114,7 +116,7 @@
       <h3>What happens when you press the button</h3>
       <ol>
         <li>Three routers look at your request at the same time. The <b>Strands Decider</b> answers one typed question, <i>which is the cheapest model that will answer this correctly?</i>, with a probability for Nova Micro, Nova Lite and Nova Pro. The page routes to the cheapest model whose cumulative probability of being enough reaches the threshold.</li>
-        <li><b>Nova Micro</b> gets the same question and the same model descriptions and answers with one word.</li>
+        <li><b>Nova Micro</b> and <b>Claude Haiku 4.5</b> get the same question and the same model descriptions and answer with one word.</li>
         <li><b>Bedrock Intelligent Prompt Routing</b> (the default Nova router) picks Nova Lite or Nova Pro and answers in the same call.</li>
         <li>The decider's chosen model answers your request. The savings figure compares its cost with Nova Pro answering the same tokens.</li>
       </ol>
@@ -170,7 +172,7 @@ async function refreshStatus() {
     $("#s-global").textContent = s.totals.answers.toLocaleString();
     const [gt] = pctVs(s.totals.cost_usd + (s.totals.router_usd || 0), s.totals.pro_usd);
     $("#s-global-l").textContent = `answers served by the playground: ${fmtUsd(s.totals.cost_usd)} for answers, ${fmtUsd(s.totals.router_usd || 0)} for decider routing; ${gt} than always Nova Pro`;
-    $("#about-limits").textContent = `No sign-in and no key. Each visitor gets ${L.per_ip_hour} calls per hour (a request uses 4), the playground serves ${L.global_day} calls per day, prompts are limited to ${L.max_prompt_chars} characters and answers to ${L.max_output_tokens} tokens.`;
+    $("#about-limits").textContent = `No sign-in and no key. Each visitor gets ${L.per_ip_hour} calls per hour (a request uses 5), the playground serves ${L.global_day} calls per day, prompts are limited to ${L.max_prompt_chars} characters and answers to ${L.max_output_tokens} tokens.`;
   } catch (e) { $("#limits").textContent = ""; }
 }
 
@@ -196,11 +198,17 @@ $("#run").onclick = async () => {
   $("#run").disabled = true;
   busy("c-decider", "Asking the decider on AgentCore Runtime…");
   busy("c-classifier", "Asking Nova Micro…");
+  busy("c-haiku", "Asking Claude Haiku 4.5…");
   busy("c-bedrock", "Routing and answering…");
   busy("c-answer", "Waiting for the decider's choice…");
-  const pc = api("/api/route/classifier", { prompt }).then((r) => {
-    $("#c-classifier .body").innerHTML = `<div class="big">${tierTag(r.tier)}</div><div class="kv"><span>raw answer</span><span>${esc(r.raw)}</span></div><div class="kv"><span>router latency</span><span>${r.latency_s.toFixed(2)} s</span></div><div class="kv"><span>router cost</span><span>${fmtUsd(r.cost)}</span></div><p class="small muted">A one-word label: no probability, so no threshold to tune.</p>`;
-  }).catch((e) => $("#c-classifier .body").innerHTML = `<span class="err">${esc(e.message)}</span>`);
+  const clfCard = (id) => (r) => {
+    if (r.status !== "ok") { $(`#${id} .body`).innerHTML = `<span class="muted small">${esc(r.message)}</span>`; return; }
+    $(`#${id} .body`).innerHTML = `<div class="big">${tierTag(r.tier)}</div><div class="kv"><span>raw answer</span><span>${esc(r.raw)}</span></div><div class="kv"><span>router latency</span><span>${r.latency_s.toFixed(2)} s</span></div><div class="kv"><span>router cost</span><span>${fmtUsd(r.cost)}</span></div><p class="small muted">A one-word label: no probability, so no threshold to tune.</p>`;
+  };
+  const pc = api("/api/route/classifier", { prompt }).then(clfCard("c-classifier"))
+    .catch((e) => $("#c-classifier .body").innerHTML = `<span class="err">${esc(e.message)}</span>`);
+  const ph = api("/api/route/classifier", { prompt, model: "haiku" }).then(clfCard("c-haiku"))
+    .catch((e) => $("#c-haiku .body").innerHTML = `<span class="err">${esc(e.message)}</span>`);
   const pb = api("/api/route/bedrock", { prompt }).then((r) => {
     $("#c-bedrock .body").innerHTML = `<div class="big">${tierTag(r.tier)}</div><div class="kv"><span>route + answer latency</span><span>${r.latency_s.toFixed(2)} s</span></div><div class="kv"><span>answer cost</span><span>${fmtUsd(r.cost)}</span></div><div class="kv"><span>router fee</span><span>none</span></div><details class="small"><summary>its answer</summary><div class="answer">${esc(r.answer)}</div></details>`;
   }).catch((e) => $("#c-bedrock .body").innerHTML = `<span class="err">${esc(e.message)}</span>`);
@@ -219,7 +227,7 @@ $("#run").onclick = async () => {
     $("#c-decider .body").innerHTML = `<span class="err">${esc(e.message)}</span>`;
     $("#c-answer .body").innerHTML = `<span class="muted small">No answer: the decider did not route this request.</span>`;
   }
-  await Promise.allSettled([pc, pb]);
+  await Promise.allSettled([pc, ph, pb]);
   $("#run").disabled = false;
   refreshStatus();
 };

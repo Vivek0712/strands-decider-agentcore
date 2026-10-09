@@ -21,7 +21,7 @@ import time
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[3]))  # repo root: client/
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from client.decider_client import DeciderClient, choice, noul  # noqa: E402
-from models import AGENTCORE_GB_HOUR, AGENTCORE_VCPU_HOUR, MODELS, converse  # noqa: E402
+from models import AGENTCORE_GB_HOUR, AGENTCORE_VCPU_HOUR, MODELS, Model, converse  # noqa: E402
 
 TIER_DESCRIPTIONS = {
     "micro": "a small, fast model: enough for looking up a value in the text, yes/no or short classification, "
@@ -111,9 +111,17 @@ HARD_PROMPT = """{question} Yes means {true}. No means {false}. Reply with exact
 </request>"""
 
 
+# Claude classifiers use the global cross-Region profiles: their request quota is separate from the
+# regional (us.) profiles that answer the benchmark, and they are about 10% cheaper.
+GLOBAL_PROFILES = {
+    "haiku45": Model("haiku45", "global.anthropic.claude-haiku-4-5-20251001-v1:0", 0.001, 0.005, "Claude Haiku 4.5"),
+    "sonnet46": Model("sonnet46", "global.anthropic.claude-sonnet-4-6", 0.003, 0.015, "Claude Sonnet 4.6"),
+}
+
+
 class LLMClassifierRouter:
     def __init__(self, model_key: str, question: str = "tier") -> None:
-        self.model = MODELS[model_key]
+        self.model = GLOBAL_PROFILES.get(model_key) or MODELS[model_key]
         self.question = question
         self.name = f"classifier-{model_key}" + ("-hard" if question == "hard" else "")
 

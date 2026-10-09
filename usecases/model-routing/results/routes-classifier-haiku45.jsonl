@@ -1,0 +1,216 @@
+{"id": "extract-10", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 3.685, "in": 233, "out": 4, "cost": 0.000253, "parsed": true}
+{"id": "extract-11", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.794, "in": 232, "out": 4, "cost": 0.00025200000000000005, "parsed": true}
+{"id": "extract-33", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 16.455, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-25", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 6.785, "in": 230, "out": 4, "cost": 0.00025, "parsed": true}
+{"id": "extract-35", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 4.996, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "extract-09", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.029, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-04", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 7.351, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "extract-21", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.394, "in": 234, "out": 4, "cost": 0.00025400000000000005, "parsed": true}
+{"id": "extract-26", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.299, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "extract-06", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 4.786, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-34", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 61.568, "in": 234, "out": 4, "cost": 0.00025400000000000005, "parsed": true}
+{"id": "extract-27", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 0.931, "in": 226, "out": 4, "cost": 0.000246, "parsed": true}
+{"id": "extract-02", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 3.167, "in": 233, "out": 4, "cost": 0.000253, "parsed": true}
+{"id": "extract-07", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 6.064, "in": 226, "out": 4, "cost": 0.000246, "parsed": true}
+{"id": "extract-12", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 29.819, "in": 230, "out": 4, "cost": 0.00025, "parsed": true}
+{"id": "extract-32", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 11.564, "in": 233, "out": 4, "cost": 0.000253, "parsed": true}
+{"id": "extract-24", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 7.158, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-18", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.082, "in": 230, "out": 4, "cost": 0.00025, "parsed": true}
+{"id": "extract-23", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 7.151, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-01", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 4.998, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "extract-00", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 37.543, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-17", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 6.289, "in": 234, "out": 4, "cost": 0.00025400000000000005, "parsed": true}
+{"id": "extract-28", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.366, "in": 227, "out": 4, "cost": 0.00024700000000000004, "parsed": true}
+{"id": "extract-31", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 4.984, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "extract-15", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.928, "in": 233, "out": 4, "cost": 0.000253, "parsed": true}
+{"id": "extract-13", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.179, "in": 230, "out": 4, "cost": 0.00025, "parsed": true}
+{"id": "extract-19", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 10.054, "in": 232, "out": 4, "cost": 0.00025200000000000005, "parsed": true}
+{"id": "extract-20", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 2.868, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-16", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.691, "in": 231, "out": 4, "cost": 0.00025100000000000003, "parsed": true}
+{"id": "extract-22", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 7.449, "in": 233, "out": 4, "cost": 0.000253, "parsed": true}
+{"id": "extract-03", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.348, "in": 234, "out": 4, "cost": 0.00025400000000000005, "parsed": true}
+{"id": "extract-08", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.162, "in": 230, "out": 4, "cost": 0.00025, "parsed": true}
+{"id": "sports-07", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 8.917, "in": 182, "out": 4, "cost": 0.000202, "parsed": true}
+{"id": "sports-00", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 7.625, "in": 183, "out": 4, "cost": 0.000203, "parsed": true}
+{"id": "sports-24", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.607, "in": 189, "out": 4, "cost": 0.000209, "parsed": true}
+{"id": "sports-14", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.301, "in": 184, "out": 4, "cost": 0.000204, "parsed": true}
+{"id": "sports-25", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 7.093, "in": 187, "out": 4, "cost": 0.000207, "parsed": true}
+{"id": "sports-05", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.081, "in": 190, "out": 4, "cost": 0.00021, "parsed": true}
+{"id": "sports-04", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 41.094, "in": 187, "out": 4, "cost": 0.000207, "parsed": true}
+{"id": "sports-34", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.032, "in": 190, "out": 4, "cost": 0.00021, "parsed": true}
+{"id": "sports-27", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 8.94, "in": 185, "out": 4, "cost": 0.000205, "parsed": true}
+{"id": "sports-18", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 3.873, "in": 186, "out": 4, "cost": 0.000206, "parsed": true}
+{"id": "sports-32", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.204, "in": 186, "out": 4, "cost": 0.000206, "parsed": true}
+{"id": "sports-02", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 36.962, "in": 181, "out": 4, "cost": 0.000201, "parsed": true}
+{"id": "sports-35", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 6.039, "in": 185, "out": 4, "cost": 0.000205, "parsed": true}
+{"id": "sports-21", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.011, "in": 190, "out": 4, "cost": 0.00021, "parsed": true}
+{"id": "sports-33", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 6.891, "in": 185, "out": 4, "cost": 0.000205, "parsed": true}
+{"id": "sports-20", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.012, "in": 190, "out": 4, "cost": 0.00021, "parsed": true}
+{"id": "sports-30", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 36.252, "in": 184, "out": 4, "cost": 0.000204, "parsed": true}
+{"id": "sports-12", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.069, "in": 186, "out": 4, "cost": 0.000206, "parsed": true}
+{"id": "sports-22", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 8.372, "in": 183, "out": 4, "cost": 0.000203, "parsed": true}
+{"id": "sports-29", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 4.19, "in": 188, "out": 4, "cost": 0.00020800000000000001, "parsed": true}
+{"id": "sports-15", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 8.946, "in": 184, "out": 4, "cost": 0.000204, "parsed": true}
+{"id": "sports-08", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 3.537, "in": 184, "out": 4, "cost": 0.000204, "parsed": true}
+{"id": "sports-17", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 4.928, "in": 187, "out": 4, "cost": 0.000207, "parsed": true}
+{"id": "sports-06", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 9.444, "in": 180, "out": 4, "cost": 0.00019999999999999998, "parsed": true}
+{"id": "sports-09", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 2.916, "in": 186, "out": 4, "cost": 0.000206, "parsed": true}
+{"id": "sports-13", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.594, "in": 180, "out": 4, "cost": 0.00019999999999999998, "parsed": true}
+{"id": "sports-16", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.254, "in": 186, "out": 4, "cost": 0.000206, "parsed": true}
+{"id": "sports-03", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 7.406, "in": 187, "out": 4, "cost": 0.000207, "parsed": true}
+{"id": "sports-31", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 4.645, "in": 183, "out": 4, "cost": 0.000203, "parsed": true}
+{"id": "sports-11", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 11.222, "in": 184, "out": 4, "cost": 0.000204, "parsed": true}
+{"id": "sports-19", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.978, "in": 192, "out": 4, "cost": 0.000212, "parsed": true}
+{"id": "sports-01", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 5.397, "in": 184, "out": 4, "cost": 0.000204, "parsed": true}
+{"id": "sports-10", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 26.897, "in": 181, "out": 4, "cost": 0.000201, "parsed": true}
+{"id": "sports-23", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 3.999, "in": 185, "out": 4, "cost": 0.000205, "parsed": true}
+{"id": "sports-28", "family": "sports", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 17.414, "in": 189, "out": 4, "cost": 0.000209, "parsed": true}
+{"id": "json-21", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 7.991, "in": 227, "out": 4, "cost": 0.00024700000000000004, "parsed": true}
+{"id": "json-32", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 5.544, "in": 246, "out": 4, "cost": 0.000266, "parsed": true}
+{"id": "json-16", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 24.13, "in": 239, "out": 4, "cost": 0.000259, "parsed": true}
+{"id": "json-30", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 10.876, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "json-26", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 9.178, "in": 236, "out": 4, "cost": 0.000256, "parsed": true}
+{"id": "json-17", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 2.913, "in": 243, "out": 4, "cost": 0.000263, "parsed": true}
+{"id": "json-09", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 23.537, "in": 236, "out": 4, "cost": 0.000256, "parsed": true}
+{"id": "json-25", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 5.734, "in": 224, "out": 4, "cost": 0.000244, "parsed": true}
+{"id": "json-02", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 9.393, "in": 258, "out": 4, "cost": 0.00027800000000000004, "parsed": true}
+{"id": "json-15", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 3.873, "in": 247, "out": 4, "cost": 0.000267, "parsed": true}
+{"id": "json-34", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 5.207, "in": 246, "out": 4, "cost": 0.000266, "parsed": true}
+{"id": "json-27", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 5.421, "in": 251, "out": 4, "cost": 0.00027100000000000003, "parsed": true}
+{"id": "json-33", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 42.396, "in": 232, "out": 4, "cost": 0.00025200000000000005, "parsed": true}
+{"id": "json-22", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 6.027, "in": 228, "out": 4, "cost": 0.000248, "parsed": true}
+{"id": "json-19", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 5.446, "in": 240, "out": 4, "cost": 0.00026000000000000003, "parsed": true}
+{"id": "json-04", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 7.029, "in": 252, "out": 4, "cost": 0.000272, "parsed": true}
+{"id": "json-00", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 5.133, "in": 253, "out": 4, "cost": 0.000273, "parsed": true}
+{"id": "json-06", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 2.579, "in": 240, "out": 4, "cost": 0.00026000000000000003, "parsed": true}
+{"id": "json-31", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 11.607, "in": 243, "out": 4, "cost": 0.000263, "parsed": true}
+{"id": "json-24", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 5.891, "in": 225, "out": 4, "cost": 0.00024500000000000005, "parsed": true}
+{"id": "json-08", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 7.052, "in": 245, "out": 4, "cost": 0.000265, "parsed": true}
+{"id": "json-01", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 2.612, "in": 243, "out": 4, "cost": 0.000263, "parsed": true}
+{"id": "json-12", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 2.566, "in": 246, "out": 4, "cost": 0.000266, "parsed": true}
+{"id": "json-29", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 2.542, "in": 240, "out": 4, "cost": 0.00026000000000000003, "parsed": true}
+{"id": "json-03", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 2.723, "in": 248, "out": 4, "cost": 0.000268, "parsed": true}
+{"id": "math-11", "family": "math", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 2.709, "in": 255, "out": 5, "cost": 0.00028000000000000003, "parsed": true}
+{"id": "math-04", "family": "math", "split": "train", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 2.587, "in": 311, "out": 5, "cost": 0.00033600000000000004, "parsed": true}
+{"id": "math-18", "family": "math", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 2.564, "in": 228, "out": 4, "cost": 0.000248, "parsed": true}
+{"id": "math-03", "family": "math", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 2.745, "in": 274, "out": 5, "cost": 0.00029900000000000006, "parsed": true}
+{"id": "math-12", "family": "math", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 2.582, "in": 225, "out": 4, "cost": 0.00024500000000000005, "parsed": true}
+{"id": "math-07", "family": "math", "split": "test", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 2.654, "in": 258, "out": 5, "cost": 0.00028300000000000005, "parsed": true}
+{"id": "math-27", "family": "math", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires calculating", "latency_s": 2.758, "in": 232, "out": 5, "cost": 0.000257, "parsed": true}
+{"id": "code-34", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 2.556, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "code-12", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 2.569, "in": 256, "out": 4, "cost": 0.000276, "parsed": true}
+{"id": "code-01", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 2.55, "in": 249, "out": 4, "cost": 0.000269, "parsed": true}
+{"id": "code-02", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 2.599, "in": 277, "out": 4, "cost": 0.000297, "parsed": true}
+{"id": "code-03", "family": "code", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 2.585, "in": 223, "out": 4, "cost": 0.000243, "parsed": true}
+{"id": "logic-05", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to determine which", "latency_s": 2.596, "in": 359, "out": 5, "cost": 0.000384, "parsed": false}
+{"id": "logic-30", "family": "logic", "split": "test", "tier": "micro", "raw": "micro\n\nThis is a", "latency_s": 2.628, "in": 292, "out": 5, "cost": 0.000317, "parsed": true}
+{"id": "logic-35", "family": "logic", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 2.64, "in": 304, "out": 5, "cost": 0.00032900000000000003, "parsed": true}
+{"id": "logic-16", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to track which", "latency_s": 2.695, "in": 380, "out": 5, "cost": 0.00040500000000000003, "parsed": false}
+{"id": "logic-26", "family": "logic", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 2.716, "in": 308, "out": 5, "cost": 0.000333, "parsed": true}
+{"id": "logic-13", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to track Claire", "latency_s": 2.532, "in": 356, "out": 5, "cost": 0.000381, "parsed": false}
+{"id": "extract-29", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 3.379, "in": 230, "out": 4, "cost": 0.00025, "parsed": true}
+{"id": "extract-14", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.092, "in": 226, "out": 4, "cost": 0.000246, "parsed": true}
+{"id": "extract-05", "family": "extract", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 28.458, "in": 236, "out": 4, "cost": 0.000256, "parsed": true}
+{"id": "sports-26", "family": "sports", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 1.424, "in": 184, "out": 4, "cost": 0.000204, "parsed": true}
+{"id": "extract-30", "family": "extract", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 1.463, "in": 233, "out": 4, "cost": 0.000253, "parsed": true}
+{"id": "json-07", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 0.885, "in": 255, "out": 4, "cost": 0.000275, "parsed": true}
+{"id": "json-13", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 0.86, "in": 239, "out": 4, "cost": 0.000259, "parsed": true}
+{"id": "json-35", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 0.841, "in": 237, "out": 4, "cost": 0.000257, "parsed": true}
+{"id": "json-23", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 0.902, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "json-11", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 0.862, "in": 237, "out": 4, "cost": 0.000257, "parsed": true}
+{"id": "json-20", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 0.908, "in": 234, "out": 4, "cost": 0.00025400000000000005, "parsed": true}
+{"id": "json-18", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 0.83, "in": 246, "out": 4, "cost": 0.000266, "parsed": true}
+{"id": "json-14", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 3.839, "in": 257, "out": 4, "cost": 0.000277, "parsed": true}
+{"id": "math-23", "family": "math", "split": "train", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 3.606, "in": 296, "out": 5, "cost": 0.000321, "parsed": true}
+{"id": "math-22", "family": "math", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 6.946, "in": 224, "out": 4, "cost": 0.000244, "parsed": true}
+{"id": "math-13", "family": "math", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 11.502, "in": 211, "out": 4, "cost": 0.000231, "parsed": true}
+{"id": "math-17", "family": "math", "split": "test", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 6.095, "in": 275, "out": 5, "cost": 0.00030000000000000003, "parsed": true}
+{"id": "math-14", "family": "math", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 8.24, "in": 262, "out": 5, "cost": 0.00028700000000000004, "parsed": true}
+{"id": "math-25", "family": "math", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 3.471, "in": 267, "out": 5, "cost": 0.00029200000000000005, "parsed": true}
+{"id": "math-09", "family": "math", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 7.186, "in": 221, "out": 4, "cost": 0.000241, "parsed": true}
+{"id": "math-33", "family": "math", "split": "test", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 5.441, "in": 251, "out": 5, "cost": 0.00027600000000000004, "parsed": true}
+{"id": "math-29", "family": "math", "split": "train", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 5.293, "in": 272, "out": 5, "cost": 0.00029700000000000006, "parsed": true}
+{"id": "math-08", "family": "math", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 8.539, "in": 213, "out": 4, "cost": 0.000233, "parsed": true}
+{"id": "math-30", "family": "math", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 3.622, "in": 225, "out": 4, "cost": 0.00024500000000000005, "parsed": true}
+{"id": "math-31", "family": "math", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 6.688, "in": 254, "out": 4, "cost": 0.000274, "parsed": true}
+{"id": "math-20", "family": "math", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires setting", "latency_s": 5.519, "in": 219, "out": 5, "cost": 0.00024400000000000002, "parsed": true}
+{"id": "math-15", "family": "math", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 8.523, "in": 249, "out": 5, "cost": 0.000274, "parsed": true}
+{"id": "math-26", "family": "math", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 3.741, "in": 253, "out": 5, "cost": 0.00027800000000000004, "parsed": true}
+{"id": "math-10", "family": "math", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 29.986, "in": 290, "out": 5, "cost": 0.000315, "parsed": true}
+{"id": "math-34", "family": "math", "split": "train", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 5.936, "in": 244, "out": 5, "cost": 0.000269, "parsed": true}
+{"id": "math-32", "family": "math", "split": "train", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 7.107, "in": 251, "out": 5, "cost": 0.00027600000000000004, "parsed": true}
+{"id": "math-21", "family": "math", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 23.497, "in": 222, "out": 4, "cost": 0.000242, "parsed": true}
+{"id": "math-06", "family": "math", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 6.151, "in": 238, "out": 5, "cost": 0.000263, "parsed": true}
+{"id": "math-16", "family": "math", "split": "test", "tier": "micro", "raw": "micro", "latency_s": 8.632, "in": 217, "out": 4, "cost": 0.00023700000000000001, "parsed": true}
+{"id": "math-35", "family": "math", "split": "train", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 5.131, "in": 290, "out": 5, "cost": 0.000315, "parsed": true}
+{"id": "math-05", "family": "math", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 4.98, "in": 240, "out": 4, "cost": 0.00026000000000000003, "parsed": true}
+{"id": "math-19", "family": "math", "split": "test", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 5.002, "in": 269, "out": 5, "cost": 0.00029400000000000004, "parsed": true}
+{"id": "math-01", "family": "math", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 8.242, "in": 213, "out": 4, "cost": 0.000233, "parsed": true}
+{"id": "math-02", "family": "math", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 3.712, "in": 238, "out": 4, "cost": 0.000258, "parsed": true}
+{"id": "code-24", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 6.914, "in": 241, "out": 4, "cost": 0.000261, "parsed": true}
+{"id": "math-00", "family": "math", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires:", "latency_s": 15.219, "in": 240, "out": 5, "cost": 0.000265, "parsed": true}
+{"id": "code-14", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 11.158, "in": 240, "out": 4, "cost": 0.00026000000000000003, "parsed": true}
+{"id": "code-08", "family": "code", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 13.197, "in": 224, "out": 4, "cost": 0.000244, "parsed": true}
+{"id": "code-23", "family": "code", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.104, "in": 225, "out": 4, "cost": 0.00024500000000000005, "parsed": true}
+{"id": "code-22", "family": "code", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 5.492, "in": 225, "out": 4, "cost": 0.00024500000000000005, "parsed": true}
+{"id": "code-21", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 24.249, "in": 245, "out": 4, "cost": 0.000265, "parsed": true}
+{"id": "code-25", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 6.028, "in": 336, "out": 4, "cost": 0.00035600000000000003, "parsed": true}
+{"id": "code-05", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 8.621, "in": 234, "out": 4, "cost": 0.00025400000000000005, "parsed": true}
+{"id": "code-32", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 3.619, "in": 241, "out": 4, "cost": 0.000261, "parsed": true}
+{"id": "code-30", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 6.776, "in": 237, "out": 4, "cost": 0.000257, "parsed": true}
+{"id": "code-35", "family": "code", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 5.058, "in": 233, "out": 4, "cost": 0.000253, "parsed": true}
+{"id": "code-09", "family": "code", "split": "train", "tier": "micro", "raw": "micro", "latency_s": 6.864, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "code-06", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 5.063, "in": 289, "out": 4, "cost": 0.000309, "parsed": true}
+{"id": "code-13", "family": "code", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 7.317, "in": 256, "out": 4, "cost": 0.000276, "parsed": true}
+{"id": "code-28", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 4.956, "in": 258, "out": 4, "cost": 0.00027800000000000004, "parsed": true}
+{"id": "code-04", "family": "code", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 9.299, "in": 249, "out": 4, "cost": 0.000269, "parsed": true}
+{"id": "code-26", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 5.45, "in": 321, "out": 4, "cost": 0.000341, "parsed": true}
+{"id": "code-16", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 5.001, "in": 240, "out": 4, "cost": 0.00026000000000000003, "parsed": true}
+{"id": "code-31", "family": "code", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 7.165, "in": 217, "out": 4, "cost": 0.00023700000000000001, "parsed": true}
+{"id": "code-19", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 5.0, "in": 247, "out": 4, "cost": 0.000267, "parsed": true}
+{"id": "code-00", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 6.843, "in": 244, "out": 4, "cost": 0.000264, "parsed": true}
+{"id": "code-33", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 6.604, "in": 238, "out": 4, "cost": 0.000258, "parsed": true}
+{"id": "code-18", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 6.665, "in": 226, "out": 4, "cost": 0.000246, "parsed": true}
+{"id": "code-17", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 6.205, "in": 229, "out": 4, "cost": 0.00024900000000000004, "parsed": true}
+{"id": "code-29", "family": "code", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 4.555, "in": 218, "out": 4, "cost": 0.000238, "parsed": true}
+{"id": "code-07", "family": "code", "split": "test", "tier": "pro", "raw": "pro\n\nThis request requires", "latency_s": 7.38, "in": 284, "out": 5, "cost": 0.000309, "parsed": true}
+{"id": "code-27", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 15.335, "in": 230, "out": 4, "cost": 0.00025, "parsed": true}
+{"id": "code-20", "family": "code", "split": "test", "tier": "pro", "raw": "pro", "latency_s": 6.009, "in": 249, "out": 4, "cost": 0.000269, "parsed": true}
+{"id": "logic-14", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to trace through", "latency_s": 7.399, "in": 356, "out": 5, "cost": 0.000381, "parsed": false}
+{"id": "logic-06", "family": "logic", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 11.772, "in": 361, "out": 5, "cost": 0.000386, "parsed": true}
+{"id": "logic-32", "family": "logic", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 1.702, "in": 290, "out": 5, "cost": 0.000315, "parsed": true}
+{"id": "logic-04", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to determine which", "latency_s": 3.8, "in": 358, "out": 5, "cost": 0.000383, "parsed": false}
+{"id": "logic-23", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to track which", "latency_s": 6.63, "in": 378, "out": 5, "cost": 0.00040300000000000004, "parsed": false}
+{"id": "logic-24", "family": "logic", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 5.061, "in": 276, "out": 5, "cost": 0.00030100000000000005, "parsed": true}
+{"id": "code-11", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 53.173, "in": 282, "out": 4, "cost": 0.00030199999999999997, "parsed": true}
+{"id": "logic-29", "family": "logic", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 6.116, "in": 306, "out": 5, "cost": 0.000331, "parsed": true}
+{"id": "logic-01", "family": "logic", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 5.496, "in": 326, "out": 5, "cost": 0.000351, "parsed": true}
+{"id": "logic-15", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to track partner", "latency_s": 7.179, "in": 354, "out": 5, "cost": 0.000379, "parsed": false}
+{"id": "logic-09", "family": "logic", "split": "train", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 5.065, "in": 354, "out": 5, "cost": 0.000379, "parsed": true}
+{"id": "logic-19", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to track which", "latency_s": 2.555, "in": 347, "out": 5, "cost": 0.000372, "parsed": false}
+{"id": "logic-12", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to track partner", "latency_s": 5.478, "in": 352, "out": 5, "cost": 0.000377, "parsed": false}
+{"id": "logic-21", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to track the", "latency_s": 4.917, "in": 368, "out": 5, "cost": 0.000393, "parsed": false}
+{"id": "logic-00", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to work through", "latency_s": 7.35, "in": 361, "out": 5, "cost": 0.000386, "parsed": false}
+{"id": "logic-33", "family": "logic", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 5.372, "in": 293, "out": 5, "cost": 0.000318, "parsed": true}
+{"id": "logic-31", "family": "logic", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 9.44, "in": 296, "out": 5, "cost": 0.000321, "parsed": true}
+{"id": "logic-02", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to determine which", "latency_s": 1.733, "in": 359, "out": 5, "cost": 0.000384, "parsed": false}
+{"id": "logic-34", "family": "logic", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 2.587, "in": 294, "out": 5, "cost": 0.000319, "parsed": true}
+{"id": "logic-08", "family": "logic", "split": "test", "tier": "pro", "raw": "This requires multi-step", "latency_s": 5.672, "in": 348, "out": 5, "cost": 0.000373, "parsed": false}
+{"id": "logic-28", "family": "logic", "split": "test", "tier": "lite", "raw": "lite\n\nThis request requires", "latency_s": 7.704, "in": 300, "out": 5, "cost": 0.000325, "parsed": true}
+{"id": "logic-03", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to determine which", "latency_s": 5.448, "in": 331, "out": 5, "cost": 0.00035600000000000003, "parsed": false}
+{"id": "logic-18", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to trace through", "latency_s": 5.2, "in": 347, "out": 5, "cost": 0.000372, "parsed": false}
+{"id": "logic-07", "family": "logic", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 38.027, "in": 361, "out": 5, "cost": 0.000386, "parsed": true}
+{"id": "logic-27", "family": "logic", "split": "test", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 4.017, "in": 299, "out": 5, "cost": 0.000324, "parsed": true}
+{"id": "logic-25", "family": "logic", "split": "test", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 7.212, "in": 293, "out": 5, "cost": 0.000318, "parsed": true}
+{"id": "logic-22", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to trace through", "latency_s": 5.359, "in": 352, "out": 5, "cost": 0.000377, "parsed": false}
+{"id": "logic-20", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to track position", "latency_s": 7.677, "in": 356, "out": 5, "cost": 0.000381, "parsed": false}
+{"id": "json-05", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 4.137, "in": 247, "out": 4, "cost": 0.000267, "parsed": true}
+{"id": "json-10", "family": "json", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 8.262, "in": 240, "out": 4, "cost": 0.00026000000000000003, "parsed": true}
+{"id": "json-28", "family": "json", "split": "train", "tier": "lite", "raw": "lite", "latency_s": 3.43, "in": 235, "out": 4, "cost": 0.000255, "parsed": true}
+{"id": "math-28", "family": "math", "split": "train", "tier": "lite", "raw": "lite\n\nThis requires multi", "latency_s": 1.451, "in": 264, "out": 5, "cost": 0.00028900000000000003, "parsed": true}
+{"id": "math-24", "family": "math", "split": "test", "tier": "pro", "raw": "pro\n\nThis requires multi", "latency_s": 2.181, "in": 295, "out": 5, "cost": 0.00032, "parsed": true}
+{"id": "logic-11", "family": "logic", "split": "test", "tier": "pro", "raw": "I need to determine which", "latency_s": 0.874, "in": 351, "out": 5, "cost": 0.000376, "parsed": false}
+{"id": "logic-17", "family": "logic", "split": "train", "tier": "pro", "raw": "I need to trace through", "latency_s": 0.934, "in": 362, "out": 5, "cost": 0.00038700000000000003, "parsed": false}
+{"id": "logic-10", "family": "logic", "split": "train", "tier": "pro", "raw": "This requires reading the given", "latency_s": 1.477, "in": 356, "out": 5, "cost": 0.000381, "parsed": false}
+{"id": "code-15", "family": "code", "split": "test", "tier": "lite", "raw": "lite", "latency_s": 1.385, "in": 276, "out": 4, "cost": 0.00029600000000000004, "parsed": true}
+{"id": "code-10", "family": "code", "split": "train", "tier": "pro", "raw": "pro", "latency_s": 1.286, "in": 239, "out": 4, "cost": 0.000259, "parsed": true}

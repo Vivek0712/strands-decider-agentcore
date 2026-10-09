@@ -63,6 +63,7 @@ def short(name: str) -> str:
 
 
 KEY = [
+    "classifier-haiku45",
     "always micro",
     "always pro",
     "always scout",
@@ -84,6 +85,7 @@ MARK = {
     "decider (argmax)": "o",
 }
 STYLE = {
+    "classifier-haiku45": ("#D97757", "-"),
     "always pro": ("#111827", "-"),
     "always micro": ("#6B7280", ":"),
     "always scout": ("#D97706", ":"),
@@ -246,6 +248,88 @@ def main() -> None:
     fig.tight_layout()
     fig.savefig(IMG / "routing-mix.png")
     plt.close(fig)
+    # 6. ladder B: Nova Micro or Claude Sonnet 4.6, real prices
+    fl = s.get("frontier_ladder", {}).get("strategies", [])
+    if fl:
+        top = s["frontier_ladder"]["top"]
+        fig, ax = plt.subplots(figsize=(11, 6.5), dpi=130)
+        p = RES / "curve-decider-frontier.json"
+        if p.exists():
+            cv = json.loads(p.read_text())
+            ax.plot(
+                [c["test"]["cost_per_1k"] for c in cv],
+                [100 * c["test"]["quality"] for c in cv],
+                "-",
+                color="#FF9900",
+                lw=1.6,
+                alpha=0.7,
+                label="decider (multi-step question): every threshold",
+            )
+        cols = {
+            "always micro": "#6B7280",
+            f"always {top}": "#111827",
+            f"oracle (micro/{top})": "#9CA3AF",
+            "classifier-micro-hard": "#2563EB",
+            "classifier-lite-hard": "#60A5FA",
+            "classifier-haiku45-hard": "#D97757",
+            "classifier-sonnet46-hard": "#7C3AED",
+        }
+        for r in fl:
+            col = cols.get(r["strategy"], "#B45309" if r["strategy"].startswith("decider") else INK)
+            ax.scatter(
+                r["cost_per_1k"],
+                100 * r["quality"],
+                s=110,
+                color=col,
+                edgecolor="white",
+                zorder=3,
+                marker="*" if r["strategy"].startswith("oracle") else "o",
+                label=f"{short(r['strategy']).replace('-hard', '')}: {100 * r['quality']:.1f}, ${r['cost_per_1k']:.2f}",
+            )
+        ax.set_xscale("log")
+        ax.set_xlabel("USD per 1,000 requests, router included (log scale)")
+        ax.set_ylabel("quality: mean grader score x 100")
+        ax.set_title("Ladder B: Nova Micro for easy requests, Claude Sonnet 4.6 for hard ones", loc="left")
+        ax.grid(color=GRID)
+        ax.legend(loc="center left", bbox_to_anchor=(1.01, 0.5), frameon=False, fontsize=10)
+        fig.tight_layout()
+        fig.savefig(IMG / "ladder-b.png", bbox_inches="tight")
+        plt.close(fig)
+    # 7. Advanced Prompt Optimization: original against optimized prompt, held-out test, per (family, model)
+    pp = RES / "apo_pairs.json"
+    if pp.exists():
+        pairs = sorted(json.loads(pp.read_text()), key=lambda p: (p["family"], p["model"]))
+        names = {
+            "micro": "Nova Micro",
+            "lite": "Nova Lite",
+            "pro": "Nova Pro",
+            "haiku45": "Haiku 4.5",
+            "sonnet46": "Sonnet 4.6",
+        }
+        fig, ax = plt.subplots(figsize=(11, 0.5 * len(pairs) + 1.8), dpi=130)
+        for k, p_ in enumerate(pairs):
+            a_, b_ = 100 * p_["test_original"], 100 * p_["test_optimized"]
+            col = "#059669" if b_ > a_ + 0.5 else "#DC2626" if b_ < a_ - 0.5 else "#6B7280"
+            ax.plot([a_, b_], [k, k], color=col, lw=2.5, zorder=2)
+            ax.scatter([a_], [k], color="#9CA3AF", s=60, zorder=3)
+            ax.scatter([b_], [k], color=col, s=80, zorder=3)
+            ax.text(
+                101.5,
+                k,
+                f"{p_['tokens_in_original']:.0f} -> {p_['tokens_in_optimized']:.0f} input tokens",
+                va="center",
+                fontsize=10,
+                color=MUTED,
+            )
+        ax.set_yticks(range(len(pairs)), [f"{p_['family']} / {names.get(p_['model'], p_['model'])}" for p_ in pairs])
+        ax.set_xlim(min(40, min(100 * min(p_["test_original"], p_["test_optimized"]) for p_ in pairs) - 5), 125)
+        ax.set_xticks(range(40, 101, 10))
+        ax.set_xlabel("held-out test quality (grey: original prompt, coloured: APO-optimized prompt)")
+        ax.set_title("Bedrock Advanced Prompt Optimization, measured on the test split", loc="left")
+        ax.grid(axis="x", color=GRID)
+        fig.tight_layout()
+        fig.savefig(IMG / "apo-pairs.png", bbox_inches="tight")
+        plt.close(fig)
     print("charts ->", IMG)
 
 

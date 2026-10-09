@@ -41,6 +41,7 @@ MODELS = {  # USD per 1,000 tokens, AWS Price List API, us-east-1 on-demand
     "lite": ("us.amazon.nova-lite-v1:0", 0.00006, 0.00024, "Nova Lite"),
     "pro": ("us.amazon.nova-pro-v1:0", 0.0008, 0.0032, "Nova Pro"),
 }
+HAIKU = ("global.anthropic.claude-haiku-4-5-20251001-v1:0", 0.001, 0.005, "Claude Haiku 4.5")  # classifier only
 VCPU_HOUR, GB_HOUR, DECIDER_GB = 0.1276, 0.0169, 4.2
 TIERS = {
     "micro": "a small, fast model: enough for looking up a value in the text, yes/no or short classification, "
@@ -198,15 +199,21 @@ def cost_of(tier: str, tin: int, tout: int) -> float:
     return tin / 1000 * i + tout / 1000 * o
 
 
-def route_classifier(prompt: str) -> dict:
-    r = converse(MODELS["micro"][0], CLASSIFIER.format(q=QUESTION, request=prompt, **TIERS), 5)
+def route_classifier(prompt: str, model: str = "micro") -> dict:
+    model_id, pin, pout = (
+        (HAIKU[0], HAIKU[1], HAIKU[2]) if model == "haiku" else (MODELS["micro"][0], *MODELS["micro"][1:3])
+    )
+    try:
+        r = converse(model_id, CLASSIFIER.format(q=QUESTION, request=prompt, **TIERS), 5)
+    except br.exceptions.ThrottlingException:
+        return {"status": "busy", "message": "Claude's request quota for this account is busy. Try again in a minute."}
     w = re.findall(r"\b(micro|lite|pro)\b", r["text"].lower())
     return {
         "status": "ok",
         "tier": w[0] if w else "pro",
         "raw": r["text"][:30],
         "latency_s": r["latency_s"],
-        "cost": cost_of("micro", r["in"], r["out"]),
+        "cost": r["in"] / 1000 * pin + r["out"] / 1000 * pout,
     }
 
 
@@ -300,7 +307,7 @@ def handler(event: dict, context: object) -> dict:
             tau = min(0.95, max(0.05, float(body.get("tau", DEFAULT_TAU))))
             return resp(200, route_decider(prompt, tau))
         if path == "/api/route/classifier":
-            return resp(200, route_classifier(prompt))
+            return resp(200, route_classifier(prompt, "haiku" if body.get("model") == "haiku" else "micro"))
         if path == "/api/route/bedrock":
             return resp(200, route_bedrock(prompt))
         if path == "/api/answer":
