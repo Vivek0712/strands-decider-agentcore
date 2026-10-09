@@ -1,0 +1,511 @@
+{
+ "n_test": 107,
+ "strategies": [
+  {
+   "strategy": "always micro",
+   "quality": 0.8049844236760125,
+   "cost_per_1k": 0.019229719626168224,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.069,
+   "latency_p95": 2.38,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.7850467289719626,
+   "mix": {
+    "micro": 1.0
+   },
+   "quality_vs_pro": 0.8642140468227425,
+   "savings_vs_pro": 0.9420360813125395,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "always lite",
+   "quality": 0.8598130841121495,
+   "cost_per_1k": 0.0301592523364486,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.095,
+   "latency_p95": 2.964,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.1308411214953271,
+   "mix": {
+    "lite": 1.0
+   },
+   "quality_vs_pro": 0.923076923076923,
+   "savings_vs_pro": 0.909091318849725,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "always pro",
+   "quality": 0.9314641744548287,
+   "cost_per_1k": 0.3317532710280373,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.016,
+   "latency_p95": 2.614,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.08411214953271028,
+   "mix": {
+    "pro": 1.0
+   },
+   "quality_vs_pro": 1.0,
+   "savings_vs_pro": 0.0,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "always scout",
+   "quality": 0.9283489096573209,
+   "cost_per_1k": 0.07588841121495327,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 4.513,
+   "latency_p95": 36.89,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.0,
+   "mix": {
+    "scout": 1.0
+   },
+   "quality_vs_pro": 0.9966555183946488,
+   "savings_vs_pro": 0.7712504507346976,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "always llama8b",
+   "quality": 0.7258566978193147,
+   "cost_per_1k": 0.0391229906542056,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.129,
+   "latency_p95": 3.034,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.0,
+   "mix": {
+    "llama8b": 1.0
+   },
+   "quality_vs_pro": 0.7792642140468229,
+   "savings_vs_pro": 0.8820720274046696,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "oracle (micro/lite/pro)",
+   "quality": 0.9626168224299065,
+   "cost_per_1k": 0.05638275700934578,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.061,
+   "latency_p95": 2.691,
+   "router_latency_p50": 0.0,
+   "oracle_match": 1.0,
+   "mix": {
+    "lite": 0.1308411214953271,
+    "micro": 0.7850467289719626,
+    "pro": 0.08411214953271028
+   },
+   "quality_vs_pro": 1.0334448160535117,
+   "savings_vs_pro": 0.8300461157937438,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "family table, measured (train)",
+   "quality": 0.8797507788161995,
+   "cost_per_1k": 0.22613046728971958,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.029,
+   "latency_p95": 2.788,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.3364485981308411,
+   "mix": {
+    "lite": 0.16822429906542055,
+    "micro": 0.3364485981308411,
+    "pro": 0.4953271028037383
+   },
+   "table": {
+    "extract": "pro",
+    "sports": "lite",
+    "json": "micro",
+    "math": "pro",
+    "code": "micro",
+    "logic": "pro"
+   },
+   "quality_vs_pro": 0.9444816053511706,
+   "savings_vs_pro": 0.3183775804561435,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "classifier-micro",
+   "quality": 0.8317757009345794,
+   "cost_per_1k": 0.0560061214953271,
+   "router_cost_per_1k": 0.008347336448598128,
+   "latency_p50": 1.7839999999999998,
+   "latency_p95": 3.346,
+   "router_latency_p50": 0.64,
+   "oracle_match": 0.4766355140186916,
+   "mix": {
+    "lite": 0.40186915887850466,
+    "micro": 0.5514018691588785,
+    "pro": 0.04672897196261682
+   },
+   "quality_vs_pro": 0.8929765886287625,
+   "savings_vs_pro": 0.8311814038132155,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "classifier-lite",
+   "quality": 0.8317757009345794,
+   "cost_per_1k": 0.041645373831775696,
+   "router_cost_per_1k": 0.014370280373831775,
+   "latency_p50": 1.707,
+   "latency_p95": 3.274,
+   "router_latency_p50": 0.595,
+   "oracle_match": 0.4205607476635514,
+   "mix": {
+    "lite": 0.5233644859813084,
+    "micro": 0.4766355140186916
+   },
+   "quality_vs_pro": 0.8929765886287625,
+   "savings_vs_pro": 0.8744688373298477,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "classifier-llama8b",
+   "quality": 0.8411214953271028,
+   "cost_per_1k": 0.07840663551401868,
+   "router_cost_per_1k": 0.05176990654205608,
+   "latency_p50": 5.785,
+   "latency_p95": 41.954,
+   "router_latency_p50": 4.502,
+   "oracle_match": 0.35514018691588783,
+   "mix": {
+    "lite": 0.6074766355140186,
+    "micro": 0.3925233644859813
+   },
+   "quality_vs_pro": 0.903010033444816,
+   "savings_vs_pro": 0.7636597967186514,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "classifier-micro-hard",
+   "quality": 0.8847352024922119,
+   "cost_per_1k": 0.2809453271028037,
+   "router_cost_per_1k": 0.005956542056074766,
+   "latency_p50": 1.6909999999999998,
+   "latency_p95": 3.327,
+   "router_latency_p50": 0.616,
+   "oracle_match": 0.1588785046728972,
+   "mix": {
+    "micro": 0.17757009345794392,
+    "pro": 0.822429906542056
+   },
+   "quality_vs_pro": 0.9498327759197326,
+   "savings_vs_pro": 0.15314979040836563,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "classifier-lite-hard",
+   "quality": 0.8847352024922119,
+   "cost_per_1k": 0.28595056074766356,
+   "router_cost_per_1k": 0.010060934579439258,
+   "latency_p50": 1.743,
+   "latency_p95": 3.304,
+   "router_latency_p50": 0.684,
+   "oracle_match": 0.3364485981308411,
+   "mix": {
+    "micro": 0.37383177570093457,
+    "pro": 0.6261682242990654
+   },
+   "quality_vs_pro": 0.9498327759197326,
+   "savings_vs_pro": 0.1380625732443881,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "bedrock intelligent prompt routing (lite/pro)",
+   "quality": 0.8785046728971962,
+   "cost_per_1k": 0.12938915887850466,
+   "router_cost_per_1k": 0.0,
+   "latency_p50": 1.037,
+   "latency_p95": 6.416,
+   "router_latency_p50": 0.0,
+   "oracle_match": 0.07476635514018691,
+   "mix": {
+    "lite": 0.719626168224299,
+    "pro": 0.2803738317757009
+   },
+   "quality_vs_pro": 0.9431438127090301,
+   "savings_vs_pro": 0.609983773550888,
+   "break_even_multiplier": 1
+  },
+  {
+   "strategy": "decider (argmax)",
+   "quality": 0.8753894080996886,
+   "cost_per_1k": 1.0681478014018693,
+   "router_cost_per_1k": 1.0018222406542059,
+   "latency_p50": 11.905,
+   "latency_p95": 18.483999999999998,
+   "router_latency_p50": 10.705,
+   "oracle_match": 0.14953271028037382,
+   "mix": {
+    "lite": 0.8037383177570093,
+    "micro": 0.028037383177570093,
+    "pro": 0.16822429906542055
+   },
+   "quality_vs_pro": 0.9397993311036791,
+   "savings_vs_pro": -2.219705409661499,
+   "break_even_multiplier": 4
+  },
+  {
+   "strategy": "decider (threshold 0.82, tuned on train)",
+   "quality": 0.8753894080996886,
+   "cost_per_1k": 1.2378497172897194,
+   "router_cost_per_1k": 1.0018222406542059,
+   "latency_p50": 11.914,
+   "latency_p95": 18.205000000000002,
+   "router_latency_p50": 10.705,
+   "oracle_match": 0.11214953271028037,
+   "mix": {
+    "lite": 0.5327102803738317,
+    "pro": 0.4672897196261682
+   },
+   "tau": 0.82,
+   "quality_vs_pro": 0.9397993311036791,
+   "savings_vs_pro": -2.7312359074979717,
+   "break_even_multiplier": 16
+  },
+  {
+   "strategy": "decider-hard (P >= 0.50)",
+   "quality": 0.8735202492211838,
+   "cost_per_1k": 1.4042902969366553,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.786,
+   "latency_p95": 23.546,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.5046728971962616,
+   "mix": {
+    "micro": 0.5420560747663551,
+    "pro": 0.45794392523364486
+   },
+   "quality_vs_pro": 0.9377926421404682,
+   "savings_vs_pro": -3.2329357976939894,
+   "break_even_multiplier": 16
+  },
+  {
+   "strategy": "decider-hard (threshold 0.56, tuned on train)",
+   "quality": 0.8735202492211838,
+   "cost_per_1k": 1.3964857642263748,
+   "router_cost_per_1k": 1.1793041287123567,
+   "latency_p50": 14.786,
+   "latency_p95": 23.546,
+   "router_latency_p50": 13.249,
+   "oracle_match": 0.514018691588785,
+   "mix": {
+    "micro": 0.5514018691588785,
+    "pro": 0.4485981308411215
+   },
+   "tau": 0.56,
+   "quality_vs_pro": 0.9377926421404682,
+   "savings_vs_pro": -3.2094106861371516,
+   "break_even_multiplier": 16
+  }
+ ],
+ "per_family_test": {
+  "extract": {
+   "micro": 0.9444444444444444,
+   "lite": 0.8888888888888888,
+   "pro": 1.0,
+   "scout": 1.0,
+   "llama8b": 1.0
+  },
+  "sports": {
+   "micro": 0.6111111111111112,
+   "lite": 0.6666666666666666,
+   "pro": 0.8333333333333334,
+   "scout": 0.7222222222222222,
+   "llama8b": 0.5555555555555556
+  },
+  "json": {
+   "micro": 0.9888888888888889,
+   "lite": 1.0,
+   "pro": 1.0,
+   "scout": 1.0,
+   "llama8b": 1.0
+  },
+  "math": {
+   "micro": 0.9411764705882353,
+   "lite": 0.9411764705882353,
+   "pro": 0.9411764705882353,
+   "scout": 0.9411764705882353,
+   "llama8b": 0.5294117647058824
+  },
+  "code": {
+   "micro": 0.7407407407407407,
+   "lite": 0.8333333333333334,
+   "pro": 0.8703703703703703,
+   "scout": 0.9074074074074074,
+   "llama8b": 0.7592592592592593
+  },
+  "logic": {
+   "micro": 0.6111111111111112,
+   "lite": 0.8333333333333334,
+   "pro": 0.9444444444444444,
+   "scout": 1.0,
+   "llama8b": 0.5
+  }
+ },
+ "price_multipliers": [
+  1,
+  2,
+  4,
+  8,
+  16,
+  32,
+  64
+ ],
+ "sensitivity": {
+  "always micro": [
+   0.01923,
+   0.01923,
+   0.01923,
+   0.01923,
+   0.01923,
+   0.01923,
+   0.01923
+  ],
+  "always lite": [
+   0.03016,
+   0.03016,
+   0.03016,
+   0.03016,
+   0.03016,
+   0.03016,
+   0.03016
+  ],
+  "always pro": [
+   0.33175,
+   0.66351,
+   1.32701,
+   2.65403,
+   5.30805,
+   10.6161,
+   21.23221
+  ],
+  "always scout": [
+   0.07589,
+   0.07589,
+   0.07589,
+   0.07589,
+   0.07589,
+   0.07589,
+   0.07589
+  ],
+  "always llama8b": [
+   0.03912,
+   0.03912,
+   0.03912,
+   0.03912,
+   0.03912,
+   0.03912,
+   0.03912
+  ],
+  "oracle (micro/lite/pro)": [
+   0.05638,
+   0.09299,
+   0.1662,
+   0.31262,
+   0.60547,
+   1.19116,
+   2.36254
+  ],
+  "family table, measured (train)": [
+   0.22613,
+   0.44695,
+   0.8886,
+   1.77189,
+   3.53847,
+   7.07163,
+   14.13794
+  ],
+  "classifier-micro": [
+   0.05601,
+   0.08134,
+   0.132,
+   0.23332,
+   0.43597,
+   0.84126,
+   1.65185
+  ],
+  "classifier-lite": [
+   0.04165,
+   0.04165,
+   0.04165,
+   0.04165,
+   0.04165,
+   0.04165,
+   0.04165
+  ],
+  "classifier-llama8b": [
+   0.07841,
+   0.07841,
+   0.07841,
+   0.07841,
+   0.07841,
+   0.07841,
+   0.07841
+  ],
+  "classifier-micro-hard": [
+   0.28095,
+   0.55289,
+   1.09677,
+   2.18453,
+   4.36005,
+   8.71109,
+   17.41318
+  ],
+  "classifier-lite-hard": [
+   0.28595,
+   0.55925,
+   1.10585,
+   2.19906,
+   4.38546,
+   8.75828,
+   17.50391
+  ],
+  "bedrock intelligent prompt routing (lite/pro)": [
+   0.12939,
+   0.2375,
+   0.45373,
+   0.88617,
+   1.75107,
+   3.48087,
+   6.94045
+  ],
+  "decider (argmax)": [
+   1.06815,
+   1.10752,
+   1.18626,
+   1.34375,
+   1.65873,
+   2.28868,
+   3.54858
+  ],
+  "decider (threshold 0.82, tuned on train)": [
+   1.23785,
+   1.46618,
+   1.92284,
+   2.83615,
+   4.66278,
+   8.31605,
+   15.62257
+  ],
+  "decider-hard (P >= 0.50)": [
+   1.40429,
+   1.62395,
+   2.06328,
+   2.94194,
+   4.69924,
+   8.21386,
+   15.24309
+  ],
+  "decider-hard (threshold 0.56, tuned on train)": [
+   1.39649,
+   1.60786,
+   2.0306,
+   2.87609,
+   4.56707,
+   7.94902,
+   14.71292
+  ]
+ }
+}

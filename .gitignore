@@ -14,3 +14,8 @@ agentcore/cdk/node_modules/
 recordings/raw/
 *.egg-info/
 .DS_Store
+# model-routing use case: build outputs
+usecases/model-routing/playground/backend/build/
+usecases/model-routing/playground/web/summary.json
+usecases/model-routing/results/apo_raw/
+usecases/model-routing/results/apo_job.json

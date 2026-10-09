@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Routing Playground</title>
+<meta name="description" content="Route each request to the cheapest Amazon Nova model that can answer it: a Strands Decider on AgentCore Runtime against an LLM classifier and Bedrock Intelligent Prompt Routing.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root { --bg:#f6f7f9; --panel:#fff; --line:#e3e6ea; --text:#17202a; --mute:#5f6b7a; --accent:#e47911; --accent-ink:#fff;
+          --micro:#0f9d58; --lite:#2f6fde; --pro:#a3418f; --warn:#b26a00; --bad:#c62828; --soft:#f0f2f5; --code:#f3f4f6; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0f1419; --panel:#161d26; --line:#253041; --text:#e6edf3;
+          --mute:#8b98a8; --accent:#ff9900; --accent-ink:#111; --micro:#3fb950; --lite:#58a6ff; --pro:#d2a8ff; --warn:#d29922;
+          --bad:#f85149; --soft:#1c2430; --code:#0b0f14; } }
+  :root[data-theme="dark"] { --bg:#0f1419; --panel:#161d26; --line:#253041; --text:#e6edf3; --mute:#8b98a8; --accent:#ff9900;
+          --accent-ink:#111; --micro:#3fb950; --lite:#58a6ff; --pro:#d2a8ff; --warn:#d29922; --bad:#f85149; --soft:#1c2430; --code:#0b0f14; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 -apple-system,"Segoe UI",Roboto,sans-serif; }
+  header { padding:18px 24px 0; max-width:1240px; margin:0 auto; }
+  h1 { font-size:22px; margin:0; } h1 b { color:var(--accent); }
+  .sub { color:var(--mute); margin:4px 0 14px; max-width:860px; }
+  nav { display:flex; gap:4px; border-bottom:1px solid var(--line); }
+  nav button { background:none; border:0; border-bottom:2px solid transparent; color:var(--mute); padding:10px 14px; font:inherit; cursor:pointer; }
+  nav button.on { color:var(--text); border-color:var(--accent); font-weight:600; }
+  main { max-width:1240px; margin:0 auto; padding:18px 24px 40px; }
+  .grid { display:grid; gap:16px; }
+  .cols3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .cols4 { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; min-width:0; }
+  .card h3 { margin:0 0 4px; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--mute); }
+  .card .who { font-size:13px; color:var(--mute); margin-bottom:10px; }
+  textarea { width:100%; min-height:120px; background:var(--soft); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:12px; font:14px/1.45 ui-monospace,Menlo,monospace; resize:vertical; }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0; }
+  .chip { font-size:12px; border:1px solid var(--line); background:var(--panel); color:var(--text); border-radius:99px; padding:4px 10px; cursor:pointer; }
+  .chip:hover { border-color:var(--accent); }
+  button.go { background:var(--accent); color:var(--accent-ink); border:0; border-radius:8px; padding:10px 18px; font-weight:700; cursor:pointer; font-size:15px; }
+  button.go:disabled { opacity:.5; cursor:default; }
+  .muted { color:var(--mute); } .small { font-size:12.5px; }
+  .tier { display:inline-block; font-weight:700; padding:2px 10px; border-radius:6px; color:#fff; font-size:14px; }
+  .t-micro { background:var(--micro); } .t-lite { background:var(--lite); } .t-pro { background:var(--pro); }
+  .big { font-size:24px; font-weight:700; margin:4px 0; }
+  .bar { display:grid; grid-template-columns:52px 1fr 44px; gap:8px; align-items:center; margin:6px 0; font-size:13px; }
+  .track { height:10px; border-radius:5px; background:var(--soft); overflow:hidden; }
+  .fill { height:100%; border-radius:5px; transition:width .5s; }
+  .kv { display:flex; justify-content:space-between; font-size:13px; padding:3px 0; border-bottom:1px dashed var(--line); }
+  .kv:last-child { border:0; }
+  .answer { white-space:pre-wrap; background:var(--code); border:1px solid var(--line); border-radius:8px; padding:12px; font:13px/1.5 ui-monospace,Menlo,monospace; max-height:340px; overflow:auto; }
+  .stat .v { font-size:22px; font-weight:700; } .stat .l { font-size:12px; color:var(--mute); }
+  .save { color:var(--micro); }
+  .note { border-left:3px solid var(--accent); padding:8px 12px; background:var(--soft); border-radius:6px; font-size:13.5px; }
+  .err { color:var(--bad); }
+  .spin { display:inline-block; width:14px; height:14px; border:2px solid var(--line); border-top-color:var(--accent); border-radius:50%; animation:s 1s linear infinite; vertical-align:-2px; }
+  @keyframes s { to { transform:rotate(360deg); } }
+  table { border-collapse:collapse; width:100%; font-size:13.5px; }
+  th, td { text-align:right; padding:7px 8px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th:first-child, td:first-child { text-align:left; white-space:normal; }
+  th { color:var(--mute); font-weight:600; font-size:12px; text-transform:uppercase; }
+  tr.hi td { background:var(--soft); font-weight:600; }
+  .tablewrap { overflow-x:auto; }
+  .charts { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  canvas { max-width:100%; }
+  .chartbox { position:relative; height:340px; }
+  input[type=range] { width:160px; accent-color:var(--accent); }
+  footer { max-width:1240px; margin:0 auto; padding:0 24px 30px; color:var(--mute); font-size:12.5px; }
+  a { color:var(--accent); }
+  @media (max-width:900px) { .cols3, .cols4, .charts { grid-template-columns:1fr; } header, main, footer { padding-left:16px; padding-right:16px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1><b>Model routing</b> playground</h1>
+  <p class="sub">Send a request and watch three routers pick the cheapest Amazon Nova model that can answer it: a Strands Decider on Amazon Bedrock AgentCore Runtime (calibrated probabilities), Nova Micro as an LLM classifier, and Bedrock Intelligent Prompt Routing. The decider's choice answers your request.</p>
+  <nav><button class="on" data-tab="try">Try it</button><button data-tab="bench">Benchmark</button><button data-tab="about">How it works</button></nav>
+</header>
+<main>
+  <section id="try">
+    <div class="card">
+      <textarea id="prompt" maxlength="2500" placeholder="Ask anything, or pick a sample below"></textarea>
+      <div class="chips" id="samples"></div>
+      <div class="row">
+        <button class="go" id="run">Route and answer</button>
+        <label class="small muted">Decider threshold <input type="range" id="tau" min="0.05" max="0.95" step="0.05" value="0.5"> <b id="tauv">0.50</b></label>
+        <span class="small muted" id="limits"></span>
+      </div>
+      <p class="small muted" style="margin:8px 0 0">Lower threshold: cheaper, more requests go to small models. Higher: safer, more go to Nova Pro.</p>
+    </div>
+    <div class="grid cols3" style="margin-top:16px">
+      <div class="card" id="c-decider"><h3>Strands Decider</h3><div class="who">2B decision model on AgentCore Runtime (CPU)</div><div class="body muted small">Waiting for a request.</div></div>
+      <div class="card" id="c-classifier"><h3>LLM classifier</h3><div class="who">Nova Micro, one-word answer</div><div class="body muted small">Waiting for a request.</div></div>
+      <div class="card" id="c-bedrock"><h3>Bedrock prompt router</h3><div class="who">Nova Prompt Router (Lite or Pro)</div><div class="body muted small">Waiting for a request.</div></div>
+    </div>
+    <div class="card" style="margin-top:16px" id="c-answer"><h3>Answer</h3><div class="body muted small">The decider's chosen model answers here.</div></div>
+    <div class="grid cols4" style="margin-top:16px">
+      <div class="card stat"><div class="v" id="s-runs">0</div><div class="l">your requests</div></div>
+      <div class="card stat"><div class="v" id="s-cost">$0</div><div class="l">your cost, routing included</div></div>
+      <div class="card stat"><div class="v" id="s-saved">-</div><div class="l" id="s-saved-l">than always Nova Pro</div></div>
+      <div class="card stat"><div class="v" id="s-global">0</div><div class="l" id="s-global-l">answers served by the playground</div></div>
+    </div>
+  </section>
+
+  <section id="bench" hidden>
+    <div class="note" id="bench-head">Loading benchmark results.</div>
+    <div class="charts" style="margin-top:16px">
+      <div class="card"><h3>Quality against cost</h3><div class="chartbox"><canvas id="ch-scatter"></canvas></div></div>
+      <div class="card"><h3>Added latency of the router (median)</h3><div class="chartbox"><canvas id="ch-lat"></canvas></div></div>
+    </div>
+    <div class="card" style="margin-top:16px"><h3>Every strategy on the held-out test set</h3><div class="tablewrap"><table id="tbl"></table></div></div>
+    <div class="card" style="margin-top:16px"><h3>Quality by task family (test set, original prompts)</h3><div class="tablewrap"><table id="fam"></table></div></div>
+  </section>
+
+  <section id="about" hidden>
+    <div class="card">
+      <h3>What happens when you press the button</h3>
+      <ol>
+        <li>Three routers look at your request at the same time. The <b>Strands Decider</b> answers one typed question, <i>which is the cheapest model that will answer this correctly?</i>, with a probability for Nova Micro, Nova Lite and Nova Pro. The page routes to the cheapest model whose cumulative probability of being enough reaches the threshold.</li>
+        <li><b>Nova Micro</b> gets the same question and the same model descriptions and answers with one word.</li>
+        <li><b>Bedrock Intelligent Prompt Routing</b> (the default Nova router) picks Nova Lite or Nova Pro and answers in the same call.</li>
+        <li>The decider's chosen model answers your request. The savings figure compares its cost with Nova Pro answering the same tokens.</li>
+      </ol>
+      <h3>Limits</h3>
+      <p class="small" id="about-limits">No sign-in and no key. Each visitor gets a fixed number of calls per hour, the whole playground has a daily cap, prompts are limited in length, and answers in output tokens.</p>
+      <p class="small">The decider runs on 2 vCPUs in a microVM, so it takes several seconds per decision; when it is busy with another visitor the card says so. Source, benchmark and analysis: <a href="https://github.com/Vivek0712/strands-decider-agentcore/tree/main/usecases/model-routing">github.com/Vivek0712/strands-decider-agentcore</a>.</p>
+    </div>
+  </section>
+</main>
+<footer>Prices: AWS Price List API, us-east-1 on-demand. Costs shown are estimates from token counts. Requests you send are processed by Amazon Bedrock; do not send personal data.</footer>
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const usd = (v) => v < 0.01 ? "$" + (v * 1000).toFixed(3) + "k" : "$" + v.toFixed(4);
+const fmtUsd = (v) => v === 0 ? "$0" : "$" + (v < 0.0001 ? v.toFixed(7) : v < 0.01 ? v.toFixed(5) : v.toFixed(v < 1 ? 4 : 2)).replace(/0+$/, "").replace(/\.$/, "");
+const NAMES = { micro: "Nova Micro", lite: "Nova Lite", pro: "Nova Pro" };
+const tierTag = (t) => `<span class="tier t-${esc(t)}">${esc(NAMES[t] || t)}</span>`;
+const mine = { runs: 0, cost: 0, router: 0, pro: 0 };
+try { Object.assign(mine, JSON.parse(localStorage.getItem("routing-mine-v2") || "{}")); } catch (e) {}
+const pctVs = (cost, pro) => { if (!pro) return ["0%", ""]; const d = 1 - cost / pro;
+  return d >= 0 ? [Math.round(100 * d) + "% cheaper", "save"] : [Math.round(-100 * d) + "% more expensive", "err"]; };
+
+document.querySelectorAll("nav button").forEach((b) => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach((x) => x.classList.toggle("on", x === b));
+  ["try", "bench", "about"].forEach((id) => $("#" + id).hidden = id !== b.dataset.tab);
+  if (b.dataset.tab === "bench") loadBench();
+});
+$("#tau").oninput = () => $("#tauv").textContent = (+$("#tau").value).toFixed(2);
+
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) } : {});
+  const j = await r.json().catch(() => ({ error: "bad_response" }));
+  if (r.status === 429) throw new Error(j.message || "Rate limited");
+  if (!r.ok && !j.status) throw new Error(j.message || j.error || ("HTTP " + r.status));
+  return j;
+}
+
+function renderMine() {
+  $("#s-runs").textContent = mine.runs;
+  $("#s-cost").textContent = fmtUsd(mine.cost + mine.router);
+  const [txt, cls] = pctVs(mine.cost + mine.router, mine.pro);
+  $("#s-saved").textContent = mine.runs ? txt : "-";
+  $("#s-saved").className = "v " + cls;
+  $("#s-saved-l").textContent = `than always Nova Pro (answers ${fmtUsd(mine.cost)} + decider routing ${fmtUsd(mine.router)})`;
+  try { localStorage.setItem("routing-mine-v2", JSON.stringify(mine)); } catch (e) {}
+}
+
+async function refreshStatus() {
+  try {
+    const s = await api("/api/status");
+    const L = s.limits;
+    $("#limits").textContent = `${Math.max(0, L.per_ip_hour - L.used_this_hour)} of ${L.per_ip_hour} calls left this hour · decider: ${s.decider}`;
+    $("#s-global").textContent = s.totals.answers.toLocaleString();
+    const [gt] = pctVs(s.totals.cost_usd + (s.totals.router_usd || 0), s.totals.pro_usd);
+    $("#s-global-l").textContent = `answers served by the playground: ${fmtUsd(s.totals.cost_usd)} for answers, ${fmtUsd(s.totals.router_usd || 0)} for decider routing; ${gt} than always Nova Pro`;
+    $("#about-limits").textContent = `No sign-in and no key. Each visitor gets ${L.per_ip_hour} calls per hour (a request uses 4), the playground serves ${L.global_day} calls per day, prompts are limited to ${L.max_prompt_chars} characters and answers to ${L.max_output_tokens} tokens.`;
+  } catch (e) { $("#limits").textContent = ""; }
+}
+
+function bars(probs) {
+  return ["micro", "lite", "pro"].map((t) => `<div class="bar"><span>${t}</span><div class="track"><div class="fill" style="width:${(100 * (probs[t] || 0)).toFixed(0)}%;background:var(--${t})"></div></div><span class="small">${(100 * (probs[t] || 0)).toFixed(0)}%</span></div>`).join("");
+}
+const busy = (id, msg) => $(`#${id} .body`).innerHTML = `<span class="spin"></span> <span class="muted small">${esc(msg)}</span>`;
+
+async function decide(prompt, tau, tries = 8) {
+  for (let i = 0; i < tries; i++) {
+    const r = await api("/api/route/decider", { prompt, tau });
+    if (r.status === "ok" || r.status === "error") return r;
+    busy("c-decider", r.message + (r.stage ? ` (${r.stage})` : ""));
+    await new Promise((res) => setTimeout(res, r.status === "busy" ? 4000 : 10000));
+  }
+  return { status: "error", message: "The decider did not answer in time. Try again." };
+}
+
+$("#run").onclick = async () => {
+  const prompt = $("#prompt").value.trim();
+  if (!prompt) { $("#prompt").focus(); return; }
+  const tau = +$("#tau").value;
+  $("#run").disabled = true;
+  busy("c-decider", "Asking the decider on AgentCore Runtime…");
+  busy("c-classifier", "Asking Nova Micro…");
+  busy("c-bedrock", "Routing and answering…");
+  busy("c-answer", "Waiting for the decider's choice…");
+  const pc = api("/api/route/classifier", { prompt }).then((r) => {
+    $("#c-classifier .body").innerHTML = `<div class="big">${tierTag(r.tier)}</div><div class="kv"><span>raw answer</span><span>${esc(r.raw)}</span></div><div class="kv"><span>router latency</span><span>${r.latency_s.toFixed(2)} s</span></div><div class="kv"><span>router cost</span><span>${fmtUsd(r.cost)}</span></div><p class="small muted">A one-word label: no probability, so no threshold to tune.</p>`;
+  }).catch((e) => $("#c-classifier .body").innerHTML = `<span class="err">${esc(e.message)}</span>`);
+  const pb = api("/api/route/bedrock", { prompt }).then((r) => {
+    $("#c-bedrock .body").innerHTML = `<div class="big">${tierTag(r.tier)}</div><div class="kv"><span>route + answer latency</span><span>${r.latency_s.toFixed(2)} s</span></div><div class="kv"><span>answer cost</span><span>${fmtUsd(r.cost)}</span></div><div class="kv"><span>router fee</span><span>none</span></div><details class="small"><summary>its answer</summary><div class="answer">${esc(r.answer)}</div></details>`;
+  }).catch((e) => $("#c-bedrock .body").innerHTML = `<span class="err">${esc(e.message)}</span>`);
+  try {
+    const d = await decide(prompt, tau);
+    if (d.status !== "ok") throw new Error(d.message);
+    $("#c-decider .body").innerHTML = `<div class="big">${tierTag(d.tier)}</div>${bars(d.probs)}<div class="kv"><span>threshold</span><span>${d.tau.toFixed(2)} (argmax: ${esc(d.argmax)})</span></div><div class="kv"><span>router latency</span><span>${d.latency_s.toFixed(2)} s</span></div><div class="kv"><span>router compute cost</span><span>${fmtUsd(d.cost)}</span></div>`;
+    busy("c-answer", `${NAMES[d.tier]} is answering…`);
+    const a = await api("/api/answer", { prompt, tier: d.tier, router_cost: d.cost });
+    if (a.status !== "ok") throw new Error(a.message);
+    mine.runs += 1; mine.cost += a.cost; mine.router += d.cost; mine.pro += a.pro_cost; renderMine();
+    const [ansTxt, ansCls] = pctVs(a.cost, a.pro_cost), [netTxt, netCls] = pctVs(a.cost + d.cost, a.pro_cost);
+    $("#c-answer .body").innerHTML = `<div class="row" style="margin-bottom:6px">${tierTag(a.tier)}<span class="small muted">${a.tokens.in} in · ${a.tokens.out} out · ${a.latency_s.toFixed(2)} s</span></div>
+      <div class="small" style="margin-bottom:10px">Answer ${fmtUsd(a.cost)} (<span class="${ansCls}">${ansTxt}</span> than Nova Pro's ${fmtUsd(a.pro_cost)}) + decider routing ${fmtUsd(d.cost)} = <b>${fmtUsd(a.cost + d.cost)}</b>, <b class="${netCls}">${netTxt}</b> than always Nova Pro.</div><div class="answer">${esc(a.answer)}</div>`;
+  } catch (e) {
+    $("#c-decider .body").innerHTML = `<span class="err">${esc(e.message)}</span>`;
+    $("#c-answer .body").innerHTML = `<span class="muted small">No answer: the decider did not route this request.</span>`;
+  }
+  await Promise.allSettled([pc, pb]);
+  $("#run").disabled = false;
+  refreshStatus();
+};
+
+let charted = false;
+async function loadBench() {
+  if (charted) return;
+  const s = await (await fetch("summary.json")).json();
+  charted = true;
+  const S = s.strategies, pro = S.find((r) => r.strategy === "always pro");
+  $("#bench-head").innerHTML = `${s.n_test} held-out requests across 6 task families. Always using Nova Pro scores ${(pro.quality * 100).toFixed(1)} and costs ${fmtUsd(pro.cost_per_1k)} per 1,000 requests. Every cost below includes the router. Full analysis in the <a href="https://github.com/Vivek0712/strands-decider-agentcore/tree/main/usecases/model-routing">repository</a>.`;
+  const color = (n) => n.startsWith("decider") ? "#ff9900" : n.startsWith("classifier") ? "#58a6ff" : n.startsWith("bedrock") ? "#d2a8ff" : n.startsWith("APO") ? "#3fb950" : n.startsWith("oracle") ? "#8b98a8" : "#6b7280";
+  const ink = getComputedStyle(document.documentElement).getPropertyValue("--mute").trim();
+  Chart.defaults.color = ink;
+  new Chart($("#ch-scatter"), { type: "scatter", data: { datasets: S.map((r) => ({ label: r.strategy, data: [{ x: r.cost_per_1k, y: r.quality * 100 }], backgroundColor: color(r.strategy), pointRadius: 7 })) },
+    options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.parsed.y.toFixed(1)} quality, $${c.parsed.x.toFixed(4)} per 1k` } } },
+      scales: { x: { type: "logarithmic", title: { display: true, text: "USD per 1,000 requests (log)" } }, y: { title: { display: true, text: "quality (mean score x 100)" } } } } });
+  const L = S.filter((r) => r.router_latency_p50 > 0 || r.strategy.startsWith("bedrock"));
+  new Chart($("#ch-lat"), { type: "bar", data: { labels: L.map((r) => r.strategy.replace(" (lite/pro)", "")), datasets: [{ data: L.map((r) => r.strategy.startsWith("bedrock") ? 0 : r.router_latency_p50), backgroundColor: L.map((r) => color(r.strategy)) }] },
+    options: { maintainAspectRatio: false, indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: "seconds before the answer starts" } } } } });
+  $("#tbl").innerHTML = `<tr><th>strategy</th><th>quality</th><th>vs Pro</th><th>$ / 1k req</th><th>saved</th><th>p50 latency</th><th>oracle match</th><th>micro / lite / pro</th></tr>` +
+    S.map((r) => `<tr><td>${esc(r.strategy)}</td><td>${(r.quality * 100).toFixed(1)}</td><td>${(r.quality_vs_pro * 100).toFixed(0)}%</td><td>${r.cost_per_1k.toFixed(4)}</td><td>${(r.savings_vs_pro * 100).toFixed(0)}%</td><td>${r.latency_p50.toFixed(2)} s</td><td>${(r.oracle_match * 100).toFixed(0)}%</td><td>${["micro", "lite", "pro"].map((t) => Math.round(100 * ((r.mix || {})[t] || 0))).join(" / ")}</td></tr>`).join("");
+  const F = s.per_family_test, ms = ["micro", "lite", "pro", "scout", "llama8b"];
+  $("#fam").innerHTML = `<tr><th>family</th>${ms.map((m) => `<th>${m}</th>`).join("")}</tr>` + Object.entries(F).map(([f, v]) => `<tr><td>${f}</td>${ms.map((m) => `<td>${v[m] !== undefined ? (v[m] * 100).toFixed(0) : "-"}</td>`).join("")}</tr>`).join("");
+}
+
+(async () => {
+  try {
+    const xs = await (await fetch("samples.json")).json();
+    $("#samples").innerHTML = xs.map((x, i) => `<button class="chip" data-i="${i}">${esc(x.family)}: ${esc(x.prompt.split("\n").slice(-1)[0].slice(0, 38))}…</button>`).join("");
+    document.querySelectorAll(".chip").forEach((c) => c.onclick = () => { $("#prompt").value = xs[+c.dataset.i].prompt; });
+  } catch (e) {}
+  renderMine();
+  refreshStatus();
+  if (location.hash === "#bench") document.querySelector('nav button[data-tab="bench"]').click();
+})();
+</script>
+</body>
+</html>

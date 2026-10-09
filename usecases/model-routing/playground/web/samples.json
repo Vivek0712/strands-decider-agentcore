@@ -1,0 +1,50 @@
+[
+ {
+  "family": "extract",
+  "prompt": "Read the order note and answer the question with only the value, nothing else.\n\nOrder note: Order ORD-55547 was placed by Hannah Costa on 7 May 2026 for 4 4K monitors at $19.50 each, shipping to Munich.\nQuestion: Who placed the order?"
+ },
+ {
+  "family": "extract",
+  "prompt": "Read the order note and answer the question with only the value, nothing else.\n\nOrder note: Order ORD-71003 was placed by Marco Iyer on 24 April 2026 for 25 USB-C hubs at $24.99 each, shipping to Munich.\nQuestion: Who placed the order?"
+ },
+ {
+  "family": "sports",
+  "prompt": "Is the following sentence plausible? Answer with only yes or no.\n\nThomas Muller hit a triple."
+ },
+ {
+  "family": "sports",
+  "prompt": "Is the following sentence plausible? Answer with only yes or no.\n\nRamires scored a header goal."
+ },
+ {
+  "family": "json",
+  "prompt": "Convert the contact note into JSON with exactly these keys: name, email, phone, city, company. Use null for anything missing. Output only the JSON object.\n\nContact note: Met at the expo - spoke with Hannah Brooks, based in Lisbon, (Kestrel Foods). Follow up next week about the pilot."
+ },
+ {
+  "family": "json",
+  "prompt": "Convert the contact note into JSON with exactly these keys: name, email, phone, city, company. Use null for anything missing. Output only the JSON object.\n\nContact note: Met at the expo - spoke with Aisha Ono, (Acme Robotics), call on +44 528 284 9990. Follow up next week about the pilot."
+ },
+ {
+  "family": "math",
+  "prompt": "Solve the problem. Show brief working, then end with a final line 'Answer: <number>'.\n\nImma has 3 cats. She feeds her cats twice a day with 60 grams of cat food. How many days will 720 grams of cat food last?"
+ },
+ {
+  "family": "math",
+  "prompt": "Solve the problem. Show brief working, then end with a final line 'Answer: <number>'.\n\nBrett is 14 years old. In four years his sister Angela will be three times as old as he is now. How old is Angela right now?"
+ },
+ {
+  "family": "code",
+  "prompt": "Write a Python function for the task below. Output only one ```python code block with the function and any imports, no tests and no explanation.\n\nWrite a function to calculate a dog's age in dog's years.\nYour function must pass this example: assert dog_age(12)==61"
+ },
+ {
+  "family": "code",
+  "prompt": "Write a Python function for the task below. Output only one ```python code block with the function and any imports, no tests and no explanation.\n\nWrite a function to return the sum of all divisors of a number.\nYour function must pass this example: assert sum_div(8)==7"
+ },
+ {
+  "family": "logic",
+  "prompt": "Answer the multiple-choice question. Think step by step, then end with a final line 'Answer: (X)' where X is the option letter.\n\nIt was Sept. 1st, 2021 a week ago. What is the date one year ago from today in MM/DD/YYYY?\nOptions:\n(A) 09/07/2020\n(B) 08/31/2020\n(C) 07/08/2020\n(D) 09/08/2049\n(E) 08/18/2020\n(F) 09/08/2020"
+ },
+ {
+  "family": "logic",
+  "prompt": "Answer the multiple-choice question. Think step by step, then end with a final line 'Answer: (X)' where X is the option letter.\n\nToday is 9/7. Jane is watching NFL 2003. What is the date one year ago from today in MM/DD/YYYY?\nOptions:\n(A) 12/07/2002\n(B) 08/24/2002\n(C) 09/07/2002\n(D) 09/07/1918\n(E) 09/08/2002\n(F) 09/28/2002"
+ }
+]

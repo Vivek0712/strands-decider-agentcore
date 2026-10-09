@@ -1,0 +1,8 @@
+{
+  "extract": "Read the order note and answer the question with only the value, nothing else.\n\n{{input}}",
+  "sports": "Is the following sentence plausible? Answer with only yes or no.\n\n{{input}}",
+  "json": "Convert the contact note into JSON with exactly these keys: name, email, phone, city, company. Use null for anything missing. Output only the JSON object.\n\n{{input}}",
+  "math": "Solve the problem. Show brief working, then end with a final line 'Answer: <number>'.\n\n{{input}}",
+  "code": "Write a Python function for the task below. Output only one ```python code block with the function and any imports, no tests and no explanation.\n\n{{input}}",
+  "logic": "Answer the multiple-choice question. Think step by step, then end with a final line 'Answer: (X)' where X is the option letter.\n\n{{input}}"
+}

@@ -183,6 +183,14 @@ Each ticket gets one invocation with three questions: does it need a person, whi
 
 A [2-minute recording](docs/img/triage-console.mp4) shows the whole run at 8× speed.
 
+## Use case: intelligent model routing
+
+[`usecases/model-routing`](usecases/model-routing) puts a decider in front of Amazon Nova Micro, Lite and Pro to route each request to the cheapest model that can answer it. It benchmarks the decider against LLM classifiers (Nova Micro, Nova Lite, Llama 3.1 8B), against Bedrock Intelligent Prompt Routing, and against offline model selection with Bedrock Advanced Prompt Optimization, on 216 automatically graded requests. A [live playground](https://d3jcg138x8aln8.cloudfront.net) lets you try it, rate limited with no sign-in.
+
+The short answer: on 2 vCPUs a decider is the best judge of how hard a request is, but each decision costs about $0.001. That is more than Nova Pro charges to answer a typical request, so per-request routing with a CPU decider only pays off when the expensive model costs well over 10 times Nova Pro.
+
+![The routing playground](usecases/model-routing/docs/img/playground-logic.png)
+
 ## Measured performance
 
 Measured on AgentCore Runtime in `us-east-1` (microVM: 2 vCPU AWS Graviton2, 8 GB) with `strands-decider-2B-hobson-v21`, int8, and strands-decider at commit `3e94e9d`.
