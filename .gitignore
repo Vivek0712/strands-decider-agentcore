@@ -20,3 +20,6 @@ usecases/model-routing/playground/web/summary.json
 usecases/model-routing/results/apo_raw/
 usecases/model-routing/results/apo_job.json
 usecases/model-routing/results/apo_jobs.json
+usecases/model-routing/docs/quota-request-ml-g6-xlarge.md
+research_notes/
+reports/
