@@ -23,3 +23,4 @@ usecases/model-routing/results/apo_jobs.json
 usecases/model-routing/docs/quota-request-ml-g6-xlarge.md
 research_notes/
 reports/
+usecases/model-routing/cpu-bench/results/*/*.log
