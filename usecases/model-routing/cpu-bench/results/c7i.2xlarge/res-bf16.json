@@ -1,0 +1,152 @@
+{
+ "quant": "bf16",
+ "machine": "x86_64",
+ "cpu": "Intel(R) Xeon(R) Platinum 8488C",
+ "health": {
+  "health": {
+   "model": "strands-decider-2B-hobson-v19@bb282d7",
+   "source": "StrandsAgents/strands-decider-2B-hobson-v19",
+   "revision": "bb282d786bc251fd4e3068de3ada9ddbb38127cd",
+   "quant": "bf16",
+   "state": "ready",
+   "resolved_commit": "bb282d786bc251fd4e3068de3ada9ddbb38127cd",
+   "stages_s": {
+    "download_decider": 1.8,
+    "download_base": 40.4,
+    "load": 1.7,
+    "merge_lora": 3.0
+   },
+   "weights_gb": {
+    "bfloat16": 3.76,
+    "float32": 0.0
+   },
+   "memory_after_load_gb": {
+    "VmRSS": 3.31,
+    "RssAnon": 3.12,
+    "RssFile": 0.19
+   },
+   "download_s": 42.2,
+   "load_s": 7.1,
+   "warmup_s": 0.3,
+   "total_s": 49.7,
+   "peak_rss_gb": 3.53,
+   "memory_gb": {
+    "VmRSS": 3.4,
+    "RssAnon": 3.15,
+    "RssFile": 0.25
+   },
+   "threads": 8,
+   "base_model": "Qwen/Qwen3.5-2B-Base",
+   "max_length": 4096,
+   "memory_now_gb": {
+    "VmRSS": 3.4,
+    "RssAnon": 3.15,
+    "RssFile": 0.25
+   }
+  },
+  "ready": true
+ },
+ "isa": {
+  "amx_bf16": true,
+  "amx_int8": true,
+  "avx512_bf16": true,
+  "avx512_vnni": true,
+  "bf16": true,
+  "i8mm": false,
+  "sve2": false
+ },
+ "one_question_sequential": {
+  "n": 24,
+  "p50_s": 0.724,
+  "p95_s": 1.145,
+  "mean_s": 0.791,
+  "wall_s": 18.99,
+  "decisions_per_s": 1.264,
+  "input_tokens_sample": [
+   199,
+   185,
+   177,
+   297,
+   175,
+   137
+  ]
+ },
+ "one_question_concurrency_4": {
+  "n": 24,
+  "p50_s": 4.138,
+  "p95_s": 4.551,
+  "mean_s": 3.865,
+  "wall_s": 24.71,
+  "decisions_per_s": 0.971
+ },
+ "one_question_concurrency_8": {
+  "n": 24,
+  "p50_s": 8.097,
+  "p95_s": 8.883,
+  "mean_s": 7.132,
+  "wall_s": 24.83,
+  "decisions_per_s": 0.967
+ },
+ "one_question_batch_8": {
+  "calls": 3,
+  "per_call": {
+   "n": 3,
+   "p50_s": 6.281,
+   "p95_s": 6.281,
+   "mean_s": 5.646
+  },
+  "decisions_per_s": 1.417
+ },
+ "ticket_three_questions_sequential": {
+  "n": 6,
+  "p50_s": 1.199,
+  "p95_s": 1.211,
+  "mean_s": 1.203,
+  "wall_s": 7.22,
+  "decisions_per_s": 0.831
+ },
+ "health_after": {
+  "health": {
+   "model": "strands-decider-2B-hobson-v19@bb282d7",
+   "source": "StrandsAgents/strands-decider-2B-hobson-v19",
+   "revision": "bb282d786bc251fd4e3068de3ada9ddbb38127cd",
+   "quant": "bf16",
+   "state": "ready",
+   "resolved_commit": "bb282d786bc251fd4e3068de3ada9ddbb38127cd",
+   "stages_s": {
+    "download_decider": 1.8,
+    "download_base": 40.4,
+    "load": 1.7,
+    "merge_lora": 3.0
+   },
+   "weights_gb": {
+    "bfloat16": 3.76,
+    "float32": 0.0
+   },
+   "memory_after_load_gb": {
+    "VmRSS": 3.31,
+    "RssAnon": 3.12,
+    "RssFile": 0.19
+   },
+   "download_s": 42.2,
+   "load_s": 7.1,
+   "warmup_s": 0.3,
+   "total_s": 49.7,
+   "peak_rss_gb": 3.8,
+   "memory_gb": {
+    "VmRSS": 3.4,
+    "RssAnon": 3.15,
+    "RssFile": 0.25
+   },
+   "threads": 8,
+   "base_model": "Qwen/Qwen3.5-2B-Base",
+   "max_length": 4096,
+   "memory_now_gb": {
+    "VmRSS": 3.68,
+    "RssAnon": 3.24,
+    "RssFile": 0.45
+   }
+  },
+  "ready": true
+ }
+}
