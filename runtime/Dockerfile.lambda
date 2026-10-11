@@ -1,0 +1,26 @@
+# Strands Decider on AWS Lambda (linux/amd64, CPU), served by runtime/main.py behind the AWS Lambda
+# Web Adapter. The weights are baked into the image so a cold start reads local files.
+FROM public.ecr.aws/docker/library/python:3.12-slim-trixie
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.1 /lambda-adapter /opt/extensions/lambda-adapter
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+ENV PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1 HF_HUB_DISABLE_TELEMETRY=1 \
+    TOKENIZERS_PARALLELISM=false MALLOC_ARENA_MAX=2 MALLOC_MMAP_THRESHOLD_=1048576 MALLOC_TRIM_THRESHOLD_=1048576
+ARG TORCH_VERSION=2.8.0
+RUN pip install "torch==${TORCH_VERSION}" --index-url https://download.pytorch.org/whl/cpu
+ARG STRANDS_DECIDER_REF=3e94e9d84c620ed5a95f1a3310c3decb971e261c
+COPY requirements.txt /tmp/requirements.txt
+RUN echo "torch==${TORCH_VERSION}" > /tmp/constraints.txt \
+    && pip install -c /tmp/constraints.txt -r /tmp/requirements.txt \
+       "strands-decider @ git+https://github.com/strands-labs/strands-decider@${STRANDS_DECIDER_REF}"
+ARG DECIDER_MODEL=StrandsAgents/strands-decider-2B-hobson-v19
+ARG DECIDER_REVISION=bb282d786bc251fd4e3068de3ada9ddbb38127cd
+WORKDIR /app
+COPY bake_weights.py ./
+RUN HF_HOME=/opt/hf python bake_weights.py "${DECIDER_MODEL}" "${DECIDER_REVISION}" && chmod -R a+rX /opt/hf
+COPY main.py ./
+COPY decider_runtime/ ./decider_runtime/
+# Lambda: read-only weights, load before serving, direct invokes POSTed to /invocations
+ENV HF_HOME=/opt/hf HF_HUB_OFFLINE=1 DECIDER_MODEL=${DECIDER_MODEL} DECIDER_REVISION=${DECIDER_REVISION} \
+    DECIDER_QUANT=bf16 DECIDER_SYNC_LOAD=1 \
+    AWS_LWA_PORT=8080 AWS_LWA_READINESS_CHECK_PATH=/ping AWS_LWA_PASS_THROUGH_PATH=/invocations
+CMD ["python", "main.py"]

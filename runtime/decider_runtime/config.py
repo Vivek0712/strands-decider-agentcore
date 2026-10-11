@@ -21,6 +21,8 @@ class Settings:
     max_batch: int = 8  # requests per batch call
     load_timeout_s: float = 900.0  # how long an invocation waits for a cold model
     warmup: bool = True  # answer one question after loading so the first real call is not the slowest
+    device: str = "cpu"  # cpu, or cuda on a GPU host (bf16 only)
+    sync_load: bool = False  # load before serving: for hosts that send traffic as soon as /ping answers
     hf_home: str = field(default_factory=lambda: os.environ.get("HF_HOME", "/tmp/hf"))
 
     @property
@@ -36,6 +38,8 @@ class Settings:
         quant = e.get("DECIDER_QUANT", "int8").lower()
         if quant not in QUANT_MODES:
             raise ValueError(f"DECIDER_QUANT must be one of {QUANT_MODES}, got {quant!r}")
+        if e.get("DECIDER_DEVICE", "cpu").lower() == "cuda" and quant == "int8":
+            raise ValueError("DECIDER_QUANT=int8 is a CPU build; use bf16 with DECIDER_DEVICE=cuda")
         return cls(
             model=e.get("DECIDER_MODEL", cls.model),
             revision=e.get("DECIDER_REVISION") or None,
@@ -48,5 +52,7 @@ class Settings:
             max_batch=int(e.get("DECIDER_MAX_BATCH", "8")),
             load_timeout_s=float(e.get("DECIDER_LOAD_TIMEOUT_S", "900")),
             warmup=e.get("DECIDER_WARMUP", "1") not in ("0", "false", "no"),
+            device=e.get("DECIDER_DEVICE", "cpu").lower(),
+            sync_load=e.get("DECIDER_SYNC_LOAD", "0") in ("1", "true", "yes"),
             hf_home=e.get("HF_HOME", "/tmp/hf"),
         )

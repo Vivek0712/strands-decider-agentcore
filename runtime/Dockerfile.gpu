@@ -1,0 +1,22 @@
+# Strands Decider on a GPU (linux/amd64, CUDA 12.8), for SageMaker real-time endpoints: the same
+# /ping and /invocations contract on 8080. SageMaker starts the container with the argument "serve".
+FROM pytorch/pytorch:2.8.0-cuda12.8-cudnn9-runtime
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+ENV PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1 HF_HUB_DISABLE_TELEMETRY=1 \
+    TOKENIZERS_PARALLELISM=false
+ARG STRANDS_DECIDER_REF=3e94e9d84c620ed5a95f1a3310c3decb971e261c
+COPY requirements.txt /tmp/requirements.txt
+RUN pip freeze | grep -i "^torch==" > /tmp/constraints.txt \
+    && pip install -c /tmp/constraints.txt -r /tmp/requirements.txt \
+       "strands-decider @ git+https://github.com/strands-labs/strands-decider@${STRANDS_DECIDER_REF}"
+ARG DECIDER_MODEL=StrandsAgents/strands-decider-2B-hobson-v19
+ARG DECIDER_REVISION=bb282d786bc251fd4e3068de3ada9ddbb38127cd
+WORKDIR /app
+COPY bake_weights.py ./
+RUN HF_HOME=/opt/hf python bake_weights.py "${DECIDER_MODEL}" "${DECIDER_REVISION}"
+COPY main.py ./
+COPY decider_runtime/ ./decider_runtime/
+ENV HF_HOME=/opt/hf HF_HUB_OFFLINE=1 DECIDER_MODEL=${DECIDER_MODEL} DECIDER_REVISION=${DECIDER_REVISION} \
+    DECIDER_DEVICE=cuda DECIDER_QUANT=bf16 DECIDER_SYNC_LOAD=1
+EXPOSE 8080
+ENTRYPOINT ["python", "main.py"]

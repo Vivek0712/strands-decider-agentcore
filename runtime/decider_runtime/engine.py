@@ -158,6 +158,7 @@ class DeciderEngine:
             from strands_decider.modeling import StrandsDeciderModel
 
             torch.set_num_threads(self.settings.threads or cpu_limit())
+            self.info["device"] = self.settings.device
             stages: dict[str, float] = {}
             mark = time.time()
 
@@ -221,11 +222,15 @@ class DeciderEngine:
                 elif self.settings.quant == "fp32":
                     model.torso.float()
                 release_memory()
-                if self.settings.quant in ("int8", "bf16"):
+                if self.settings.device == "cuda":
+                    model = model.to(device="cuda", dtype=torch.bfloat16)
+                    self.info["gpu"] = torch.cuda.get_device_name(0)
+                elif self.settings.quant in ("int8", "bf16"):
                     # strands-decider upcasts a half-precision torso to fp32 on CPU (~9 GB for 2B), which
                     # would undo the memory plan above; keep the dtypes chosen here
                     SystemOneEngine._upcast_torso_for_cpu = lambda _self: None  # type: ignore[method-assign]
-                engine = SystemOneEngine(model, EngineConfig(device="cpu", model_name=self.settings.display_name))
+                engine = SystemOneEngine(model, EngineConfig(device=self.settings.device,
+                                                             model_name=self.settings.display_name))
             self._engine = engine
             self.info["stages_s"] = stages
             release_memory()

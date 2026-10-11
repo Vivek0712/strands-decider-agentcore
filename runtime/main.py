@@ -24,5 +24,10 @@ def invoke(payload, context=None):
 
 
 if __name__ == "__main__":
-    engine.start_background_load()  # the server answers /ping at once; the model loads behind it
+    if settings.sync_load:
+        # Lambda (behind the Lambda Web Adapter) and SageMaker send traffic as soon as /ping answers,
+        # so load first and start serving only when the model is ready
+        engine.load()
+    else:
+        engine.start_background_load()  # AgentCore: /ping answers at once, the model loads behind it
     app.run()
